@@ -1,0 +1,67 @@
+html {
+    overflow-y: scroll;
+  }
+  
+  body, html {
+    margin: 0;
+    padding: 0;
+    background: #eeeeee;
+  }
+  
+  .container {
+    max-width: 1400px;
+  }
+  
+  .header {
+    width: 100%;
+    background: #cc0000;
+    margin: 0 auto;
+    img {
+      display: block;
+      margin: 0 auto;
+      height: 150px;
+    }
+  }
+  
+  .card {
+    background: white;
+    border-radius: 2px;
+    padding: 16px;
+    margin-top: 16px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  }
+  
+  #navbar {
+    h3 {
+      text-align: center;
+    }
+    a {
+      color: #bdbdbd;
+      padding: 8px;
+      margin: 8px;
+      transition: all 0.3s ease-in-out;
+      &.active {
+        color: #fff;
+        background: #cc0000;
+      }
+    }
+    .card {
+      background: #757575;
+      border-radius: 2px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+      margin-top: 16px;
+      &.active {
+        background: #fff;
+        border-radius: 2px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+      }
+      a {
+        color: black;
+      }
+    }
+  }
+  
+  a {
+    text-decoration: none;
+    cursor: pointer;
+  }

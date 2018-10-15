@@ -1,0 +1,20 @@
+.remodal {
+    h1 {
+      font-size: 2.3rem;
+    }
+    h3 {
+      font-size: 1.8rem;
+    }
+    h4 {
+      font-size: 2.4rem;
+    }
+    backface-visibility: hidden;
+  }
+    
+  body > div.remodal-wrapper > .remodal-nobg {
+    background: rgba(255, 255, 255, 0);
+  }
+  
+  html.remodal-is-locked {
+    overflow-y: hidden;
+  }

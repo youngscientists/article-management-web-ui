@@ -1,0 +1,19 @@
+.login-container {
+    position: relative;
+    height: 500px;
+    width: 700px;
+    background: #fff;
+    border-radius: 2px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    margin: 16px;
+    padding: 16px;
+  }
+  
+  #login {
+    visibility: hidden;
+  }
+  
+  #email-error {
+    color: #cc0000;
+    visibility: hidden;
+  }
