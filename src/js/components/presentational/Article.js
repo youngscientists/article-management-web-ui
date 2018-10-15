@@ -6,9 +6,6 @@ import LoadingSpinner from "./LoadingSpinner"
 class Article extends Component {
   constructor() {
     super();
-    this.state = {
-      title: ""
-    };
   }
   render() {
     return (
@@ -40,7 +37,7 @@ class Article extends Component {
         <a href={this.props.markingGrid}  target="_blank">
             <button data-article-action="mark" className="button"><i className="fa fa-comment" aria-hidden="true"></i> Mark</button>
         </a>
-        <a href="https://drive.google.com/drive/folders/ articles[i].folder_id " target="_blank">
+        <a href={`https://drive.google.com/drive/folders/${this.props.folderId}`} target="_blank">
             <button data-article-action="folder" className="button"><i className="fa fa-folder" aria-hidden="true"></i> Folder</button>
         </a>
         <a href={`https://docs.google.com/document/u/0/d/${this.props.id}export?format=docx`} className="button-disabled">
