@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import StatusOptions from "./StatusOptions"
 import LoadingSpinner from "./LoadingSpinner"
 
-class Article extends Component {
+export default class Article extends Component {
   constructor() {
     super();
   }
@@ -13,7 +13,7 @@ class Article extends Component {
         <button data-remodal-action="close" className="remodal-close"></button>
         <h1>{this.props.title}</h1>
         <h3> {this.props.title}  |  {this.props.subject} </h3>
-        <small> Deadline: {this.props.deadline} </small>
+        <small>Deadline: {this.props.deadline}</small>
         <input type="email" name="Author Email" value={this.props.author.email} readonly="readonly" />
         <a data-article-action="contact" href={`mailto:${this.props.author.email}`} className="button button-blue"><i className="fa fa-envelope" aria-hidden="true"></i> Contact Author</a>
         
@@ -65,5 +65,3 @@ Article.propTypes = {
     copyright: PropTypes.string,
     date: PropTypes.string,
 };
-
-export default Article;

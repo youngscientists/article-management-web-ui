@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 
-class LoadingSpinner {
+export default class LoadingSpinner extends Component {
     render() {
         return (
             <svg className="spinner" width="30px" height="30px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
@@ -10,5 +10,3 @@ class LoadingSpinner {
         )
     }
 }
-
-export default LoadingSpinner
