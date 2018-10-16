@@ -3,7 +3,7 @@ import React, { Component} from "react"
 export default class Editor {
     render() {
         return (
-            <div className="remodal" data-remodal-id="editor-'  i  '">'
+            <div className="remodal" data-remodal-id={`editor-${this.props.id}`}>
                 <button data-remodal-action="close" className="remodal-close"></button>
                 <h1>{this.props.firstname} {this.props.lastname}</h1>
                 <p>Currently editing <strong>{this.props.editing}</strong> articles. 
