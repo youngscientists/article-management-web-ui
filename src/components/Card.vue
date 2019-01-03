@@ -69,7 +69,7 @@ export default {
 .card {
   padding: 16px;
   width: 100%;
-  background: #f5f5f5;
+  background: #ffffff;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 </style>

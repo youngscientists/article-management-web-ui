@@ -24,6 +24,13 @@ body,
 html {
   margin: 0;
   padding: 0;
+  background-color: #ee3239;
+  font-size: 1.1rem;
+}
+
+a,
+a:visited {
+  color: #1eaedb;
 }
 
 $transition: all 0.3s ease-in-out;

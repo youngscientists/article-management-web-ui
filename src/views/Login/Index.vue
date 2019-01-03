@@ -4,7 +4,7 @@
       <v-card contextual-style="dark">
         <span slot="header">Login</span>
         <div slot="body">
-          <form @submit.prevent="login(user)">
+          <form @submit.prevent="login()">
             <div class="form-group">
               <input v-model="user.email" type="email" placeholder="Email" class="form-control">
             </div>
@@ -18,7 +18,7 @@
               >
             </div>
             <div class="form-group">
-              <button class="btn btn-outline-primary">{{buttonText}}</button>
+              <IntermediateButton>{{buttonText}}</IntermediateButton>
             </div>
           </form>
         </div>
@@ -54,13 +54,15 @@
 import VLayout from "@/layouts/Minimal.vue";
 import VCard from "@/components/Card.vue";
 import Modal from "@/components/Modal.vue";
+import IntermediateButton from "@/components/IntermediateButton.vue";
 
 export default {
   name: "LoginIndex",
   components: {
     VLayout,
     VCard,
-    Modal
+    Modal,
+    IntermediateButton
   },
   computed: {
     buttonText() {
@@ -90,16 +92,15 @@ export default {
    * The methods the page can use.
    */
   methods: {
-    login(user) {
-      if (!this.$data.state.codeRequested) this.requestCode(user.email);
+    login() {
+      if (!this.$data.state.codeRequested) this.requestCode();
     },
     /**
      * Request a code for the user
-     *
-     * @param {String} email the user's email
-     */
-    requestCode(email) {
-      this.$store.dispatch("auth/requestCode", email);
+     *     */
+    requestCode() {
+      console.log(this.$data.user.email);
+      this.$store.dispatch("auth/requestCode", this.$data.user.email);
     }
   }
 };
