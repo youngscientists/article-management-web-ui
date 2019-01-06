@@ -8,10 +8,20 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "vue": "^2.5.17"
+    "@fortawesome/fontawesome-free-solid": "^5.0.13",
+    "@fortawesome/fontawesome-svg-core": "^1.2.12",
+    "@fortawesome/free-solid-svg-icons": "^5.6.3",
+    "@fortawesome/vue-fontawesome": "^0.1.4",
+    "install": "^0.12.2",
+    "js-cookie": "^2.2.0",
+    "npm": "^6.5.0",
+    "vue": "^2.5.17",
+    "vue-toasted": "^1.1.26",
+    "vuejs-datatable": "^1.7.0"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.0.0",
+    "@fortawesome/fontawesome-free": "^5.6.3",
     "@vue/cli-plugin-babel": "^3.2.0",
     "@vue/cli-plugin-eslint": "^3.2.0",
     "@vue/cli-service": "^3.2.0",
@@ -23,6 +33,7 @@
     "style-loader": "^0.23.1",
     "vue-router": "^3.0.2",
     "vue-template-compiler": "^2.5.17",
+    "vuetable-2": "^1.7.5",
     "vuex": "^3.0.1",
     "webpack": "^4.27.1",
     "webpack-cli": "^3.1.2",

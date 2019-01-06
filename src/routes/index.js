@@ -6,43 +6,33 @@
  */
 
 export default [
-    // Home
-    {
-        path: '/articles',
-        name: 'home.index',
-        component: () => import('@/views/Home/Index.vue'),
+	// Home
+	{
+		path: "/articles",
+		name: "home.index",
+		component: () => import("@/views/Home/Index.vue"),
 
-        // If the user needs to be authenticated to view this page
-        meta: {
-            auth: true,
-        },
-    },
+		// If the user needs to be authenticated to view this page
+		meta: {
+			title: "Home",
+			auth: true
+		}
+	},
 
-    /* Account
-    {
-        path: '/account',
-        name: 'account.index',
-        component: () => import('@/views/Account/Index.vue'),
+	// Login
+	{
+		path: "/",
+		name: "login.index",
+		component: () => import("../views/Login/Index.vue"),
 
-        // If the user needs to be authenticated to view this page.
-        meta: {
-            auth: true,
-        },
-    },*/
+		// If the user needs to be a guest to view this page.
+		meta: {
+			title: "Login",
+			guest: true
+		}
+	}
 
-    // Login
-    {
-        path: '/',
-        name: 'login.index',
-        component: () => import('../views/Login/Index.vue'),
-
-        // If the user needs to be a guest to view this page.
-        meta: {
-            guest: true,
-        },
-    },
-
-    /*
+	/*
     // Register
     {
         path: '/register',
@@ -64,4 +54,4 @@ export default [
         path: '/*',
         redirect: '/home',
     },*/
-];
+]

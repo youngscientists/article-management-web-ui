@@ -11,47 +11,88 @@ import store from "@/store"
 import * as types from "./mutation-types"
 import APIProxy from "../../proxies/APIProxy"
 
+store
+
 export const check = ({ commit }) => {
 	commit(types.CHECK)
 }
 
-export const requestCode = email => {
+export const requestCode = ({ commit }, email) => {
 	new APIProxy()
 		.requestCode(email)
+		.then(response => response.json())
 		.then(response => {
-			response
-			Vue.router.push({
-				name: "home.index"
-			})
+			commit
+			console.log(response)
+			if (response.error) Vue.toasted.show(`Error: ${response.error}`)
+			else if (response.email) {
+				commit(types.CHECK, true)
+				Vue.toasted.show(`Code sent to ${response.email}`, {
+					icon: "envelope"
+				})
+			} else {
+				commit(types.CHECK, false)
+				Vue.toasted.global.error_message()
+			}
 		})
 		.catch(e => {
 			console.log(e)
 		})
 }
 
-export const login = ({ commit }) => {
-	/*
-	 * Normally you would use a proxy to log the user in:
-	 *
-	 * new Proxy()
-	 *  .login(payload)
-	 *  .then((response) => {
-	 *    commit(types.LOGIN, response);
-	 *    store.dispatch('account/find');
-	 *    Vue.router.push({
-	 *      name: 'home.index',
-	 *    });
-	 *  })
-	 *  .catch(() => {
-	 *    console.log('Request failed...');
-	 *  });
-	 */
-	commit(types.LOGIN, "RandomGeneratedToken")
-	store.dispatch("account/find")
+export const login = ({ commit }, user) => {
+	new APIProxy()
+		.login(user.email, user.code)
+		.then(response => response.json())
+		.then(response => {
+			commit
+			console.log(response)
+			if (response.error) Vue.toasted.show(`Error: ${response.error.error}`)
+			else if (response.authToken) {
+				commit(types.LOGIN, response.authToken)
+				Vue.toasted.show(`Logged in as ${user.email}`, {
+					icon: "envelope"
+				})
+				Vue.router.push({
+					name: "home.index"
+				})
+			} else {
+				commit(types.CHECK, false)
+				Vue.toasted.global.error_message()
+			}
+		})
+		.catch(e => {
+			console.log(e)
+		})
+}
 
-	Vue.router.push({
-		name: "home.index"
-	})
+/**
+ * Check if the current session is still valid. Will require a new endpoint
+ *
+ * @param {Object} o
+ * @param {Function} o.commit
+ * @param {String} authToken
+ */
+export const verifyToken = ({ commit }, authToken) => {
+	new APIProxy()
+		.fetchArticles(authToken)
+		.then(response => response.json())
+		.then(response => {
+			if (response instanceof Array) {
+				commit(types.LOGIN, authToken)
+				Vue.toasted.show(`Logged in with previous session`, {
+					icon: "envelope"
+				})
+				Vue.router.push({
+					name: "home.index"
+				})
+			} else {
+				Vue.toasted.show(`Please log in again`, {
+					icon: "user"
+				})
+				commit(types.LOGOUT)
+			}
+		})
 }
 
 export const logout = ({ commit }) => {
@@ -65,5 +106,6 @@ export default {
 	check,
 	requestCode,
 	login,
-	logout
+	logout,
+	verifyToken
 }

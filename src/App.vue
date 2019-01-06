@@ -18,6 +18,7 @@ export default {
 <style lang="scss">
 * {
   font-family: sans-serif;
+  box-sizing: border-box;
 }
 
 body,
@@ -25,7 +26,7 @@ html {
   margin: 0;
   padding: 0;
   background-color: #ee3239;
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
 a,
