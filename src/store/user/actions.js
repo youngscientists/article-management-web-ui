@@ -6,23 +6,12 @@
  * user module.
  */
 
-import * as types from './mutation-types';
+import * as types from "./mutation-types"
 
-export const find = ({
-    commit
-}) => {
-    new Proxy()
-        .find()
-        .then((response) => {
-            commit(types.FIND, response);
-
-        })
-        .catch(() => {
-            console.log('Request failed...');
-
-        });
-};
+export const setUser = ({ commit }, user) => {
+	commit(types.SET, user)
+}
 
 export default {
-    find,
-};
+	setUser
+}

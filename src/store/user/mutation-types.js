@@ -6,8 +6,8 @@
  * on the account module.
  */
 
-export const FIND = 'FIND';
+export const SET = "SET"
 
 export default {
-    FIND,
-};
+	SET
+}

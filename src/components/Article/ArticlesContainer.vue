@@ -1,34 +1,31 @@
 <template>
   <div id="articles-container">
-    <vuetable ref="vuetable" :fields="columns" :data="articles" :api-mode="false"></vuetable>
-
-    <!-- <input type="text" name="search" placeholder="Search">
-    <table style="width:100%" id="articles-table">
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Date</th>
-          <th>Author</th>
-          <th>Category</th>
-          <th>Type</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <article-row v-for="article in articles" :key="article.id" :article="article"></article-row>
-      </tbody>
-    </table>-->
+    <filter-bar @filter="filter"></filter-bar>
+    <table-component
+      :data="articles"
+      :show-filter="false"
+      :show-caption="false"
+      @rowClick="setActive"
+    >
+      <table-column v-for="column in columns" :key="column" :show="column" :label="column"></table-column>
+    </table-component>
+    <article-modal :article="activeArticle"></article-modal>
     <hr>
   </div>
 </template>
 
 <script>
-import Vuetable from "vuetable-2/src/components/Vuetable";
+import { TableComponent, TableColumn } from "vue-table-component";
+import FilterBar from "../FilterBar";
+import ArticleModal from "./ArticleModal";
 
 export default {
   name: "ArticlesContainer",
   components: {
-    Vuetable
+    TableComponent,
+    TableColumn,
+    FilterBar,
+    ArticleModal
   },
   computed: {
     states() {
@@ -40,8 +37,29 @@ export default {
   },
   data() {
     return {
-      columns: ["title", "subject", "type", "status"]
+      columns: ["title", "subject", "type", "status"],
+      activeArticle: {}
     };
+  },
+  methods: {
+    filter(arg) {
+      this.$store.dispatch("articles/list", arg);
+    },
+    setActive(article) {
+      console.log(article);
+      this.$data.activeArticle = article.data;
+    },
+    //...
+    // when the pagination data is available, set it to pagination component
+    onPaginationData(paginationData) {
+      this.$refs.pagination.setPaginationData(paginationData);
+    },
+    // when the user click something that causes the page to change,
+    // call "changePage" method in Vuetable, so that that page will be
+    // requested from the API endpoint.
+    onChangePage(page) {
+      this.$refs.vuetable.changePage(page);
+    }
   }
 };
 </script>
@@ -49,5 +67,13 @@ export default {
 <style lang="scss">
 th {
   text-align: left;
+}
+
+.table-component__th--sort-asc::after {
+  content: "";
+}
+
+.table-component__th--sort-desc::after {
+  content: "";
 }
 </style>

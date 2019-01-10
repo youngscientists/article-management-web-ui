@@ -118,6 +118,7 @@ export default {
   },
   mounted() {
     const authToken = Cookies.get("authToken");
+    console.log(`Authtoken is ${authToken}`);
     if (authToken != "undefined") {
       this.$store.dispatch("auth/verifyToken", authToken);
     }

@@ -5,16 +5,18 @@
     </a>
     <h1 id="title">{{this.$store.state.title}}</h1>
 
-    <div v-if="user">
-      <span class="position">{{user.position}}</span>
-      <span class="name">{{user.name}}</span>
-    </div>
+    <user-info-dropdown v-if="user.name" :user="user"></user-info-dropdown>
   </div>
 </template>
 
 <script>
+import UserInfoDropdown from "./User/UserInfoDropdown";
+
 export default {
   name: "Header",
+  components: {
+    UserInfoDropdown
+  },
   data() {
     return {
       user: this.$store.state.user

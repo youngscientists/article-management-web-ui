@@ -1,13 +1,13 @@
 <template>
-  <div class="remodal" data-remodal-id="this.props.id">
+  <div class="remodal" data-remodal-id="article.id">
     <button data-remodal-action="close" class="remodal-close"></button>
-    <h1>{this.props.title}</h1>
-    <h3>{this.props.title | {this.props.subject</h3>
-    <small>Deadline: {this.props.deadline}</small>
-    <input type="email" name="Author Email" value="this.props.author.email" readonly="readonly">
+    <h1>{{article.title}}</h1>
+    <h3>{{article.title | article.subject}}</h3>
+    <small>Deadline: {{article.deadline}}</small>
+    <input type="email" name="Author Email" :value="article.author.email" readonly="readonly">
     <a
       data-article-action="contact"
-      href="`mailto:${this.props.author.email}`"
+      :href="`mailto:${article.author.email}`"
       class="button button-blue"
     >
       <i class="fa fa-envelope" aria-hidden="true"></i> Contact Author
@@ -19,13 +19,13 @@
       type="text"
       class="editorName"
       name="Editor Name"
-      value="this.props.editor.name"
+      :value="article.editor.name"
       placeholder="Editor Name"
     >
     <input
       type="email"
       name="Editor Email"
-      value="this.props.editor.email"
+      :value="article.editor.email"
       placeholder="Editor Email"
     >
     <button class="button button-black assign" data-toast="assign">
@@ -36,31 +36,31 @@
 
     <p>
       Change status from
-      <span value="this.props.status">{this.props.status}</span> to:
-      <StatusOptions selected="this.props.status"></StatusOptions>
+      <span :value="article.status">{{article.status}}</span> to:
+      <StatusOptions selected="article.status"></StatusOptions>
 
       <button class="button button-green updatestatus" data-toast="update">
         <i class="fa fa-check" aria-hidden="true"></i> Update
       </button>
     </p>
 
-    <a href="https://docs.google.com/document/u/0/d/${this.props.id}" target="_blank">
+    <a :href="article.link" target="_blank">
       <button data-article-action="edit" class="button">
         <i class="fa fa-eye" aria-hidden="true"></i> Read
       </button>
     </a>
-    <a href="this.props.markingGrid" target="_blank">
+    <a :href="article.markingGrid" target="_blank">
       <button data-article-action="mark" class="button">
         <i class="fa fa-comment" aria-hidden="true"></i> Mark
       </button>
     </a>
-    <a href="`https://drive.google.com/drive/folders/${this.props.folderId}`" target="_blank">
+    <a :href="`https://drive.google.com/drive/folders/${article.folderId}`" target="_blank">
       <button data-article-action="folder" class="button">
         <i class="fa fa-folder" aria-hidden="true"></i> Folder
       </button>
     </a>
     <a
-      href="`https://docs.google.com/document/u/0/d/${this.props.id}export?format=docx`"
+      :href="`https://docs.google.com/document/u/0/d/${article.id}export?format=docx`"
       class="button-disabled"
     >
       <button data-article-action="download" data-toast="download" class="button">
@@ -68,31 +68,20 @@
       </button>
     </a>
     <hr>
-    {{this.props.copyright}}
     <hr>
     <p>Additional Notes:</p>
-    <textarea v-model="this.props.notes"></textarea>
+    <textarea v-model="article.notes"></textarea>
   </div>
 </template>
 
 <script>
-import StatusOptions from "./StatusOptions";
-import LoadingSpinner from "./LoadingSpinner";
-
 export default {
   name: "Article",
   props: {
-    title: String,
-    subject: String,
-    type: String,
-    status: String,
-    id: String,
-    deadline: String,
-    note: String,
-    folderId: String,
-    markingGrid: String,
-    copyright: String,
-    date: String
+    article: {
+      editor: {},
+      author: {}
+    }
   }
 };
 </script>

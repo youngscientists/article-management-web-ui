@@ -1,9 +1,8 @@
 import Vue from "vue"
 
+import "./plugins/vue-toasted"
 import "./plugins/vuex"
 import { router } from "./plugins/vue-router"
-import "./plugins/vuex"
-import "./plugins/vue-toasted"
 //import "./plugins/vue-datatable"
 
 /**

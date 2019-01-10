@@ -7,6 +7,7 @@
 
 export default {
 	articles: [],
+	filteredArticles: [],
 	states: [
 		"All",
 		"Published",

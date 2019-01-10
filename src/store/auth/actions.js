@@ -18,6 +18,10 @@ export const check = ({ commit }) => {
 }
 
 export const requestCode = ({ commit }, email) => {
+	const toast = Vue.toasted.show(`Requesting code...`, {
+		icon: "sync",
+		className: "rotating"
+	})
 	new APIProxy()
 		.requestCode(email)
 		.then(response => response.json())
@@ -27,8 +31,9 @@ export const requestCode = ({ commit }, email) => {
 			if (response.error) Vue.toasted.show(`Error: ${response.error}`)
 			else if (response.email) {
 				commit(types.CHECK, true)
+				toast.goAway(0)
 				Vue.toasted.show(`Code sent to ${response.email}`, {
-					icon: "envelope"
+					icon: "mail"
 				})
 			} else {
 				commit(types.CHECK, false)
@@ -41,6 +46,7 @@ export const requestCode = ({ commit }, email) => {
 }
 
 export const login = ({ commit }, user) => {
+	const toast = Vue.toasted.global.loading_message({ message: "Logging in..." })
 	new APIProxy()
 		.login(user.email, user.code)
 		.then(response => response.json())
@@ -48,10 +54,11 @@ export const login = ({ commit }, user) => {
 			commit
 			console.log(response)
 			if (response.error) Vue.toasted.show(`Error: ${response.error.error}`)
-			else if (response.authToken) {
-				commit(types.LOGIN, response.authToken)
+			else if (response.user) {
+				commit(types.LOGIN, response)
+				toast.goAway(0)
 				Vue.toasted.show(`Logged in as ${user.email}`, {
-					icon: "envelope"
+					icon: "how_to_reg"
 				})
 				Vue.router.push({
 					name: "home.index"
@@ -74,21 +81,26 @@ export const login = ({ commit }, user) => {
  * @param {String} authToken
  */
 export const verifyToken = ({ commit }, authToken) => {
+	const toast = Vue.toasted.global.loading_message({
+		message: "Verifying previous session..."
+	})
 	new APIProxy()
-		.fetchArticles(authToken)
+		.verifyToken(authToken)
 		.then(response => response.json())
 		.then(response => {
-			if (response instanceof Array) {
-				commit(types.LOGIN, authToken)
+			toast.goAway(0)
+			if (response.user) {
+				const user = response.user
+				commit(types.LOGIN, { user, authToken })
 				Vue.toasted.show(`Logged in with previous session`, {
-					icon: "envelope"
+					icon: "person"
 				})
 				Vue.router.push({
 					name: "home.index"
 				})
 			} else {
 				Vue.toasted.show(`Please log in again`, {
-					icon: "user"
+					icon: "domain_disabled"
 				})
 				commit(types.LOGOUT)
 			}

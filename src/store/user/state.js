@@ -6,10 +6,10 @@
  */
 
 export default {
-    email: null,
-    name: null,
-    level: null,
-    position: null,
-    articlesEdited: 0,
-    articlesEditing: 0
+	email: null,
+	name: null,
+	level: null,
+	position: null,
+	articlesEdited: 0,
+	articlesEditing: 0
 }

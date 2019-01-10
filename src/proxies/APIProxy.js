@@ -1,5 +1,7 @@
 import BaseProxy from "./Proxy"
 
+const debug = true
+
 export default class APIProxy extends BaseProxy {
 	/**
 	 * The constructor for the ArtistProxy.
@@ -11,7 +13,12 @@ export default class APIProxy extends BaseProxy {
 			callback: ""
 		}
 	) {
-		super("https://ysj-article-management.herokuapp.com", parameters)
+		super(
+			debug
+				? "http://localhost:8000"
+				: "https://ysj-article-management.herokuapp.com",
+			parameters
+		)
 	}
 
 	/**
@@ -55,9 +62,23 @@ export default class APIProxy extends BaseProxy {
 		)
 	}
 
-	fetchArticles(authToken) {
+	verifyToken(authToken) {
 		const data = {
 			authToken
+		}
+
+		Object.assign(this.parameters, data)
+		return this.submit(
+			"get",
+			`${this.endpoint}/authentication/authenticate`,
+			data
+		)
+	}
+
+	fetchArticles(authToken, q) {
+		const data = {
+			authToken,
+			q
 		}
 		Object.assign(this.parameters, data)
 		return this.submit("get", `${this.endpoint}/articles/list`)

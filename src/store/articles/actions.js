@@ -11,12 +11,13 @@ import store from "@/store"
 import * as types from "./mutation-types"
 import APIProxy from "../../proxies/APIProxy"
 
-store, Vue
-
-export const list = ({ commit }) => {
-	const loadingToast = Vue.toasted.show(`Fetching articles...`)
+export const list = ({ commit }, query) => {
+	const loadingToast = Vue.toasted.global.loading_message({
+		message: "Fetching articles..."
+	})
+	if (!store.state.auth.authToken) Vue.toasted.global.error_message()
 	new APIProxy()
-		.fetchArticles(store.state.auth.authToken)
+		.fetchArticles(store.state.auth.authToken, query)
 		.then(response => response.json())
 		.then(response => {
 			console.log(response)
@@ -24,7 +25,6 @@ export const list = ({ commit }) => {
 			else if (response instanceof Array) {
 				commit(types.ARTICLES, response)
 				loadingToast.goAway(0)
-				Vue.toasted.show("Fetched all articles")
 			} else {
 				Vue.toasted.global.error_message()
 			}
