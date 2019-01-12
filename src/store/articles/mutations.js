@@ -12,5 +12,8 @@ import * as Types from "./mutation-types"
 export default {
 	[Types.ARTICLES](state, articles) {
 		state.articles = articles
+	},
+	[Types.ACTIVEARTICLE](state, article) {
+		if (article) state.activeArticle = article
 	}
 }

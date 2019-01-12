@@ -1,73 +1,65 @@
 {
-  "name": "article-management-web-ui",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
-  },
-  "dependencies": {
-    "@fortawesome/fontawesome-free-solid": "^5.0.13",
-    "@fortawesome/fontawesome-svg-core": "^1.2.12",
-    "@fortawesome/free-solid-svg-icons": "^5.6.3",
-    "@fortawesome/vue-fontawesome": "^0.1.4",
-    "datatables": "^1.10.18",
-    "datatables.net": "^1.10.19",
-    "install": "^0.12.2",
-    "js-cookie": "^2.2.0",
-    "material-icons": "^0.3.0",
-    "moment": "^2.23.0",
-    "npm": "^6.5.0",
-    "vue": "^2.5.17",
-    "vue-table-component": "^1.9.2",
-    "vue-toasted": "^1.1.26",
-    "vuejs-datatable": "^1.7.0"
-  },
-  "devDependencies": {
-    "@babel/preset-react": "^7.0.0",
-    "@fortawesome/fontawesome-free": "^5.6.3",
-    "@vue/cli-plugin-babel": "^3.2.0",
-    "@vue/cli-plugin-eslint": "^3.2.0",
-    "@vue/cli-service": "^3.2.0",
-    "babel-eslint": "^10.0.1",
-    "css-loader": "^2.1.0",
-    "eslint": "^5.8.0",
-    "eslint-plugin-vue": "^5.0.0-0",
-    "sass-loader": "^7.1.0",
-    "style-loader": "^0.23.1",
-    "vue-router": "^3.0.2",
-    "vue-template-compiler": "^2.5.17",
-    "vuetable-2": "^1.7.5",
-    "vuex": "^3.0.1",
-    "webpack": "^4.27.1",
-    "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.10"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
-    ],
-    "rules": {
-      "no-console": 0
-    },
-    "parserOptions": {
-      "parser": "babel-eslint"
-    }
-  },
-  "postcss": {
-    "plugins": {
-      "autoprefixer": {}
-    }
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ]
+	"name": "article-management-web-ui",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"serve": "vue-cli-service serve",
+		"build": "vue-cli-service build",
+		"lint": "vue-cli-service lint"
+	},
+	"dependencies": {
+		"install": "^0.12.2",
+		"js-cookie": "^2.2.0",
+		"material-icons": "^0.3.0",
+		"npm": "^6.5.0",
+		"skeleton-css": "^2.0.4",
+		"vue": "^2.5.17",
+		"vue-table-component": "^1.9.2",
+		"vue-toasted": "^1.1.26",
+		"vuejs-datatable": "^1.7.0"
+	},
+	"devDependencies": {
+		"@vue/cli-plugin-babel": "^3.2.0",
+		"@vue/cli-plugin-eslint": "^3.2.0",
+		"@vue/cli-service": "^3.2.0",
+		"babel-eslint": "^10.0.1",
+		"css-loader": "^2.1.0",
+		"eslint": "^5.8.0",
+		"eslint-plugin-vue": "^5.0.0-0",
+		"sass-loader": "^7.1.0",
+		"style-loader": "^0.23.1",
+		"vue-router": "^3.0.2",
+		"vue-template-compiler": "^2.5.17",
+		"vuetable-2": "^1.7.5",
+		"vuex": "^3.0.1",
+		"webpack": "^4.27.1",
+		"webpack-cli": "^3.1.2",
+		"webpack-dev-server": "^3.1.10"
+	},
+	"eslintConfig": {
+		"root": true,
+		"env": {
+			"node": true
+		},
+		"extends": [
+			"plugin:vue/essential",
+			"eslint:recommended"
+		],
+		"rules": {
+			"no-console": 0
+		},
+		"parserOptions": {
+			"parser": "babel-eslint"
+		}
+	},
+	"postcss": {
+		"plugins": {
+			"autoprefixer": {}
+		}
+	},
+	"browserslist": [
+		"> 1%",
+		"last 2 versions",
+		"not ie <= 8"
+	]
 }

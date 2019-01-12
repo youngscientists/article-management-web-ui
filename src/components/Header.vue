@@ -30,7 +30,9 @@ export default {
   width: 100%;
   background: #ee3239;
   margin: 0 auto;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   a,
   h1 {

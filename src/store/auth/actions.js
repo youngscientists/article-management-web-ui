@@ -28,8 +28,12 @@ export const requestCode = ({ commit }, email) => {
 		.then(response => {
 			commit
 			console.log(response)
-			if (response.error) Vue.toasted.show(`Error: ${response.error}`)
-			else if (response.email) {
+			if (response.error) {
+				toast.goAway(0)
+				Vue.toasted.show(`${response.error.message}`, {
+					icon: "error"
+				})
+			} else if (response.email) {
 				commit(types.CHECK, true)
 				toast.goAway(0)
 				Vue.toasted.show(`Code sent to ${response.email}`, {

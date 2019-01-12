@@ -34,6 +34,12 @@ export const list = ({ commit }, query) => {
 		})
 }
 
+export const setActive = ({ commit }, article) => {
+	if (!article) Vue.toasted.global.error_message()
+	commit(types.ACTIVEARTICLE, article)
+}
+
 export default {
-	list
+	list,
+	setActive
 }

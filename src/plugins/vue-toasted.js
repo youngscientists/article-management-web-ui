@@ -14,7 +14,8 @@ Vue.toasted.register("error_message", `That didn't work! Please try again.`, {
 		onClick: (e, t) => {
 			t.goAway(0)
 		}
-	}
+	},
+	icon: "error"
 })
 
 Vue.toasted.register(

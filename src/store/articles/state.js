@@ -20,5 +20,6 @@ export default {
 		"Revisions Requested",
 		"Submitted",
 		"Rejected"
-	]
+	],
+	activeArticle: null
 }

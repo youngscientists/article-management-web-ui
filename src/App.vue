@@ -13,7 +13,8 @@ export default {
   name: "ArticleManagement",
   components: {
     VHeader
-  }
+  },
+  computed: {}
 };
 </script>
 
@@ -42,6 +43,10 @@ $transition: all 0.3s ease-in-out;
   margin-bottom: 12px;
 }
 
+.active-article {
+  overflow: hidden;
+}
+
 input,
 textarea,
 select {
@@ -52,7 +57,6 @@ select {
   margin: 0 auto;
   box-sizing: border-box;
   font-family: sans-serif;
-  font-size: 1.2em;
   -webkit-transition: $transition;
   -moz-transition: $transition;
   -ms-transition: $transition;

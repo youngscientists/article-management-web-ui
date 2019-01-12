@@ -1,7 +1,5 @@
 import BaseProxy from "./Proxy"
 
-const debug = true
-
 export default class APIProxy extends BaseProxy {
 	/**
 	 * The constructor for the ArtistProxy.
@@ -14,9 +12,9 @@ export default class APIProxy extends BaseProxy {
 		}
 	) {
 		super(
-			debug
-				? "http://localhost:8000"
-				: "https://ysj-article-management.herokuapp.com",
+			process
+				? "https://ysj-article-management.herokuapp.com"
+				: "http://localhost:8000",
 			parameters
 		)
 	}

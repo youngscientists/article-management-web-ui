@@ -7,9 +7,13 @@
       :show-caption="false"
       @rowClick="setActive"
     >
-      <table-column v-for="column in columns" :key="column" :show="column" :label="column"></table-column>
+      <table-column show="date" label="Date" data-type="date:DD/MM/YYYY"></table-column>
+      <table-column show="title" label="Title"></table-column>
+      <table-column show="subject" label="Subject"></table-column>
+      <table-column show="type" label="Type"></table-column>
+      <table-column show="status" label="Status"></table-column>
     </table-component>
-    <article-modal :article="activeArticle"></article-modal>
+    <article-modal v-if="activeArticle" :article="activeArticle"></article-modal>
     <hr>
   </div>
 </template>
@@ -33,47 +37,55 @@ export default {
     },
     articles() {
       return this.$store.state.articles.articles;
+    },
+    activeArticle() {
+      let active = this.$store.state.articles.activeArticle;
+      if (active)
+        document.querySelector("body").classList.add("active-article");
+      return active;
     }
   },
   data() {
     return {
-      columns: ["title", "subject", "type", "status"],
-      activeArticle: {}
+      columns: ["date", "title", "subject", "type", "status"]
     };
   },
   methods: {
     filter(arg) {
       this.$store.dispatch("articles/list", arg);
     },
-    setActive(article) {
-      console.log(article);
-      this.$data.activeArticle = article.data;
-    },
-    //...
-    // when the pagination data is available, set it to pagination component
-    onPaginationData(paginationData) {
-      this.$refs.pagination.setPaginationData(paginationData);
-    },
-    // when the user click something that causes the page to change,
-    // call "changePage" method in Vuetable, so that that page will be
-    // requested from the API endpoint.
-    onChangePage(page) {
-      this.$refs.vuetable.changePage(page);
+    setActive(row) {
+      console.log(row.data);
+      this.$store.dispatch("articles/setActive", row.data);
     }
   }
 };
 </script>
 
 <style lang="scss">
-th {
-  text-align: left;
-}
-
 .table-component__th--sort-asc::after {
-  content: "";
+  content: "(asc)";
 }
 
 .table-component__th--sort-desc::after {
-  content: "";
+  content: "(desc)";
+}
+
+th,
+td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #e1e1e1;
+  cursor: pointer;
+  transition: 0.5s ease-in-out;
+  min-width: 100px;
+}
+th:first-child,
+td:first-child {
+  padding-left: 0;
+}
+th:last-child,
+td:last-child {
+  padding-right: 0;
 }
 </style>

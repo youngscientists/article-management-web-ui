@@ -3,7 +3,11 @@ import Vue from "vue"
 import "./plugins/vue-toasted"
 import "./plugins/vuex"
 import { router } from "./plugins/vue-router"
-//import "./plugins/vue-datatable"
+
+/**
+ * Import css
+ */
+import "./scss/skel-buttons.css"
 
 /**
  * Import the store

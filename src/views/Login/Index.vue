@@ -126,5 +126,8 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+input {
+  font-size: 1.2em;
+}
 </style>

@@ -16,9 +16,10 @@ export default {
 		state.codeRequested = isChecked
 	},
 	[LOGIN](state, { user, authToken }) {
+		console.log(user, authToken)
 		state.authenticated = true
 		state.authToken = authToken
-		store.commit("user/setUser", user)
+		store.dispatch("user/setUser", user)
 		Cookies.set("authToken", authToken, {
 			expires: 1
 		})

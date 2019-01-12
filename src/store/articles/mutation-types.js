@@ -7,7 +7,9 @@
  */
 
 export const ARTICLES = "ARTICLES"
+export const ACTIVEARTICLE = "ACTIVEARTICLE"
 
 export default {
-	ARTICLES
+	ARTICLES,
+	ACTIVEARTICLE
 }
