@@ -11,11 +11,10 @@ export default class APIProxy extends BaseProxy {
 			callback: ""
 		}
 	) {
+		const API_PRODUCTION = "https://ysj-article-management.herokuapp.com"
+		const API_DEV = "http://localhost:8000"
 		super(
-			!process.browser
-				? "https://ysj-article-management.herokuapp.com"
-				: "http://localhost:8000",
-			parameters
+			window.location.hostname === "localhost" ? API_DEV : API_PRODUCTION, parameters
 		)
 	}
 
