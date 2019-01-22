@@ -30,6 +30,17 @@ export default [
 			title: "Login",
 			guest: true
 		}
+	},
+
+	// User Page
+	{
+		path: "/me",
+		name: "home.user",
+		component: () => import("../views/Home/User.vue"),
+		meta: {
+			title: "Me",
+			guest: false
+		}
 	}
 
 	/*

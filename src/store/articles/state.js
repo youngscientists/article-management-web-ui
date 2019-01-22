@@ -21,5 +21,6 @@ export default {
 		"Submitted",
 		"Rejected"
 	],
-	activeArticle: null
+	activeArticle: null,
+	fetching: false
 }

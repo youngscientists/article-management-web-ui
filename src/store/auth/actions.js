@@ -7,11 +7,17 @@
  */
 
 import Vue from "vue"
-import store from "@/store"
 import * as types from "./mutation-types"
 import APIProxy from "../../proxies/APIProxy"
 
-store
+const postLogin = user => {
+	Vue.toasted.show(`Welcome, ${user.name}`, {
+		icon: "how_to_reg"
+	})
+	Vue.router.push({
+		name: "home.index"
+	})
+}
 
 export const check = ({ commit }) => {
 	commit(types.CHECK)
@@ -61,12 +67,7 @@ export const login = ({ commit }, user) => {
 			else if (response.user) {
 				commit(types.LOGIN, response)
 				toast.goAway(0)
-				Vue.toasted.show(`Logged in as ${user.email}`, {
-					icon: "how_to_reg"
-				})
-				Vue.router.push({
-					name: "home.index"
-				})
+				postLogin(response.user)
 			} else {
 				commit(types.CHECK, false)
 				Vue.toasted.global.error_message()
@@ -96,12 +97,7 @@ export const verifyToken = ({ commit }, authToken) => {
 			if (response.user) {
 				const user = response.user
 				commit(types.LOGIN, { user, authToken })
-				Vue.toasted.show(`Logged in with previous session`, {
-					icon: "person"
-				})
-				Vue.router.push({
-					name: "home.index"
-				})
+				postLogin(response.user)
 			} else {
 				Vue.toasted.show(`Please log in again`, {
 					icon: "domain_disabled"

@@ -31,3 +31,9 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+input {
+  min-width: 100%;
+}
+</style>

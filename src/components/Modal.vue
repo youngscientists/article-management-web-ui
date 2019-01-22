@@ -52,7 +52,7 @@ export default {
 
 .modal-container {
   max-width: 80%;
-  margin: 0px auto;
+  margin: 32px auto;
   padding: 20px 30px;
   background-color: #fff;
   border-radius: 2px;

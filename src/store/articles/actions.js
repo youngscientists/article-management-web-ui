@@ -12,6 +12,8 @@ import * as types from "./mutation-types"
 import APIProxy from "../../proxies/APIProxy"
 
 export const list = ({ commit }, query) => {
+	if (store.state.articles.fetching) return
+	commit(types.FETCHING, true)
 	const loadingToast = Vue.toasted.global.loading_message({
 		message: "Fetching articles..."
 	})
@@ -32,6 +34,7 @@ export const list = ({ commit }, query) => {
 		.catch(e => {
 			console.log(e)
 		})
+		.then(() => commit(types.FETCHING, false))
 }
 
 export const setActive = ({ commit }, article) => {

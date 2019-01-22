@@ -5,7 +5,7 @@
     </a>
     <h1 id="title">{{this.$store.state.title}}</h1>
 
-    <user-info-dropdown v-if="user.name" :user="user"></user-info-dropdown>
+    <user-info-dropdown v-if="user.name"></user-info-dropdown>
   </div>
 </template>
 
@@ -30,9 +30,7 @@ export default {
   width: 100%;
   background: #ee3239;
   margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  text-align: center;
 
   a,
   h1 {

@@ -1,38 +1,76 @@
 <template>
   <div class="root">
-    <span class="position">{{user.position}}</span>
-    <span class="name">{{user.name}}</span>
+    <div class="name">
+      <a @click="viewUser">{{user.name}}</a>
+      <ul>
+        <li>{{user.position}}</li>
+        <li>{{user.level}}</li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   name: "UserInfoDropdown",
-  props: {
-    user: {}
+  computed: {
+    user() {
+      return this.$store.state.user;
+    }
+  },
+  methods: {
+    viewUser() {
+      this.$store.dispatch("user/show");
+    }
   }
 };
 </script>
 
 <style lang="scss" scoped>
 .root {
+  position: absolute;
   display: inline-block;
-  left: 40%;
-  height: 100%;
   border-left: 1px white;
-  float: right;
   vertical-align: middle;
   padding: 30px;
   text-transform: uppercase;
+  right: 0;
+  top: 20px;
 
-  .position {
+  a,
+  li {
+    padding: 8px;
+  }
+
+  ul {
+    display: none;
+    background: white;
+    margin: 0;
+    padding: 0;
+
+    li {
+      list-style: none;
+      width: 100%;
+    }
+  }
+
+  &:hover {
+    ul {
+      display: block;
+    }
+
+    .name {
+    }
+  }
+
+  .name {
+    cursor: pointer;
     background: white;
     color: black;
-    padding: 8px;
     border-radius: 2px;
-    font-size: 0.6em;
     font-weight: 700;
     vertical-align: middle;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   }
 }
 </style>

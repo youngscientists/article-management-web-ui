@@ -8,8 +8,10 @@
 
 export const ARTICLES = "ARTICLES"
 export const ACTIVEARTICLE = "ACTIVEARTICLE"
+export const FETCHING = "FETCHING"
 
 export default {
 	ARTICLES,
-	ACTIVEARTICLE
+	ACTIVEARTICLE,
+	FETCHING
 }

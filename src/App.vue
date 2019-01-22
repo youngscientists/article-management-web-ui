@@ -52,8 +52,8 @@ textarea,
 select {
   padding: 12px;
   margin-top: 12px;
-  min-width: 100%;
   max-width: 100%;
+  min-width: 100%;
   margin: 0 auto;
   box-sizing: border-box;
   font-family: sans-serif;

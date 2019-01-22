@@ -7,7 +7,7 @@
  */
 
 /* eslint-disable no-param-reassign */
-import { CHECK, LOGIN } from "./mutation-types"
+import { CHECK, LOGIN, LOGOUT } from "./mutation-types"
 import Cookies from "js-cookie"
 import store from "@/store"
 
@@ -16,12 +16,16 @@ export default {
 		state.codeRequested = isChecked
 	},
 	[LOGIN](state, { user, authToken }) {
-		console.log(user, authToken)
 		state.authenticated = true
 		state.authToken = authToken
 		store.dispatch("user/setUser", user)
 		Cookies.set("authToken", authToken, {
 			expires: 1
 		})
+	},
+	[LOGOUT](state) {
+		state.authenticated = false
+		state.authToken = null
+		Cookies.remove("authToken")
 	}
 }

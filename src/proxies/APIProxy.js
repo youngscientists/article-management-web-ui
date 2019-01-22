@@ -12,7 +12,7 @@ export default class APIProxy extends BaseProxy {
 		}
 	) {
 		super(
-			process
+			!process.browser
 				? "https://ysj-article-management.herokuapp.com"
 				: "http://localhost:8000",
 			parameters

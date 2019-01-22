@@ -39,10 +39,7 @@ export default {
       return this.$store.state.articles.articles;
     },
     activeArticle() {
-      let active = this.$store.state.articles.activeArticle;
-      if (active)
-        document.querySelector("body").classList.add("active-article");
-      return active;
+      return this.$store.state.articles.activeArticle;
     }
   },
   data() {
@@ -63,6 +60,9 @@ export default {
 </script>
 
 <style lang="scss">
+table {
+  table-layout: fixed;
+}
 .table-component__th--sort-asc::after {
   content: "(asc)";
 }
@@ -87,5 +87,21 @@ td:first-child {
 th:last-child,
 td:last-child {
   padding-right: 0;
+}
+
+th:nth-child(1),
+th:nth-child(3),
+th:nth-child(4),
+th:nth-child(5),
+td:nth-child(1),
+td:nth-child(3),
+td:nth-child(4),
+td:nth-child(5) {
+  width: 15%;
+}
+
+td:nth-child(2),
+td:nth-child(2) {
+  width: 40%;
 }
 </style>

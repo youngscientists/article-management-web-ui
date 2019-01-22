@@ -2,30 +2,27 @@
   <modal v-if="article" @close="article = null">
     <button data-remodal-action="close" class="remodal-close"></button>
     <h1 slot="header">{{article.title}}</h1>
-    <div slot="body">
+    <div slot="body" class="body">
       <h3>{{`${article.type} | ${article.subject}`}}</h3>
       <small v-if="article.deadline">Deadline: {{article.deadline}}</small>
 
-      <div class="author">
+      <div class="section author">
         <input type="email" name="Author Email" :value="article.author.email" readonly="readonly">
-        <a
-          data-article-action="contact"
-          :href="`mailto:${article.author.email}`"
-          class="button button-blue"
-        >
-          <i class="fa fa-envelope" aria-hidden="true"></i> Contact Author
+        <a :href="`mailto:${article.author.email}`">
+          <button class="button button-blue">
+            <i class="fa fa-envelope" aria-hidden="true"></i> Contact Author
+          </button>
         </a>
       </div>
 
-      <hr>
-
-      <div class="editor">
+      <div class="section editor">
         <input
           type="text"
           class="editorName"
           name="Editor Name"
           :value="article.editor.name"
           placeholder="Editor Name"
+          readonly="readonly"
         >
         <input
           type="email"
@@ -33,37 +30,37 @@
           :value="article.editor.email"
           placeholder="Editor Email"
         >
-        <button class="button button-black assign" data-toast="assign">
-          <i class="fa fa-user" aria-hidden="true"></i> Assign
+        <button class="button button-black assign">
+          <i class="material-icons" aria-hidden="true">person</i> Assign
         </button>
       </div>
 
-      <hr>
-
-      <div class="status">
-        Change status from
-        <span :value="article.status">{{article.status}}</span> to:
+      <div class="section status">
+        <span>
+          Change status from
+          <span :value="article.status">{{article.status}}</span> to:
+        </span>
         <select selected="article.status"></select>
         
         <button class="button button-green updatestatus" data-toast="update">
-          <i class="fa fa-check" aria-hidden="true"></i> Update
+          <i class="material-icons" aria-hidden="true">update</i> Update
         </button>
       </div>
 
-      <div class="view">
+      <div class="section view">
         <a :href="article.link" target="_blank">
           <button data-article-action="edit" class="button">
-            <i class="fa fa-eye" aria-hidden="true"></i> Read
+            <i class="material-icons">remove_red_eye</i> Read
           </button>
         </a>
         <a :href="article.markingGrid" target="_blank">
           <button data-article-action="mark" class="button">
-            <i class="fa fa-comment" aria-hidden="true"></i> Mark
+            <i class="material-icons">edit</i> Mark
           </button>
         </a>
         <a :href="`https://drive.google.com/drive/folders/${article.folderId}`" target="_blank">
           <button data-article-action="folder" class="button">
-            <i class="fa fa-folder" aria-hidden="true"></i> Folder
+            <i class="material-icons">folder</i> Folder
           </button>
         </a>
         <a
@@ -71,14 +68,13 @@
           class="button-disabled"
         >
           <button data-article-action="download" data-toast="download" class="button">
-            <i class="fa fa-cloud-download" aria-hidden="true"></i> Download
+            <i class="material-icons">cloud_download</i> Download
           </button>
         </a>
       </div>
-      <hr>
-      <hr>
-      <p>Additional Notes:</p>
-      <textarea v-model="article.notes"></textarea>
+      <div class="notes">
+        <textarea v-model="article.notes" placeholder="Additional notes"></textarea>
+      </div>
     </div>
   </modal>
 </template>
@@ -93,6 +89,14 @@ export default {
   },
   props: {
     article: null
+  },
+  methods: {
+    assign() {
+      this.$store.dispatch("articles/assign", {
+        id: this.article.id,
+        email: this.article.editor.email
+      });
+    }
   }
 };
 </script>
@@ -102,9 +106,27 @@ input {
   display: inline-block;
 }
 
-.editor {
-  input {
-    width: 40%;
+.body {
+  div {
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+
+  i {
+    vertical-align: middle;
+  }
+
+  .section {
+    border-top: 1px solid grey;
+    padding: 16px 0px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(1px, 1fr));
+    grid-column-gap: 16px;
+
+    input,
+    button {
+      height: 40px;
+    }
   }
 }
 </style>

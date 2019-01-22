@@ -14,6 +14,12 @@ export default {
 		state.articles = articles
 	},
 	[Types.ACTIVEARTICLE](state, article) {
-		if (article) state.activeArticle = article
+		if (article) {
+			state.activeArticle = null
+			state.activeArticle = article
+		}
+	},
+	[Types.FETCHING](state, isFetching) {
+		state.fetching - isFetching
 	}
 }
