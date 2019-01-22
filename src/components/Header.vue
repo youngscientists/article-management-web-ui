@@ -3,18 +3,20 @@
     <a href="/">
       <img src="//assets.ysjournal.com/img/head-transparent.png">
     </a>
-    <h1 id="title">{{this.$store.state.page}}</h1>
+    <h1 id="title">{{this.$store.state.title}}</h1>
 
-    <div v-if="user">
-      <span class="position">{{user.position}}</span>
-      <span class="name">{{user.name}}</span>
-    </div>
+    <user-info-dropdown v-if="user.name"></user-info-dropdown>
   </div>
 </template>
 
 <script>
+import UserInfoDropdown from "./User/UserInfoDropdown";
+
 export default {
   name: "Header",
+  components: {
+    UserInfoDropdown
+  },
   data() {
     return {
       user: this.$store.state.user
@@ -23,16 +25,28 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .header {
   width: 100%;
   background: #ee3239;
   margin: 0 auto;
-}
+  text-align: center;
 
-.header img {
-  display: block;
-  margin: 0 auto;
-  height: 150px;
+  a,
+  h1 {
+    vertical-align: middle;
+    display: inline-block;
+  }
+
+  h1 {
+    text-transform: uppercase;
+    color: white;
+    font-size: 2.6rem;
+  }
+
+  img {
+    margin: 0 auto;
+    height: 140px;
+  }
 }
 </style>

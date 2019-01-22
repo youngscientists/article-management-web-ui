@@ -6,23 +6,20 @@
  * user module.
  */
 
-import * as types from './mutation-types';
+import * as types from "./mutation-types"
+import Vue from "vue"
 
-export const find = ({
-    commit
-}) => {
-    new Proxy()
-        .find()
-        .then((response) => {
-            commit(types.FIND, response);
+export const setUser = ({ commit }, user) => {
+	commit(types.SET, user)
+}
 
-        })
-        .catch(() => {
-            console.log('Request failed...');
-
-        });
-};
+export const show = () => {
+	Vue.router.push({
+		name: "home.user"
+	})
+}
 
 export default {
-    find,
-};
+	setUser,
+	show
+}

@@ -11,9 +11,19 @@ export default class APIProxy extends BaseProxy {
 			callback: ""
 		}
 	) {
-		super("https://ysj-article-management.herokuapp.com", parameters)
+		super(
+			!process.browser
+				? "https://ysj-article-management.herokuapp.com"
+				: "http://localhost:8000",
+			parameters
+		)
 	}
 
+	/**
+	 * Request a code from the server
+	 *
+	 * @param {String} email
+	 */
 	requestCode(email) {
 		const data = {
 			email
@@ -21,40 +31,54 @@ export default class APIProxy extends BaseProxy {
 
 		Object.assign(this.parameters, data)
 		console.log(data)
-		this.parameters.path = "authentication/authenticate"
-
-		return this.submit("get", `${this.endpoint}`, data)
+		return this.submit(
+			"get",
+			`${this.endpoint}/authentication/authenticate`,
+			data
+		)
 	}
 
 	/**
 	 * Method used to login.
 	 *
-	 * @param {String} username The username.
-	 * @param {String} password The password.
+	 * @param {String} email The username.
+	 * @param {String} code The password.
 	 *
 	 * @returns {Promise} The result in a promise.
 	 */
-	login({ username, password }) {
+	login(email, key) {
 		const data = {
-			username,
-			password,
-			client_id: process.env.VUE_APP_API_CLIENT_ID,
-			client_secret: process.env.VUE_APP_API_CLIENT_SECRET,
-			grant_type: "password",
-			scope: ""
+			email,
+			key
 		}
 
-		return this.submit("post", `${this.endpoint}/token`, data)
+		Object.assign(this.parameters, data)
+		return this.submit(
+			"get",
+			`${this.endpoint}/authentication/authenticate`,
+			data
+		)
 	}
 
-	/**
-	 * Method used to register the user.
-	 *
-	 * @param {Object} data The register data.
-	 *
-	 * @returns {Promise} The result in a promise.
-	 */
-	register(data) {
-		return this.submit("post", `${this.endpoint}/register`, data)
+	verifyToken(authToken) {
+		const data = {
+			authToken
+		}
+
+		Object.assign(this.parameters, data)
+		return this.submit(
+			"get",
+			`${this.endpoint}/authentication/authenticate`,
+			data
+		)
+	}
+
+	fetchArticles(authToken, q) {
+		const data = {
+			authToken,
+			q
+		}
+		Object.assign(this.parameters, data)
+		return this.submit("get", `${this.endpoint}/articles/list`)
 	}
 }

@@ -7,27 +7,39 @@
  * http://vuex.vuejs.org/en/index.html
  */
 
-import Vuex from 'vuex';
+import Vuex from "vuex"
 import Vue from "vue"
 
 // Modules
-import user from './user';
-import auth from './auth'
+import user from "./user"
+import auth from "./auth"
+import articles from "./articles"
 
-const debug = process.env.NODE_ENV !== 'production';
+const debug = process.env.NODE_ENV !== "production"
 
 Vue.use(Vuex)
 export default new Vuex.Store({
-    /**
-     * Assign the modules to the store.
-     */
-    modules: {
-        user,
-        auth
-    },
+	/**
+	 * Assign the modules to the store.
+	 */
+	modules: {
+		user,
+		auth,
+		articles
+	},
 
-    /**
-     * If strict mode should be enabled.
-     */
-    strict: debug,
-});
+	state: {
+		title: String
+	},
+
+	mutations: {
+		updateTitle(state, title) {
+			state.title = `AMS - ${title}`
+		}
+	},
+
+	/**
+	 * If strict mode should be enabled.
+	 */
+	strict: debug
+})

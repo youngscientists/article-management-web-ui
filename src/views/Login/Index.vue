@@ -1,8 +1,8 @@
 <template>
   <div>
     <v-layout>
-      <v-card contextual-style="dark">
-        <span slot="header">Login</span>
+      <v-card contextual-style="dark" centered="true" :text-centered="true">
+        <span slot="header">Email</span>
         <div slot="body">
           <form @submit.prevent="login()">
             <div class="form-group">
@@ -10,10 +10,10 @@
             </div>
             <div class="form-group">
               <input
-                v-if="state.codeRequested"
+                v-if="codeRequested"
                 v-model="user.code"
                 type="password"
-                placeholder="Password"
+                placeholder="Code"
                 class="form-control"
               >
             </div>
@@ -24,7 +24,7 @@
         </div>
         <div slot="footer">
           No account?
-          <a @click="modals.help = true">Help</a>
+          <a @click="modals.help = true" href="#">Help</a>
         </div>
       </v-card>
     </v-layout>
@@ -55,6 +55,7 @@ import VLayout from "@/layouts/Minimal.vue";
 import VCard from "@/components/Card.vue";
 import Modal from "@/components/Modal.vue";
 import IntermediateButton from "@/components/IntermediateButton.vue";
+import Cookies from "js-cookie";
 
 export default {
   name: "LoginIndex",
@@ -66,7 +67,10 @@ export default {
   },
   computed: {
     buttonText() {
-      return "Request Code";
+      return this.codeRequested ? "Open AMS" : "Request Code";
+    },
+    codeRequested() {
+      return this.$store.state.auth.codeRequested;
     }
   },
   /**
@@ -76,9 +80,6 @@ export default {
    */
   data() {
     return {
-      state: {
-        codeRequested: false
-      },
       user: {
         email: null,
         code: null
@@ -93,18 +94,40 @@ export default {
    */
   methods: {
     login() {
-      if (!this.$data.state.codeRequested) this.requestCode();
+      if (this.codeRequested) {
+        this.verifyCode();
+      } else {
+        this.requestCode();
+      }
     },
     /**
      * Request a code for the user
-     *     */
+     *
+     */
     requestCode() {
       console.log(this.$data.user.email);
       this.$store.dispatch("auth/requestCode", this.$data.user.email);
+    },
+    verifyCode() {
+      console.log(this.$data.user.code);
+      this.$store.dispatch("auth/login", {
+        code: this.$data.user.code,
+        email: this.$data.user.email
+      });
+    }
+  },
+  mounted() {
+    const authToken = Cookies.get("authToken");
+    console.log(`Authtoken is ${authToken}`);
+    if (authToken != "undefined") {
+      this.$store.dispatch("auth/verifyToken", authToken);
     }
   }
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+input {
+  font-size: 1.2em;
+}
 </style>

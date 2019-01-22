@@ -1,15 +1,14 @@
 /* ============
- * State of the user module
+ * State of the auth module
  * ============
  *
  * The initial state of the account module.
  */
 
 export default {
-    email: null,
-    name: null,
-    level: null,
-    position: null,
-    articlesEdited: 0,
-    articlesEditing: 0
+	email: null,
+	code: null,
+	codeRequested: false,
+	authenticated: false,
+	authToken: ""
 }

@@ -1,6 +1,53 @@
 <template>
-  <button class="primary">
-    <slot></slot>
+  <button class="primary" @click="isLoading = true">
+    <slot v-if="!isLoading"></slot>
+    <div title="4" v-if="isLoading">
+      <svg
+        version="1.1"
+        id="Layer_1"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        x="0px"
+        y="0px"
+        viewBox="0 0 24 30"
+        style="enable-background:new 0 0 50 50;"
+        xml:space="preserve"
+      >
+        <rect x="0" y="0" width="4" height="10">
+          <animateTransform
+            attributeType="xml"
+            attributeName="transform"
+            type="translate"
+            values="0 0; 0 20; 0 0"
+            begin="0"
+            dur="0.6s"
+            repeatCount="indefinite"
+          ></animateTransform>
+        </rect>
+        <rect x="10" y="0" width="4" height="10">
+          <animateTransform
+            attributeType="xml"
+            attributeName="transform"
+            type="translate"
+            values="0 0; 0 20; 0 0"
+            begin="0.2s"
+            dur="0.6s"
+            repeatCount="indefinite"
+          ></animateTransform>
+        </rect>
+        <rect x="20" y="0" width="4" height="10">
+          <animateTransform
+            attributeType="xml"
+            attributeName="transform"
+            type="translate"
+            values="0 0; 0 20; 0 0"
+            begin="0.4s"
+            dur="0.6s"
+            repeatCount="indefinite"
+          ></animateTransform>
+        </rect>
+      </svg>
+    </div>
   </button>
 </template>
 
@@ -21,9 +68,13 @@ export default {
       default: "primary",
       type: String,
       required: false
-    }
+    },
+    isLoading: new Boolean(false)
   },
-  computed: {}
+  computed: {},
+  data() {
+    return {};
+  }
 };
 </script>
 
@@ -66,6 +117,12 @@ button {
       background-color: rgba(49, 27, 146, 0.9);
       color: #f5f5f5;
     }
+  }
+
+  svg {
+    width: 1em;
+    color: white;
+    fill: white;
   }
 }
 

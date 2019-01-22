@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div :class="classNamesContainer">
     <h4 v-if="hasSlot('header')" :class="classNamesHeader">
       <slot name="header"/>
     </h4>
@@ -39,7 +39,11 @@ export default {
       default: "primary",
       type: String,
       required: false
-    }
+    },
+    // eslint-disable-next-line
+    centered: false,
+    textCentered: Boolean,
+    fullWidth: Boolean
   },
   /**
    * The computed properties that the component can use.
@@ -60,6 +64,22 @@ export default {
         classNames.push("bg-default");
       }
       return classNames;
+    },
+    classNamesContainer() {
+      const classNames = ["card"];
+
+      if (this.centered) {
+        classNames.push("centered");
+      }
+
+      if (this.textCentered) {
+        classNames.push("text-centered");
+      }
+
+      if (this.fullWidth === true) {
+        classNames.push("fullwidth");
+      }
+      return classNames;
     }
   }
 };
@@ -71,5 +91,18 @@ export default {
   width: 100%;
   background: #ffffff;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+.card.centered {
+  margin: 0 auto;
+  width: 50%;
+}
+
+.card.text-centered {
+  text-align: center;
+}
+
+.card.fullwidth {
+  width: 100%;
 }
 </style>

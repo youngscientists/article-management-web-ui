@@ -7,51 +7,104 @@
  */
 
 import Vue from "vue"
-import store from "@/store"
 import * as types from "./mutation-types"
 import APIProxy from "../../proxies/APIProxy"
+
+const postLogin = user => {
+	Vue.toasted.show(`Welcome, ${user.name}`, {
+		icon: "how_to_reg"
+	})
+	Vue.router.push({
+		name: "home.index"
+	})
+}
 
 export const check = ({ commit }) => {
 	commit(types.CHECK)
 }
 
-export const requestCode = email => {
+export const requestCode = ({ commit }, email) => {
+	const toast = Vue.toasted.show(`Requesting code...`, {
+		icon: "sync",
+		className: "rotating"
+	})
 	new APIProxy()
 		.requestCode(email)
+		.then(response => response.json())
 		.then(response => {
-			response
-			Vue.router.push({
-				name: "home.index"
-			})
+			commit
+			console.log(response)
+			if (response.error) {
+				toast.goAway(0)
+				Vue.toasted.show(`${response.error.message}`, {
+					icon: "error"
+				})
+			} else if (response.email) {
+				commit(types.CHECK, true)
+				toast.goAway(0)
+				Vue.toasted.show(`Code sent to ${response.email}`, {
+					icon: "mail"
+				})
+			} else {
+				commit(types.CHECK, false)
+				Vue.toasted.global.error_message()
+			}
 		})
 		.catch(e => {
 			console.log(e)
 		})
 }
 
-export const login = ({ commit }) => {
-	/*
-	 * Normally you would use a proxy to log the user in:
-	 *
-	 * new Proxy()
-	 *  .login(payload)
-	 *  .then((response) => {
-	 *    commit(types.LOGIN, response);
-	 *    store.dispatch('account/find');
-	 *    Vue.router.push({
-	 *      name: 'home.index',
-	 *    });
-	 *  })
-	 *  .catch(() => {
-	 *    console.log('Request failed...');
-	 *  });
-	 */
-	commit(types.LOGIN, "RandomGeneratedToken")
-	store.dispatch("account/find")
+export const login = ({ commit }, user) => {
+	const toast = Vue.toasted.global.loading_message({ message: "Logging in..." })
+	new APIProxy()
+		.login(user.email, user.code)
+		.then(response => response.json())
+		.then(response => {
+			commit
+			console.log(response)
+			if (response.error) Vue.toasted.show(`Error: ${response.error.error}`)
+			else if (response.user) {
+				commit(types.LOGIN, response)
+				toast.goAway(0)
+				postLogin(response.user)
+			} else {
+				commit(types.CHECK, false)
+				Vue.toasted.global.error_message()
+			}
+		})
+		.catch(e => {
+			console.log(e)
+		})
+}
 
-	Vue.router.push({
-		name: "home.index"
+/**
+ * Check if the current session is still valid. Will require a new endpoint
+ *
+ * @param {Object} o
+ * @param {Function} o.commit
+ * @param {String} authToken
+ */
+export const verifyToken = ({ commit }, authToken) => {
+	const toast = Vue.toasted.global.loading_message({
+		message: "Verifying previous session..."
 	})
+	new APIProxy()
+		.verifyToken(authToken)
+		.then(response => response.json())
+		.then(response => {
+			toast.goAway(0)
+			if (response.user) {
+				const user = response.user
+				commit(types.LOGIN, { user, authToken })
+				postLogin(response.user)
+			} else {
+				Vue.toasted.show(`Please log in again`, {
+					icon: "domain_disabled"
+				})
+				commit(types.LOGOUT)
+			}
+		})
 }
 
 export const logout = ({ commit }) => {
@@ -65,5 +118,6 @@ export default {
 	check,
 	requestCode,
 	login,
-	logout
+	logout,
+	verifyToken
 }
