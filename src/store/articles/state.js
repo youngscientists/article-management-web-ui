@@ -22,5 +22,7 @@ export default {
 		"Rejected"
 	],
 	activeArticle: null,
-	fetching: false
+	fetching: false,
+	loadingToast: null,
+	isUpdating: false
 }

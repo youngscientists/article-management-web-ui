@@ -9,9 +9,11 @@
 export const ARTICLES = "ARTICLES"
 export const ACTIVEARTICLE = "ACTIVEARTICLE"
 export const FETCHING = "FETCHING"
+export const UPDATING = "UPDATING"
 
 export default {
 	ARTICLES,
 	ACTIVEARTICLE,
-	FETCHING
+	FETCHING,
+	UPDATING
 }

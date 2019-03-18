@@ -11,7 +11,9 @@ import store from "@/store"
 import * as types from "./mutation-types"
 import APIProxy from "../../proxies/APIProxy"
 
-export const list = ({ commit }, query) => {
+export const list = ({
+	commit
+}, query) => {
 	if (store.state.articles.fetching) return
 	commit(types.FETCHING, true)
 	const loadingToast = Vue.toasted.global.loading_message({
@@ -37,12 +39,129 @@ export const list = ({ commit }, query) => {
 		.then(() => commit(types.FETCHING, false))
 }
 
-export const setActive = ({ commit }, article) => {
+/**
+ * Assign an article to an editor
+ * 
+ * @param {*} commit the commit function
+ * @param {*} id id of article to assign
+ * @param {*} email email of editor
+ */
+export const assign = ({
+	commit
+}, {
+	id,
+	email
+}) => {
+	commit,
+	id,
+	email
+
+	commit(types.UPDATING, {
+		isUpdating: true
+	})
+
+	if (!store.state.auth.authToken) {
+		commit(types.UPDATING, {
+			isUpdating: false,
+			success: false
+		})
+		return
+	}
+	new APIProxy()
+	.updateArticle(store.state.auth.authToken, id, {
+		editor: {
+			email
+		}
+	})
+	.then(response => response.json())
+	.then(response => {
+		if (response.error) {
+			commit(types.UPDATING, {
+				isUpdating: false,
+				success: false,
+				message: response.error.error
+			})
+		} else if (response.message) {
+			console.log(response.message)
+			commit(types.UPDATING, {
+				isUpdating: false,
+				success: true,
+				message: `Successfully updated ${response.message.title}`
+			})
+		} else {
+			console.log("else")
+			commit(types.UPDATING, {
+				isUpdating: false,
+				success: true,
+			})
+		}
+	})
+	.catch(e => {
+		console.log(e)
+	})
+}
+
+export const update = ({
+	commit
+}, {
+	id,
+	status
+}) => {
+
+	commit(types.UPDATING, {
+		isUpdating: true
+	})
+
+	if (!store.state.auth.authToken) {
+		commit(types.UPDATING, {
+			isUpdating: false,
+			success: false
+		})
+		return
+	}
+	new APIProxy()
+		.updateArticle(store.state.auth.authToken, id, {
+			status
+		})
+		.then(response => response.json())
+		.then(response => {
+			if (response.error) {
+				commit(types.UPDATING, {
+					isUpdating: false,
+					success: false,
+					message: response.error.error
+				})
+			} else if (response.message) {
+				console.log(response.message)
+				commit(types.UPDATING, {
+					isUpdating: false,
+					success: true,
+					message: `Successfully updated ${response.message.title}`
+				})
+			} else {
+				console.log("else")
+				commit(types.UPDATING, {
+					isUpdating: false,
+					success: true,
+				})
+			}
+		})
+		.catch(e => {
+			console.log(e)
+		})
+}
+
+
+export const setActive = ({
+	commit
+}, article) => {
 	if (!article) Vue.toasted.global.error_message()
 	commit(types.ACTIVEARTICLE, article)
 }
 
 export default {
 	list,
-	setActive
+	setActive,
+	assign,
+	update
 }

@@ -83,7 +83,13 @@ class BaseProxy {
 			method: requestType
 		}
 
-		requestType.toLowerCase() == "get" ? null : options.body == data
+		if (requestType.toLowerCase() != "get") {
+			options.body = JSON.stringify(data)
+			options.headers = new Headers({
+				'content-type': 'application/json'
+			})
+
+		}
 
 		return fetch(url + this.getParameterString(), options).catch(() =>
 			Vue.toasted.error("API Unavailable")

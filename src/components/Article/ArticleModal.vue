@@ -27,10 +27,10 @@
         <input
           type="email"
           name="Editor Email"
-          :value="article.editor.email"
+          v-model="article.editor.email"
           placeholder="Editor Email"
         >
-        <button class="button button-black assign">
+        <button class="button button-black assign" @click="assign">
           <i class="material-icons" aria-hidden="true">person</i> Assign
         </button>
       </div>
@@ -40,9 +40,15 @@
           Change status from
           <span :value="article.status">{{article.status}}</span> to:
         </span>
-        <select selected="article.status"></select>
+        <select selected="article.status" v-model="status">
+          <option
+            v-for="state of article.possibleStates"
+            :key="state.name"
+            :value="state.name"
+          >{{state.name}}</option>
+        </select>
         
-        <button class="button button-green updatestatus" data-toast="update">
+        <button class="button button-green updatestatus" @click="update">
           <i class="material-icons" aria-hidden="true">update</i> Update
         </button>
       </div>
@@ -64,7 +70,7 @@
           </button>
         </a>
         <a
-          :href="`https://docs.google.com/document/u/0/d/${article.id}export?format=docx`"
+          :href="`https://docs.google.com/document/d/${article.id}/export?format=docx`"
           class="button-disabled"
         >
           <button data-article-action="download" data-toast="download" class="button">
@@ -90,11 +96,23 @@ export default {
   props: {
     article: null
   },
+  data() {
+    return {
+      status: null
+    };
+  },
   methods: {
     assign() {
       this.$store.dispatch("articles/assign", {
         id: this.article.id,
         email: this.article.editor.email
+      });
+    },
+    update() {
+      if (!this.status) return;
+      this.$store.dispatch("articles/update", {
+        id: this.article.id,
+        status: this.status
       });
     }
   }
