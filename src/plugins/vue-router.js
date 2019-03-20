@@ -16,7 +16,26 @@ import store from "@/store"
 Vue.use(VueRouter)
 
 export const router = new VueRouter({
-	routes
+	routes,
+	scrollBehavior(to, from, savedPosition) {
+		let position = {
+			x: 0,
+			y: 0
+		}
+		// Keep scroll position when using browser buttons
+		if (savedPosition) {
+			position = savedPosition
+		}
+
+		// Workaround for transitions scrolling to the top of the page
+		// However, there are still some problems being fixed by the vue team
+		return new Promise((resolve, reject) => {
+			reject
+			setTimeout(() => {
+				resolve(position)
+			}, 400)
+		})
+	}
 })
 router.beforeEach((to, from, next) => {
 	store.commit("updateTitle", to.meta.title)
@@ -26,7 +45,11 @@ router.beforeEach((to, from, next) => {
 		 * a page that requires authentication, redirect to the login page
 		 */
 		next({
-			name: "login.index"
+			name: "login.index",
+			params: {
+				from
+			}
+
 		})
 	} else if (
 		to.matched.some(m => m.meta.guest) &&
@@ -43,6 +66,8 @@ router.beforeEach((to, from, next) => {
 		next()
 	}
 })
+
+
 
 Vue.router = router
 

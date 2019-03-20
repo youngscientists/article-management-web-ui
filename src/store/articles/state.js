@@ -6,7 +6,7 @@
  */
 
 export default {
-	articles: [],
+	articles: null,
 	filteredArticles: [],
 	states: [
 		"All",
@@ -21,8 +21,17 @@ export default {
 		"Submitted",
 		"Rejected"
 	],
-	activeArticle: null,
+	activeArticle: {
+		editor: {
+
+		},
+		author: {
+
+		}
+	},
 	fetching: false,
+	fetchingArticle: false,
 	loadingToast: null,
-	isUpdating: false
+	isUpdating: false,
+	query: ""
 }

@@ -5,7 +5,7 @@
       :data="articles"
       :show-filter="false"
       :show-caption="false"
-      @rowClick="setActive"
+      @rowClick="navigateTo"
     >
       <table-column show="date" label="Date" data-type="date:DD/MM/YYYY"></table-column>
       <table-column show="title" label="Title"></table-column>
@@ -13,7 +13,6 @@
       <table-column show="type" label="Type"></table-column>
       <table-column show="status" label="Status"></table-column>
     </table-component>
-    <article-modal v-if="activeArticle" :article="activeArticle"></article-modal>
     <hr>
   </div>
 </template>
@@ -21,15 +20,13 @@
 <script>
 import { TableComponent, TableColumn } from "vue-table-component";
 import FilterBar from "../FilterBar";
-import ArticleModal from "./ArticleModal";
 
 export default {
   name: "ArticlesContainer",
   components: {
     TableComponent,
     TableColumn,
-    FilterBar,
-    ArticleModal
+    FilterBar
   },
   computed: {
     states() {
@@ -51,9 +48,9 @@ export default {
     filter(arg) {
       this.$store.dispatch("articles/list", arg);
     },
-    setActive(row) {
-      console.log(row.data);
-      this.$store.dispatch("articles/setActive", row.data);
+    navigateTo(row) {
+      console.log(row);
+      this.$router.push(`/articles/${row.data.id}`);
     }
   }
 };

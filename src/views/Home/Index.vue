@@ -4,6 +4,7 @@
       <v-card :text-centered="false" :fullwidth="true">
         <!--<div v-for="article in articles" :key="article.id">{{article.title}}</div>-->
         <div slot="body">
+          <toolbar></toolbar>
           <articles-container></articles-container>
         </div>
       </v-card>
@@ -35,6 +36,7 @@ import VLayout from "@/layouts/FullWidth.vue";
 import VCard from "@/components/Card.vue";
 import Modal from "@/components/Modal.vue";
 import ArticlesContainer from "@/components/Article/ArticlesContainer.vue";
+import Toolbar from "@/components/Toolbar";
 
 export default {
   name: "HomeIndex",
@@ -42,7 +44,8 @@ export default {
     VLayout,
     Modal,
     ArticlesContainer,
-    VCard
+    VCard,
+    Toolbar
   },
   computed: {
     articles() {
@@ -66,7 +69,9 @@ export default {
    */
   methods: {},
   mounted() {
-    this.$store.dispatch("articles/list");
+    if (!this.$store.state.articles.articles) {
+      this.$store.dispatch("articles/list");
+    }
   }
 };
 </script>

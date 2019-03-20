@@ -4,9 +4,9 @@
       <div class="inline field">
         <input
           type="text"
-          v-model="filterText"
+          :value="query"
           class="three wide column"
-          @keyup.enter="doFilter"
+          @keyup.enter="doFilter($event.target.value)"
           placeholder="Search..."
         >
       </div>
@@ -22,11 +22,18 @@ export default {
     };
   },
   methods: {
-    doFilter() {
-      this.$emit("filter", this.$data.filterText);
+    doFilter(q) {
+      this.$emit("filter", q);
     },
     resetFilter() {
       this.filterText = "";
+    }
+  },
+  computed: {
+    query() {
+      return this.$store.state.articles.query
+        ? this.$store.state.articles.query
+        : "";
     }
   }
 };

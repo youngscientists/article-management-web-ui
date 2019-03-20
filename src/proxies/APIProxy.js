@@ -82,6 +82,23 @@ export default class APIProxy extends BaseProxy {
     return this.submit("get", `${this.endpoint}/articles/list`)
   }
 
+  getArticle(authToken, id) {
+    const data = {
+      authToken,
+      id
+    }
+    Object.assign(this.parameters, data)
+    return this.submit("get", `${this.endpoint}/articles/get`)
+  }
+
+  getStates(authToken) {
+    const data = {
+      authToken
+    }
+    Object.assign(this.parameters, data)
+    return this.submit("get", `${this.endpoint}/states/list`)
+  }
+
   updateArticle(authToken, id, props) {
     const data = {
       authToken

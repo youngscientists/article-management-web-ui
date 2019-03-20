@@ -1,8 +1,11 @@
 <template>
   <div class="header">
-    <a href="/">
-      <img src="//assets.ysjournal.com/img/head-transparent.png">
-    </a>
+    <router-link to="/articles">
+      <a>
+        <img src="//assets.ysjournal.com/img/head-transparent.png">
+      </a>
+    </router-link>
+
     <h1 id="title">{{this.$store.state.title}}</h1>
 
     <user-info-dropdown v-if="user.name"></user-info-dropdown>

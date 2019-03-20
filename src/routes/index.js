@@ -19,6 +19,30 @@ export default [
 		}
 	},
 
+	{
+		path: "/articles/:id",
+		name: "home.article",
+		component: () => import("@/views/Home/Article.vue"),
+
+		// If the user needs to be authenticated to view this page
+		meta: {
+			title: "View Article",
+			auth: true
+		}
+	},
+
+	{
+		path: "/editors",
+		name: "home.editors",
+		component: () => import("@/views/Home/Editors.vue"),
+
+		// If the user needs to be authenticated to view this page
+		meta: {
+			title: "Editors",
+			auth: true
+		}
+	},
+
 	// Login
 	{
 		path: "/",
@@ -41,6 +65,10 @@ export default [
 			title: "Me",
 			guest: false
 		}
+	},
+	{
+		path: '/*',
+		redirect: '/articles',
 	}
 
 	/*

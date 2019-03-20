@@ -1,9 +1,9 @@
 /* ============
- * Actions for the Articles
+ * Actions for the Editors
  * ============
  *
  * The actions that are available on the
- * Articles.
+ * Editorss.
  */
 
 import Vue from "vue"
@@ -75,7 +75,7 @@ export const getStates = ({
 export const get = ({
 	commit
 }, id) => {
-	if (!id) return
+
 	if (!store.state.auth.authToken) Vue.toasted.global.error_message()
 
 	// Check 'cache'
