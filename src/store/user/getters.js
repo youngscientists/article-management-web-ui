@@ -6,4 +6,8 @@
  * account module.
  */
 
-export default {};
+export default {
+    senior(state) {
+        return state.level === "Senior" || state.level === "Admin"
+    }
+};

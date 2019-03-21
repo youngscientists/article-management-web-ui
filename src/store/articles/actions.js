@@ -76,7 +76,9 @@ export const get = ({
 	commit
 }, id) => {
 	if (!id) return
-	if (!store.state.auth.authToken) Vue.toasted.global.error_message()
+	if (!store.state.auth.authToken) {
+		store.dispatch("auth/logout")
+	}
 
 	// Check 'cache'
 	const cachedArticle = store.state.articles.articles.find(a => a.id == id)
@@ -205,12 +207,13 @@ export const update = ({
 					message: response.error.error
 				})
 			} else if (response.message) {
-				console.log(response.message)
 				commit(types.UPDATING, {
 					isUpdating: false,
 					success: true,
-					message: `Successfully updated ${response.message.title}`
+					message: `Successfully updated`,
+					article: response.message
 				})
+				commit(types.ACTIVEARTICLE, response.message)
 			} else {
 				console.log("else")
 				commit(types.UPDATING, {
@@ -229,7 +232,7 @@ export const setActive = ({
 	commit
 }, article) => {
 	if (!article) Vue.toasted.global.error_message()
-	commit(types.ACTIVEARTICLE, article)
+	commit(types.ACTIVEARTICLE, article.id)
 }
 
 export default {
@@ -237,5 +240,6 @@ export default {
 	setActive,
 	assign,
 	update,
-	get
+	get,
+	getStates
 }

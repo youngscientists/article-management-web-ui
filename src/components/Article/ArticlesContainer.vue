@@ -49,7 +49,6 @@ export default {
       this.$store.dispatch("articles/list", arg);
     },
     navigateTo(row) {
-      console.log(row);
       this.$router.push(`/articles/${row.data.id}`);
     }
   }

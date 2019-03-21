@@ -6,21 +6,9 @@
  */
 
 export default {
-	articles: null,
+	articles: [],
 	filteredArticles: [],
-	states: [
-		"All",
-		"Published",
-		"Ready to Publish",
-		"Final Review",
-		"In Review",
-		"Passed Data Check",
-		"Failed Data Check",
-		"Technical Review",
-		"Revisions Requested",
-		"Submitted",
-		"Rejected"
-	],
+	states: [],
 	activeArticle: {
 		editor: {
 
@@ -30,8 +18,6 @@ export default {
 		}
 	},
 	fetching: false,
-	fetchingArticle: false,
 	loadingToast: null,
-	isUpdating: false,
-	query: ""
+	isUpdating: false
 }

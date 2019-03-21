@@ -41,5 +41,6 @@ export default new Vuex.Store({
 	/**
 	 * If strict mode should be enabled.
 	 */
-	strict: debug
+	strict: debug,
+
 })

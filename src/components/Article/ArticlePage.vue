@@ -3,14 +3,7 @@
     <h1 slot="header">{{article.title}}</h1>
     <div slot="body" class="body row">
       <div class="small column">
-        <div class="section author">
-          <img class="profile" :src="profile">>
-          <h3>{{article.author.name}}</h3>
-          <input type="email" name="Author Email" :value="article.author.email" readonly="readonly">
-          <a class="button" :href="`mailto:${article.author.email}`">
-            <i class="fa fa-envelope" aria-hidden="true"></i> Contact Author
-          </a>
-        </div>
+        <author :author="article.author" :profile="profile"></author>
       </div>
       <div class="big column">
         <h3>{{`${article.type} | ${article.subject}`}}</h3>
@@ -25,12 +18,13 @@
             placeholder="Editor Name"
             readonly="readonly"
           >
-          <input
+          <autocomplete
             type="email"
             name="Editor Email"
             v-model="article.editor.email"
             placeholder="Editor Email"
-          >
+            v-on:input="fetchEditors($event)"
+          ></autocomplete>
           <button class="button button-black assign" @click="assign">
             <i class="material-icons" aria-hidden="true">person</i> Assign
           </button>
@@ -42,11 +36,7 @@
             <span :value="article.status">{{article.status}}</span> to:
           </span>
           <select selected="article.status" v-model="status">
-            <option
-              v-for="state of article.possibleStates"
-              :key="state.name"
-              :value="state.name"
-            >{{state.name}}</option>
+            <option v-for="state of states" :key="state.state" :value="state.state">{{state.state}}</option>
           </select>
           
           <button class="button button-green updatestatus" @click="update">
@@ -56,27 +46,19 @@
 
         <div class="section view">
           <a :href="article.link" target="_blank">
-            <button data-article-action="edit" class="button">
-              <i class="material-icons">remove_red_eye</i> Read
-            </button>
+            <material-button icon="remove_red_eye" text="Read"></material-button>
           </a>
           <a :href="article.markingGrid" target="_blank">
-            <button data-article-action="mark" class="button">
-              <i class="material-icons">edit</i> Mark
-            </button>
+            <material-button icon="edit" text="Mark"></material-button>
           </a>
           <a :href="`https://drive.google.com/drive/folders/${article.folderId}`" target="_blank">
-            <button data-article-action="folder" class="button">
-              <i class="material-icons">folder</i> Folder
-            </button>
+            <material-button icon="folder" text="Folder"></material-button>
           </a>
           <a
             :href="`https://docs.google.com/document/d/${article.id}/export?format=docx`"
             class="button-disabled"
           >
-            <button data-article-action="download" data-toast="download" class="button">
-              <i class="material-icons">cloud_download</i> Download
-            </button>
+            <material-button icon="cloud_download" text="Download"></material-button>
           </a>
         </div>
         <div class="notes">
@@ -89,10 +71,17 @@
 
 <script>
 import md5 from "md5";
+import author from "../Author/Author.vue";
+import autocomplete from "../Inputs/Autocomplete.vue";
+import MaterialButton from "../Buttons/MaterialButton.vue";
 
 export default {
   name: "ArticlePage",
-  components: {},
+  components: {
+    author,
+    autocomplete,
+    MaterialButton
+  },
   props: {},
   data() {
     return {
@@ -104,14 +93,15 @@ export default {
       return this.$store.state.articles.activeArticle;
     },
     article() {
-      return this.$store.state.articles.activeArticle
-        ? this.$store.state.articles.activeArticle
-        : { editor: {}, author: {} };
+      return this.$store.state.articles.activeArticle;
     },
     profile() {
       return `https://www.gravatar.com/avatar/${md5(
-        this.article.author.email
+        this.article.author.email || "default"
       )}?s=128&d=identicon`;
+    },
+    states() {
+      return this.$store.state.articles.states;
     }
   },
   methods: {
@@ -130,6 +120,10 @@ export default {
     },
     refresh() {
       this.$store.dispatch("articles/get", this.article.id);
+    },
+    fetchEditors(event) {
+      console.log(event);
+      this.$store.dispatch("editors/list");
     }
   }
 };

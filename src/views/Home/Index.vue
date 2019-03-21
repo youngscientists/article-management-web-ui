@@ -69,8 +69,12 @@ export default {
    */
   methods: {},
   mounted() {
-    if (!this.$store.state.articles.articles) {
+    if (this.$store.state.articles.articles.length === 0) {
       this.$store.dispatch("articles/list");
+    }
+
+    if (this.$store.state.articles.states.length === 0) {
+      this.$store.dispatch("articles/getStates");
     }
   }
 };

@@ -19,7 +19,6 @@ export default {
 			if (article.error) {
 				return
 			}
-			state.activeArticle = null
 			state.activeArticle = article
 		}
 	},
@@ -60,9 +59,10 @@ export default {
 		}
 
 		if (article) {
-			const t = state.articles.find(a => a.id == article.id)
-			const index = state.articles.indexOf(t)
-			state.articles[index] = article
+			const t = state.articles.findIndex(a => a.id == article.id)
+			state.articles[t] = article
+
+
 		}
 	},
 	[Types.FETCHING_ARTICLE](state, {
@@ -93,11 +93,11 @@ export default {
 		state.fetchingArticle = !done
 
 		if (!done) {
-			state.loadingToast = Vue.toasted.global.loading_message({
-				message: "Fetching states..."
-			})
+			//state.loadingToast = Vue.toasted.global.loading_message({
+			//	message: "Fetching states..."
+			//})
 		} else if (done && success) {
-			state.loadingToast ? state.loadingToast.goAway(0) : null
+			//state.loadingToast ? state.loadingToast.goAway(0) : null
 		} else if (done && !success && message) {
 			Vue.toasted.show(`Error: ${message}`)
 		} else {
@@ -108,4 +108,7 @@ export default {
 			state.states = states
 		}
 	},
+	[Types.STATES](state, states) {
+		state.states = states
+	}
 }

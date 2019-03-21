@@ -13,6 +13,9 @@
         <li>
           <router-link to="/settings">Settings</router-link>
         </li>
+        <li>
+          <a href="#" @click="logout">Log out</a>
+        </li>
       </ul>
     </div>
   </div>
@@ -29,6 +32,9 @@ export default {
   methods: {
     viewUser() {
       this.$store.dispatch("user/show");
+    },
+    logout() {
+      this.$store.dispatch("auth/logout");
     }
   }
 };
