@@ -11,16 +11,16 @@ import * as Types from "./mutation-types"
 import Vue from "vue"
 
 export default {
-	[Types.ARTICLES](state, articles) {
-		state.articles = articles
+	[Types.EDITORS](state, editors) {
+		state.editors = editors
 	},
-	[Types.ACTIVEARTICLE](state, article) {
-		if (article) {
-			if (article.error) {
+	[Types.ACTIVEEDITOR](state, editor) {
+		if (editor) {
+			if (editor.error) {
 				return
 			}
-			state.activeArticle = null
-			state.activeArticle = article
+			state.activeEditor = null
+			state.activeEditor = editor
 		}
 	},
 	[Types.FETCHING](state, {
@@ -37,13 +37,13 @@ export default {
 		isUpdating,
 		success,
 		message,
-		article
+		editor
 	}) {
 		state.updating = isUpdating
 
 		if (state.updating) {
 			state.loadingToast = Vue.toasted.global.loading_message({
-				message: "Updating article..."
+				message: "Updating editor..."
 			})
 		} else if (success) {
 			Vue.toasted.show(message, {
@@ -59,22 +59,22 @@ export default {
 			state.loadingToast.goAway(0)
 		}
 
-		if (article) {
-			const t = state.articles.find(a => a.id == article.id)
-			const index = state.articles.indexOf(t)
-			state.articles[index] = article
+		if (editor) {
+			const t = state.editors.find(a => a.id == editor.id)
+			const index = state.editors.indexOf(t)
+			state.editors[index] = editor
 		}
 	},
-	[Types.FETCHING_ARTICLE](state, {
+	[Types.FETCHING_EDITOR](state, {
 		done,
 		success,
 		message
 	}) {
-		state.fetchingArticle = !done
+		state.fetchingEditor = !done
 
 		if (!done) {
 			state.loadingToast = Vue.toasted.global.loading_message({
-				message: "Fetching article..."
+				message: "Fetching editor..."
 			})
 		} else if (done && success) {
 			state.loadingToast ? state.loadingToast.goAway(0) : null
@@ -84,28 +84,7 @@ export default {
 			Vue.toasted.global.error_message()
 		}
 	},
-	[Types.FETCHING_STATES](state, {
-		done,
-		success,
-		message,
-		states
-	}) {
-		state.fetchingArticle = !done
-
-		if (!done) {
-			state.loadingToast = Vue.toasted.global.loading_message({
-				message: "Fetching states..."
-			})
-		} else if (done && success) {
-			state.loadingToast ? state.loadingToast.goAway(0) : null
-		} else if (done && !success && message) {
-			Vue.toasted.show(`Error: ${message}`)
-		} else {
-			Vue.toasted.global.error_message()
-		}
-
-		if (states) {
-			state.states = states
-		}
-	},
+	[Types.CLEAR](state) {
+		state.editors = []
+	}
 }

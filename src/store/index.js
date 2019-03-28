@@ -14,6 +14,7 @@ import Vue from "vue"
 import user from "./user"
 import auth from "./auth"
 import articles from "./articles"
+import editors from "./editors"
 
 const debug = process.env.NODE_ENV !== "production"
 
@@ -25,7 +26,8 @@ export default new Vuex.Store({
 	modules: {
 		user,
 		auth,
-		articles
+		articles,
+		editors
 	},
 
 	state: {
@@ -34,7 +36,7 @@ export default new Vuex.Store({
 
 	mutations: {
 		updateTitle(state, title) {
-			state.title = `AMS - ${title}`
+			state.title = title
 		}
 	},
 

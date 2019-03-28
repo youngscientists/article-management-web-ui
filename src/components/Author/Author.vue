@@ -20,8 +20,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-input,
-a {
-  margin-bottom: 8px;
+.author {
+  input,
+  a {
+    margin-bottom: 8px;
+  }
+  text-align: center;
 }
 </style>

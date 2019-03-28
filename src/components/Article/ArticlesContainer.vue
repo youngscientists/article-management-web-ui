@@ -11,7 +11,11 @@
       <table-column show="title" label="Title"></table-column>
       <table-column show="subject" label="Subject"></table-column>
       <table-column show="type" label="Type"></table-column>
-      <table-column show="status" label="Status"></table-column>
+      <table-column label="Status">
+        <template slot-scope="row">
+            <span class="badge" :style="statusColor(row.status)">{{row.status}}</span>
+         </template>
+      </table-column>
     </table-component>
     <hr>
   </div>
@@ -37,7 +41,8 @@ export default {
     },
     activeArticle() {
       return this.$store.state.articles.activeArticle;
-    }
+    },
+  
   },
   data() {
     return {
@@ -50,6 +55,12 @@ export default {
     },
     navigateTo(row) {
       this.$router.push(`/articles/${row.data.id}`);
+    },
+    
+    statusColor(status) {
+      console.log(this.states.find(s => status == s.state))
+      const c = this.states.find(s => status == s.state)
+        return `background-color: #${c ? c.color : "8a8a8a"}`
     }
   }
 };

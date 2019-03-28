@@ -7,5 +7,7 @@
 
 export default {
 	editors: [],
-	activeEditor: null
+	activeEditor: null,
+	fetching: false,
+	signal: null
 }

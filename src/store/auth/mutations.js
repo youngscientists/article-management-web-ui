@@ -27,5 +27,6 @@ export default {
 		state.authenticated = false
 		state.authToken = null
 		Cookies.remove("authToken")
+		store.dispatch("user/setUser", null)
 	}
 }

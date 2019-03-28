@@ -3,23 +3,22 @@
  * ============
  *
  * The mutation types that are available
- * on the Articles.
+ * on the EDITORs.
  */
 
-export const ARTICLES = "ARTICLES"
-export const ACTIVEARTICLE = "ACTIVEARTICLE"
+export const EDITORS = "EDITORS"
+export const ACTIVEEDITOR = "ACTIVEEDITOR"
 export const FETCHING = "FETCHING"
-export const FETCHING_ARTICLE = "FETCHING_ARTICLE"
+export const FETCHING_EDITOR = "FETCHING_EDITOR"
 export const UPDATING = "UPDATING"
-export const FETCHING_STATES = "FETCHING_STATES"
-export const STATES = "STATES"
+export const CLEAR = "CLEAR"
 
 export default {
-	ARTICLES,
-	ACTIVEARTICLE,
+	EDITORS,
+	ACTIVEEDITOR,
 	FETCHING,
-	FETCHING_ARTICLE,
+	FETCHING_EDITOR,
 	UPDATING,
-	FETCHING_STATES,
-	STATES,
+	CLEAR,
+
 }

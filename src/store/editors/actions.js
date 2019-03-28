@@ -14,82 +14,56 @@ import APIProxy from "../../proxies/APIProxy"
 export const list = ({
 	commit
 }, query) => {
-	if (store.state.articles.fetching) return
+	if (store.state.editors.fetching) return
 	commit(types.FETCHING, {
-		isUpdating: true,
+		isFetching: true,
 		query
 	})
 	const loadingToast = Vue.toasted.global.loading_message({
-		message: "Fetching articles..."
+		message: "Fetching editors..."
 	})
 	if (!store.state.auth.authToken) Vue.toasted.global.error_message()
 	new APIProxy()
-		.fetchArticles(store.state.auth.authToken, query)
+		.fetchEditors(store.state.auth.authToken, query)
 		.then(response => response.json())
 		.then(response => {
 			console.log(response)
 			if (response.error) Vue.toasted.show(`Error: ${response.error.error}`)
 			else if (response instanceof Array) {
-				commit(types.ARTICLES, response)
+				commit(types.EDITORS, response)
 				loadingToast.goAway(0)
 			} else {
 				Vue.toasted.global.error_message()
 			}
 			commit(types.FETCHING, {
-				isUpdating: false
+				isFetching: false
 			})
 		})
 		.catch(e => {
 			console.log(e)
 			commit(types.FETCHING, {
-				isUpdating: false
+				isFetching: false
 			})
-		})
-}
-
-export const getStates = ({
-	commit
-}) => {
-	commit(types.FETCHING_STATES, true)
-	if (!store.state.auth.authToken) {
-		commit(types.FETCHING_STATES, false)
-		return
-	}
-	new APIProxy()
-		.getStates(store.state.auth.authToken)
-		.then(response => response.json())
-		.then(response => {
-			console.log(response)
-			if (response.error) Vue.toasted.show(`Error: ${response.error.error}`)
-			else if (response instanceof Array) {
-				commit(types.STATES, response)
-			} else {
-				Vue.toasted.global.error_message()
-			}
-		})
-		.catch(e => {
-			console.log(e)
 		})
 }
 
 export const get = ({
 	commit
 }, id) => {
-
 	if (!store.state.auth.authToken) Vue.toasted.global.error_message()
 
 	// Check 'cache'
-	const cachedArticle = store.state.articles.articles.find(a => a.id == id)
+	const cachedArticle = store.state.editors.editors.find(a => a.id == id)
 	if (cachedArticle) {
-		commit(types.FETCHING_ARTICLE, {
+		commit(types.FETCHING_EDITOR, {
 			success: true,
 			done: true
 		})
-		commit(types.ACTIVEARTICLE, cachedArticle)
+		commit(types.ACTIVEEDITOR, cachedArticle)
 		return
 	}
 
-	commit(types.FETCHING_ARTICLE, {
+	commit(types.FETCHING_EDITOR, {
 		done: false
 	})
 
@@ -97,8 +71,8 @@ export const get = ({
 		.getArticle(store.state.auth.authToken, id)
 		.then(response => response.json())
 		.then(response => {
-			commit(types.ACTIVEARTICLE, response)
-			commit(types.FETCHING_ARTICLE, {
+			commit(types.ACTIVEEDITOR, response)
+			commit(types.FETCHING_EDITOR, {
 				success: true,
 				done: true
 			})
@@ -106,17 +80,19 @@ export const get = ({
 		.catch(e => {
 			console.log(e)
 		})
-		.then(() => commit(types.FETCHING_ARTICLE, {
-			success: false,
-			done: true,
-		}))
+		.then(() =>
+			commit(types.FETCHING_EDITOR, {
+				success: false,
+				done: true
+			})
+		)
 }
 
 /**
- * Assign an article to an editor
- * 
+ * Assign an editor to an editor
+ *
  * @param {*} commit the commit function
- * @param {*} id id of article to assign
+ * @param {*} id id of editor to assign
  * @param {*} email email of editor
  */
 export const assign = ({
@@ -165,7 +141,7 @@ export const assign = ({
 			console.log("else")
 			commit(types.UPDATING, {
 				isUpdating: false,
-				success: true,
+				success: true
 			})
 		}
 	})
@@ -180,7 +156,6 @@ export const update = ({
 	id,
 	status
 }) => {
-
 	commit(types.UPDATING, {
 		isUpdating: true
 	})
@@ -215,7 +190,7 @@ export const update = ({
 				console.log("else")
 				commit(types.UPDATING, {
 					isUpdating: false,
-					success: true,
+					success: true
 				})
 			}
 		})
@@ -224,12 +199,24 @@ export const update = ({
 		})
 }
 
-
 export const setActive = ({
 	commit
-}, article) => {
-	if (!article) Vue.toasted.global.error_message()
-	commit(types.ACTIVEARTICLE, article)
+}, editor) => {
+	if (!editor) Vue.toasted.global.error_message()
+	commit(types.ACTIVEEDITOR, editor)
+}
+
+export const create = ({
+	commit
+}) => {
+	commit
+	Vue.toasted.show("Coming soon!", { icon: "alarm"})
+}
+
+export const clear = ({
+	commit
+}) => {
+	commit(types.CLEAR)
 }
 
 export default {
@@ -237,5 +224,7 @@ export default {
 	setActive,
 	assign,
 	update,
-	get
+	get,
+	clear,
+	create
 }

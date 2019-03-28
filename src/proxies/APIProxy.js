@@ -116,4 +116,13 @@ export default class APIProxy extends BaseProxy {
     Object.assign(this.parameters, data)
     return this.submit("post", `${this.endpoint}/articles/update`, payload)
   }
+
+  fetchEditors(authToken, q) {
+    const data = {
+      authToken,
+      q
+    }
+    Object.assign(this.parameters, data)
+    return this.submit("get", `${this.endpoint}/editors/list`)
+  }
 }

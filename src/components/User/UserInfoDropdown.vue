@@ -7,7 +7,7 @@
         <li>
           <router-link to="/articles">View Articles</router-link>
         </li>
-        <li>
+        <li v-if="senior">
           <router-link to="/editors">View Editors</router-link>
         </li>
         <li>
@@ -35,12 +35,17 @@ export default {
     },
     logout() {
       this.$store.dispatch("auth/logout");
-    }
+    },
+    senior() {
+      return this.$store.getters["user/senior"];
+    },
   }
 };
 </script>
 
 <style lang="scss" scoped>
+$break-small: 640px;
+
 .root {
   position: absolute;
   display: inline-block;
@@ -50,6 +55,12 @@ export default {
   text-transform: uppercase;
   right: 0;
   top: 20px;
+
+  .name > a {
+    @media screen and (max-width: $break-small) {
+      display: none;
+    }
+  }
 
   a,
   li {

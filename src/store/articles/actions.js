@@ -16,7 +16,7 @@ export const list = ({
 }, query) => {
 	if (store.state.articles.fetching) return
 	commit(types.FETCHING, {
-		isUpdating: true,
+		isFetching: true,
 		query
 	})
 	const loadingToast = Vue.toasted.global.loading_message({
@@ -36,13 +36,13 @@ export const list = ({
 				Vue.toasted.global.error_message()
 			}
 			commit(types.FETCHING, {
-				isUpdating: false
+				isFetching: false
 			})
 		})
 		.catch(e => {
 			console.log(e)
 			commit(types.FETCHING, {
-				isUpdating: false
+				isFetching: false
 			})
 		})
 }
@@ -235,11 +235,19 @@ export const setActive = ({
 	commit(types.ACTIVEARTICLE, article.id)
 }
 
+export const create = ({
+	commit
+}) => {
+	commit
+	Vue.toasted.show("Coming soon!", { icon: "alarm"})
+}
+
 export default {
 	list,
 	setActive,
 	assign,
 	update,
 	get,
-	getStates
+	getStates,
+	create
 }

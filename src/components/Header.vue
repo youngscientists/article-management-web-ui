@@ -28,12 +28,14 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .header {
   width: 100%;
   background: #ee3239;
   margin: 0 auto;
   text-align: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 
   a,
   h1 {
@@ -45,6 +47,7 @@ export default {
     text-transform: uppercase;
     color: white;
     font-size: 2.6rem;
+    padding: 16px;
   }
 
   img {

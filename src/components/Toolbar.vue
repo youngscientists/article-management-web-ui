@@ -1,23 +1,34 @@
 <template>
   <div class="toolbar">
-    <button class="button" @click="refresh">Refresh</button>
-    <button class="button">New Article</button>
-    <button class="button" v-if="senior">New Editor</button>
+    <material-button text="Refresh" icon="refresh" @click.native="refresh" :disabled="isRefreshing"></material-button>
+    <material-button text="New Editor" icon="add" @click.native="newEditor"></material-button>
+    <material-button text="New Article" icon="add" @click.native="newArticle"></material-button>
   </div>
 </template>
 
 <script>
+import MaterialButton from "./Buttons/MaterialButton";
+
 export default {
   name: "Toolbar",
-  components: {},
+  components: { MaterialButton },
   methods: {
     refresh() {
       this.$store.dispatch("articles/list");
+    },
+    newEditor() {
+        this.$store.dispatch("editors/create")
+    },
+    newArticle() {
+        this.$store.dispatch("articles/create")
     }
   },
   computed: {
     senior() {
       return this.$store.getters["user/senior"];
+    },
+    isRefreshing() {
+      return this.$store.state.articles.fetching;
     }
   }
 };

@@ -1,50 +1,51 @@
 <template>
   <div class="article">
-    <h1 slot="header">{{article.title}}</h1>
+    <div slot="header" class="header">
+      <h1>{{article.title}}</h1>
+      <h3>{{`${article.type} | ${article.subject}`}}</h3>
+    </div>
     <div slot="body" class="body row">
       <div class="small column">
         <author :author="article.author" :profile="profile"></author>
       </div>
       <div class="big column">
-        <h3>{{`${article.type} | ${article.subject}`}}</h3>
         <small v-if="article.deadline">Deadline: {{article.deadline}}</small>
 
         <div class="section editor">
+            <h3>Editor</h3>
           <input
             type="text"
             class="editorName"
             name="Editor Name"
-            :value="article.editor.name"
+            :value="editorName"
             placeholder="Editor Name"
             readonly="readonly"
           >
           <autocomplete
             type="email"
             name="Editor Email"
-            v-model="article.editor.email"
+            :value="article.editor.email"
             placeholder="Editor Email"
             v-on:input="fetchEditors($event)"
+            v-on:set="setEditor($event)"
           ></autocomplete>
-          <button class="button button-black assign" @click="assign">
-            <i class="material-icons" aria-hidden="true">person</i> Assign
-          </button>
+
+          <material-button icon="person" text="Assign" @click.native="assign"></material-button>
         </div>
 
         <div class="section status">
-          <span>
-            Change status from
-            <span :value="article.status">{{article.status}}</span> to:
-          </span>
-          <select selected="article.status" v-model="status">
-            <option v-for="state of states" :key="state.state" :value="state.state">{{state.state}}</option>
+            <h3>Status</h3>
+                  <span class="badge" :style="statusColor">In Review</span>
+
+          <select v-model="status">
+            <option v-for="state of states" :key="state.state" :value="state.state" :selected="state.state == article.status">{{state.state}}</option>
           </select>
-          
-          <button class="button button-green updatestatus" @click="update">
-            <i class="material-icons" aria-hidden="true">update</i> Update
-          </button>
+
+          <material-button icon="update" text="Update" @click.native="update"></material-button>
         </div>
 
         <div class="section view">
+          <h3>Actions</h3>
           <a :href="article.link" target="_blank">
             <material-button icon="remove_red_eye" text="Read"></material-button>
           </a>
@@ -62,6 +63,7 @@
           </a>
         </div>
         <div class="notes">
+          <h3>Notes</h3>
           <textarea v-model="article.notes" placeholder="Additional notes"></textarea>
         </div>
       </div>
@@ -85,7 +87,9 @@ export default {
   props: {},
   data() {
     return {
-      status: null
+      status: null,
+      editorName_: "",
+      editorEmail: String
     };
   },
   computed: {
@@ -102,6 +106,13 @@ export default {
     },
     states() {
       return this.$store.state.articles.states;
+    },
+    editorName() {
+        return this.editorName_ || this.article.editor.name
+    },
+    statusColor() {
+        const c = this.states.find(s => this.article.status == s.state)
+        return `background-color: #${c ? c.color : "8a8a8a"}`
     }
   },
   methods: {
@@ -122,8 +133,11 @@ export default {
       this.$store.dispatch("articles/get", this.article.id);
     },
     fetchEditors(event) {
-      console.log(event);
-      this.$store.dispatch("editors/list");
+      this.$store.dispatch("editors/list", event);
+    },
+    setEditor(event) {
+      this.editorName_ = event.name;
+      this.article.editor.email = event.email;
     }
   }
 };
@@ -134,12 +148,21 @@ input {
   display: inline-block;
 }
 
+.status {
+    h3,.badge {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .badge {
+        background: grey;
+        color: white;
+        margin: 16px;
+    }
+}
+
 .body {
   border-top: 1px solid grey;
-  div {
-    padding-top: 8px;
-    padding-bottom: 8px;
-  }
 
   i {
     vertical-align: middle;
@@ -152,16 +175,13 @@ input {
     button,
     a {
       height: 40px;
-      width: 100%;
       margin-bottom: 8px;
     }
 
-    &.editor,
-    &.status,
-    &.view {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(1px, 1fr));
-      grid-column-gap: 16px;
+    button,
+    a {
+      margin-right: 8px;
+      margin-top: 8px;
     }
   }
 
