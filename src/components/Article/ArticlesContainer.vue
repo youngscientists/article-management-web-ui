@@ -7,14 +7,19 @@
       :show-caption="false"
       @rowClick="navigateTo"
     >
-      <table-column show="date" label="Date" data-type="date:DD/MM/YYYY"></table-column>
+      <table-column show="date" label="Date" data-type="date:DD/MM/YYYY" :hidden="isMobile()"></table-column>
       <table-column show="title" label="Title"></table-column>
-      <table-column show="subject" label="Subject"></table-column>
-      <table-column show="type" label="Type"></table-column>
+      <table-column show="subject" label="Subject" :hidden="isMobile()"></table-column>
+      <table-column show="type" label="Type" :hidden="isMobile()"></table-column>
+      <table-column label="Editor" :hidden="isMobile()">
+        <template slot-scope="row">
+          <span>{{editorNames(row.editors)}}</span>
+        </template>
+      </table-column>
       <table-column label="Status">
         <template slot-scope="row">
-            <span class="badge" :style="statusColor(row.status)">{{row.status}}</span>
-         </template>
+          <span class="badge" :style="statusColor(row.status)">{{row.status}}</span>
+        </template>
       </table-column>
     </table-component>
     <hr>
@@ -24,9 +29,11 @@
 <script>
 import { TableComponent, TableColumn } from "vue-table-component";
 import FilterBar from "../FilterBar";
+import isMobileMixin from "@/mixins/isMobile";
 
 export default {
   name: "ArticlesContainer",
+  mixins: [isMobileMixin],
   components: {
     TableComponent,
     TableColumn,
@@ -41,8 +48,7 @@ export default {
     },
     activeArticle() {
       return this.$store.state.articles.activeArticle;
-    },
-  
+    }
   },
   data() {
     return {
@@ -56,11 +62,13 @@ export default {
     navigateTo(row) {
       this.$router.push(`/articles/${row.data.id}`);
     },
-    
+
     statusColor(status) {
-      console.log(this.states.find(s => status == s.state))
-      const c = this.states.find(s => status == s.state)
-        return `background-color: #${c ? c.color : "8a8a8a"}`
+      const c = this.states.find(s => status == s.state);
+      return `background-color: #${c ? c.color : "8a8a8a"}`;
+    },
+    editorNames(editors = []) {
+      return editors.map(e => e.name).join(", ");
     }
   }
 };

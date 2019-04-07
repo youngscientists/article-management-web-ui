@@ -10,11 +10,19 @@
 </template>
 
 <script>
+import md5 from "md5";
+
 export default {
   name: "Author",
   props: {
-    author: {},
-    profile: String
+    author: {}
+  },
+  computed: {
+    profile() {
+      return `https://www.gravatar.com/avatar/${md5(
+        this.author.email || "default"
+      )}?s=128&d=identicon`;
+    }
   }
 };
 </script>

@@ -93,11 +93,12 @@ export default {
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 
+@media only screen and (min-width: 768px) {
 .card.centered {
   margin: 0 auto;
   width: 50%;
 }
-
+}
 .card.text-centered {
   text-align: center;
 }

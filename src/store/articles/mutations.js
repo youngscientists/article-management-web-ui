@@ -27,7 +27,7 @@ export default {
 		query
 	}) {
 		state.fetching = isFetching
-		if (query) {
+		if (query !== undefined) {
 			state.query = query
 		}
 	},

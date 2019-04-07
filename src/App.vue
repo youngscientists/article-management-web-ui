@@ -64,6 +64,7 @@ select {
   transition: $transition;
   outline: none;
   border: 1px solid #dddddd;
+  background: white;
 
   &:focus {
     box-shadow: 0 0 5px rgba(209, 54, 25, 1);

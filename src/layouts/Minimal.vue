@@ -25,7 +25,7 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-  width: 800px;
+  width: 100%;
 }
 
 .container.container-centered {

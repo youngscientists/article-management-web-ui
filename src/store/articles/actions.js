@@ -13,7 +13,7 @@ import APIProxy from "../../proxies/APIProxy"
 
 export const list = ({
 	commit
-}, query) => {
+}, query = "") => {
 	if (store.state.articles.fetching) return
 	commit(types.FETCHING, {
 		isFetching: true,
@@ -125,62 +125,7 @@ export const assign = ({
 	commit
 }, {
 	id,
-	email
-}) => {
-	commit,
-	id,
-	email
-
-	commit(types.UPDATING, {
-		isUpdating: true
-	})
-
-	if (!store.state.auth.authToken) {
-		commit(types.UPDATING, {
-			isUpdating: false,
-			success: false
-		})
-		return
-	}
-	new APIProxy()
-	.updateArticle(store.state.auth.authToken, id, {
-		editor: {
-			email
-		}
-	})
-	.then(response => response.json())
-	.then(response => {
-		if (response.error) {
-			commit(types.UPDATING, {
-				isUpdating: false,
-				success: false,
-				message: response.error.error
-			})
-		} else if (response.message) {
-			console.log(response.message)
-			commit(types.UPDATING, {
-				isUpdating: false,
-				success: true,
-				message: `Successfully updated ${response.message.title}`
-			})
-		} else {
-			console.log("else")
-			commit(types.UPDATING, {
-				isUpdating: false,
-				success: true,
-			})
-		}
-	})
-	.catch(e => {
-		console.log(e)
-	})
-}
-
-export const update = ({
-	commit
-}, {
-	id,
-	status
+	editors
 }) => {
 
 	commit(types.UPDATING, {
@@ -196,8 +141,56 @@ export const update = ({
 	}
 	new APIProxy()
 		.updateArticle(store.state.auth.authToken, id, {
-			status
+			editors
 		})
+		.then(response => response.json())
+		.then(response => {
+			if (response.error) {
+				commit(types.UPDATING, {
+					isUpdating: false,
+					success: false,
+					message: response.error.error
+				})
+			} else if (response.message) {
+				console.log(response.message)
+				commit(types.UPDATING, {
+					isUpdating: false,
+					success: true,
+					message: `Successfully updated ${response.message.title}`
+				})
+			} else {
+				console.log("else")
+				commit(types.UPDATING, {
+					isUpdating: false,
+					success: true,
+				})
+			}
+		})
+		.catch(e => {
+			console.log(e)
+		})
+}
+
+export const update = ({
+	commit
+}, {
+	id,
+	props
+}) => {
+
+	commit(types.UPDATING, {
+		isUpdating: true
+	})
+
+	if (!store.state.auth.authToken) {
+		commit(types.UPDATING, {
+			isUpdating: false,
+			success: false
+		})
+		return
+	}
+	new APIProxy()
+		.updateArticle(store.state.auth.authToken, id, props)
 		.then(response => response.json())
 		.then(response => {
 			if (response.error) {
@@ -239,7 +232,9 @@ export const create = ({
 	commit
 }) => {
 	commit
-	Vue.toasted.show("Coming soon!", { icon: "alarm"})
+	Vue.toasted.show("Coming soon!", {
+		icon: "alarm"
+	})
 }
 
 export default {

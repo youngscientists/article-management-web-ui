@@ -10,14 +10,11 @@ export default {
 	filteredArticles: [],
 	states: [],
 	activeArticle: {
-		editor: {
-
-		},
-		author: {
-
-		}
+		editors: [],
+		authors: []
 	},
 	fetching: false,
 	loadingToast: null,
-	isUpdating: false
+	isUpdating: false,
+	query: ""
 }

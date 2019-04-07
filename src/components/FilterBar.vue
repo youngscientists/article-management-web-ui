@@ -23,7 +23,7 @@ export default {
   },
   methods: {
     doFilter(q) {
-      this.$emit("filter", q);
+      this.$emit("filter",q);
     },
     resetFilter() {
       this.filterText = "";
@@ -32,8 +32,6 @@ export default {
   computed: {
     query() {
       return this.$store.state.articles.query
-        ? this.$store.state.articles.query
-        : "";
     }
   }
 };

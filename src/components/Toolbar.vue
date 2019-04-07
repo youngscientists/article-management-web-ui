@@ -35,9 +35,19 @@ export default {
 </script>
 
 <style lang="scss">
+
+@media only screen and (max-width: 768px) {
+    .toolbar {
+        .button {
+            width: 100%;
+            margin-bottom: 8px;
+        }
+    }
+}
+
 .toolbar {
   width: 100%;
-  height: 50px;
+  padding: 8px 0;
   background: white;
 
   .button {

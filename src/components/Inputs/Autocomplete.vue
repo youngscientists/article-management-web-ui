@@ -1,7 +1,7 @@
 <template>
   <div class="autocomplete">
-    <input :value="boxValue" @keyup="handleKeyup" :placeholder="placeholder">
-    <div class="autocomplete-items" v-if="hasItems">
+    <input :value="boxValue" @keyup="handleKeyup" :placeholder="placeholder" ref="input">
+    <div class="autocomplete-items" v-if="isOpen">
       <div
         v-for="item in items"
         :key="item.email"
@@ -27,6 +27,9 @@ export default {
   computed: {
     items() {
       return this.$store.state.editors.editors;
+    },
+    isOpen() {
+      return this.hasItems;
     },
     hasItems() {
       const s = this.$store.state.editors.editors.length;

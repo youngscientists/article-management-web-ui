@@ -5,10 +5,13 @@
       <a @click="viewUser">{{user.name}}</a>
       <ul>
         <li>
-          <router-link to="/articles">View Articles</router-link>
+          <router-link to="/articles">Articles</router-link>
+        </li>
+        <li>
+          <a href="#" @click="myAssignments">My Assignments</a>
         </li>
         <li v-if="senior">
-          <router-link to="/editors">View Editors</router-link>
+          <router-link to="/editors">Editors</router-link>
         </li>
         <li>
           <router-link to="/settings">Settings</router-link>
@@ -39,6 +42,10 @@ export default {
     senior() {
       return this.$store.getters["user/senior"];
     },
+    myAssignments() {
+      this.$router.push("/articles");
+      this.$store.dispatch("articles/list", `editors:${this.user.email}`);
+    }
   }
 };
 </script>
