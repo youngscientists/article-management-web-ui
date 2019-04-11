@@ -15,6 +15,7 @@ export const list = ({
 	commit
 }, query = "") => {
 	if (store.state.articles.fetching) return
+
 	commit(types.FETCHING, {
 		isFetching: true,
 		query

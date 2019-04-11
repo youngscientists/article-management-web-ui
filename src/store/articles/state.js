@@ -16,5 +16,6 @@ export default {
 	fetching: false,
 	loadingToast: null,
 	isUpdating: false,
-	query: ""
+	query: "",
+
 }

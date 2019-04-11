@@ -29,7 +29,7 @@ export default {
       return this.$store.state.editors.editors;
     },
     isOpen() {
-      return this.hasItems;
+      return this.hasItems && this.isFocused;
     },
     hasItems() {
       const s = this.$store.state.editors.editors.length;
@@ -37,6 +37,9 @@ export default {
     },
     boxValue() {
       return this.text || this.value;
+    },
+    isFocused() {
+      return document.activeElement === this.$refs["input"];
     }
   },
   methods: {

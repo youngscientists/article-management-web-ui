@@ -13,6 +13,10 @@
       v-on:input="fetchEditors($event)"
       v-on:set="setEditor($event)"
     ></autocomplete>
+
+    <a @click="removeEditor">
+      <i data-v-6ecc48ec class="material-icons">delete_forever</i>
+    </a>
   </div>
 </template>
 
@@ -35,6 +39,24 @@ export default {
         this.email || "default"
       )}?s=128&d=identicon`;
     }
+  },
+  methods: {
+    fetchEditors(event) {
+      this.$store.dispatch("editors/list", event);
+    },
+    setEditor(event) {
+      const oldEmail = this.email;
+      this.email = event.email;
+      this.name = event.name;
+
+      event.oldEmail = oldEmail;
+      this.$emit("set", event);
+    },
+    removeEditor() {
+      this.$emit("remove", {
+        email: this.email
+      });
+    }
   }
 };
 </script>
@@ -42,7 +64,7 @@ export default {
 <style lang="scss" scoped>
 div.editor {
   display: grid;
-  grid-template-columns: 2fr 8fr;
+  grid-template-columns: 3fr 8fr 1fr;
   grid-column-gap: 16px;
   margin-bottom: 8px;
 
@@ -62,6 +84,10 @@ div.editor {
     span {
       vertical-align: middle;
     }
+  }
+
+  i {
+    padding: 8px;
   }
 }
 </style>

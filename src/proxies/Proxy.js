@@ -93,7 +93,6 @@ class BaseProxy {
 
 		return fetch(url + this.getParameterString(), options).catch(() => {
 			Vue.toasted.error("API Unavailable")
-			console.log(Vue)
 		})
 	}
 

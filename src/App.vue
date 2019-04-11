@@ -35,6 +35,7 @@ html {
 a,
 a:visited {
   color: #1eaedb;
+  cursor: pointer;
 }
 
 $transition: all 0.3s ease-in-out;

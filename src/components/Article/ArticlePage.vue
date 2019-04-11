@@ -19,6 +19,8 @@
             :key="editor.email"
             :name="editor.name"
             :email="editor.email"
+            v-on:set="setEditor($event)"
+            v-on:remove="removeEditor($event)"
           ></editor>
           <a href="#" @click="addEditor">
             <i class="material-icons">add</i> Add Editor
@@ -152,12 +154,14 @@ export default {
     refresh() {
       this.$store.dispatch("articles/get", this.article.id);
     },
-    fetchEditors(event) {
-      this.$store.dispatch("editors/list", event);
+    setEditor({ email, name, oldEmail }) {
+      let i = this.editors.findIndex(e => e.email === (oldEmail || ""));
+      if (i != -1) {
+        this.editors[i] = { email, name };
+      }
     },
-    setEditor(event) {
-      this.editorName_ = event.name;
-      this.article.editor.email = event.email;
+    removeEditor({ email }) {
+      this.editors = this.editors.filter(e => e.email != email);
     },
     updateNotes(event) {
       this.notes = event;
