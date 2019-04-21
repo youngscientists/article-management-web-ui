@@ -17,10 +17,10 @@ export default {
       this.$store.dispatch("articles/list");
     },
     newEditor() {
-        this.$store.dispatch("editors/create")
+      this.$store.dispatch("editors/openCreate");
     },
     newArticle() {
-        this.$store.dispatch("articles/create")
+      this.$store.dispatch("articles/create");
     }
   },
   computed: {
@@ -35,14 +35,13 @@ export default {
 </script>
 
 <style lang="scss">
-
 @media only screen and (max-width: 768px) {
-    .toolbar {
-        .button {
-            width: 100%;
-            margin-bottom: 8px;
-        }
+  .toolbar {
+    .button {
+      width: 100%;
+      margin-bottom: 8px;
     }
+  }
 }
 
 .toolbar {

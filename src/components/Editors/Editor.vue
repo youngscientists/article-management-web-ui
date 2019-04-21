@@ -2,13 +2,13 @@
   <div class="editor">
     <div class="name">
       <img :src="profile">
-      <span class="editorName">{{name}}</span>
+      <span class="editorName">{{name_}}</span>
     </div>
 
     <autocomplete
       type="email"
       name="Editor Email"
-      :value="email"
+      :value="email_"
       placeholder="Editor Email"
       v-on:input="fetchEditors($event)"
       v-on:set="setEditor($event)"
@@ -33,6 +33,12 @@ export default {
     name: String,
     email: String
   },
+  data() {
+    return {
+      name_: this.name,
+      email_: this.email
+    };
+  },
   computed: {
     profile() {
       return `https://www.gravatar.com/avatar/${md5(
@@ -46,8 +52,8 @@ export default {
     },
     setEditor(event) {
       const oldEmail = this.email;
-      this.email = event.email;
-      this.name = event.name;
+      this.email_ = event.email;
+      this.name_ = event.name;
 
       event.oldEmail = oldEmail;
       this.$emit("set", event);

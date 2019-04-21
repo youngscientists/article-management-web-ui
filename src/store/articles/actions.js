@@ -14,7 +14,7 @@ import APIProxy from "../../proxies/APIProxy"
 export const list = ({
 	commit
 }, query = "") => {
-	if (store.state.articles.fetching) return
+	//if (store.state.articles.fetching) return
 
 	commit(types.FETCHING, {
 		isFetching: true,

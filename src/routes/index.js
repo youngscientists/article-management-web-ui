@@ -43,6 +43,18 @@ export default [
 		}
 	},
 
+	{
+		path: "/neweditor",
+		name: "editors.create",
+		component: () => import("@/views/Home/NewEditor.vue"),
+
+		// If the user needs to be authenticated to view this page
+		meta: {
+			title: "New Editor",
+			auth: true
+		}
+	},
+
 	// Login
 	{
 		path: "/",

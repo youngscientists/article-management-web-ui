@@ -14,7 +14,7 @@ import APIProxy from "../../proxies/APIProxy"
 export const list = ({
 	commit
 }, query) => {
-	if (store.state.editors.fetching) return
+	//if (store.state.editors.fetching) return
 	commit(types.FETCHING, {
 		isFetching: true,
 		query
@@ -208,15 +208,61 @@ export const setActive = ({
 
 export const create = ({
 	commit
-}) => {
+}, editor) => {
 	commit
-	Vue.toasted.show("Coming soon!", { icon: "alarm"})
+	commit(types.UPDATING, {
+		isUpdating: true
+	})
+
+	if (!store.state.auth.authToken) {
+		commit(types.UPDATING, {
+			isUpdating: false,
+			success: false
+		})
+		return
+	}
+	new APIProxy()
+		.createEditor(store.state.auth.authToken, editor)
+		.then(response => response.json())
+		.then(response => {
+			if (response.error) {
+				commit(types.UPDATING, {
+					isUpdating: false,
+					success: false,
+					message: response.error.error
+				})
+			} else if (response.message) {
+				commit(types.UPDATING, {
+					isUpdating: false,
+					success: true,
+					message: `Successfully created ${response.message.name}`
+				})
+			} else {
+				commit(types.UPDATING, {
+					isUpdating: false,
+					success: true
+				})
+			}
+		})
+		.catch(e => {
+			console.log(e)
+		})
 }
 
 export const clear = ({
 	commit
 }) => {
 	commit(types.CLEAR)
+}
+
+export const openCreate = ({
+	commit
+}) => {
+	commit
+
+	Vue.router.push({
+		name: "editors.create"
+	})
 }
 
 export default {
@@ -226,5 +272,6 @@ export default {
 	update,
 	get,
 	clear,
-	create
+	create,
+	openCreate
 }
