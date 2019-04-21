@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "cookies": "^0.7.3",
+    "vuex-persist": "^2.0.0",
     "vuex-persistedstate": "^2.5.4"
   },
   "devDependencies": {

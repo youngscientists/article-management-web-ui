@@ -5,7 +5,7 @@
       <a @click="viewUser">{{user.name}}</a>
       <ul>
         <li>
-          <router-link to="/articles">Articles</router-link>
+          <a @click="articles">Articles</a>
         </li>
         <li>
           <a href="#" @click="myAssignments">My Assignments</a>
@@ -41,6 +41,10 @@ export default {
     },
     senior() {
       return this.$store.getters["user/senior"];
+    },
+    articles() {
+      this.$router.push("/articles");
+      this.$store.dispatch("articles/list");
     },
     myAssignments() {
       this.$router.push("/articles");

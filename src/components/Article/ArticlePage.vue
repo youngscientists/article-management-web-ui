@@ -38,7 +38,7 @@
               v-for="state of states"
               :key="state.state"
               :value="state.state"
-              :selected="state.state == article.status"
+              :selected="state.state != article.status || 'selected'"
             >{{state.state}}</option>
           </select>
 

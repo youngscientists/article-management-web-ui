@@ -9,6 +9,7 @@
 
 import Vuex from "vuex"
 import Vue from "vue"
+import VuexPersist from 'vuex-persist'
 
 // Modules
 import user from "./user"
@@ -17,6 +18,11 @@ import articles from "./articles"
 import editors from "./editors"
 
 const debug = process.env.NODE_ENV !== "production"
+
+const vuexPersist = new VuexPersist({
+	key: 'ams',
+	storage: localStorage
+})
 
 Vue.use(Vuex)
 export default new Vuex.Store({
@@ -37,12 +43,14 @@ export default new Vuex.Store({
 	mutations: {
 		updateTitle(state, title) {
 			state.title = title
-		}
+		},
 	},
 
 	/**
 	 * If strict mode should be enabled.
 	 */
 	strict: debug,
+
+	plugins: [vuexPersist.plugin]
 
 })
