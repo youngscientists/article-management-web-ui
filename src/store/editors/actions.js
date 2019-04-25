@@ -28,7 +28,7 @@ export const list = ({
 		.then(response => response.json())
 		.then(response => {
 			console.log(response)
-			if (response.error) Vue.toasted.show(`Error: ${response.error.error}`)
+			if (response.error) Vue.toasted.show(`Error: ${response.error}`)
 			else if (response instanceof Array) {
 				commit(types.EDITORS, response)
 				loadingToast.goAway(0)

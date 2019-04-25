@@ -18,7 +18,7 @@
               >
             </div>
             <div class="form-group">
-              <IntermediateButton>{{buttonText}}</IntermediateButton>
+              <IntermediateButton :isLoading="isLoading">{{buttonText}}</IntermediateButton>
             </div>
           </form>
         </div>
@@ -86,7 +86,8 @@ export default {
       },
       modals: {
         help: false
-      }
+      },
+      isLoading: false
     };
   },
   /**
@@ -105,11 +106,9 @@ export default {
      *
      */
     requestCode() {
-      console.log(this.$data.user.email);
       this.$store.dispatch("auth/requestCode", this.$data.user.email);
     },
     verifyCode() {
-      console.log(this.$data.user.code);
       this.$store.dispatch("auth/login", {
         code: this.$data.user.code,
         email: this.$data.user.email

@@ -3,7 +3,9 @@
     <v-layout>
       <v-card :text-centered="false" :fullwidth="true">
         <!--<div v-for="article in articles" :key="article.id">{{article.title}}</div>-->
-        <div slot="body"></div>
+        <div slot="body">
+          <editors-container></editors-container>
+        </div>
       </v-card>
     </v-layout>
   </div>
@@ -12,12 +14,14 @@
 <script>
 import VLayout from "@/layouts/FullWidth.vue";
 import VCard from "@/components/Card.vue";
+import EditorsContainer from "@/components/Editors/EditorsContainer.vue";
 
 export default {
   name: "Editors",
   components: {
     VLayout,
-    VCard
+    VCard,
+    EditorsContainer
   },
   computed: {
     editors() {
@@ -40,10 +44,9 @@ export default {
    * The methods the page can use.
    */
   methods: {},
+  
   mounted() {
-    if (!this.$store.state.editors.editors) {
-      this.$store.dispatch("editors/list");
-    }
+    this.$store.dispatch("editors/list");
   }
 };
 </script>

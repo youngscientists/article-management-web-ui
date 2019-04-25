@@ -35,8 +35,9 @@ export const requestCode = ({ commit }, email) => {
 			commit
 			console.log(response)
 			if (response.error) {
+				commit(types.CHECK, false)
 				toast.goAway(0)
-				Vue.toasted.show(`${response.error.message}`, {
+				Vue.toasted.show(`${response.error}`, {
 					icon: "error"
 				})
 			} else if (response.email) {

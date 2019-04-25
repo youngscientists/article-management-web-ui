@@ -1,5 +1,5 @@
 <template>
-  <button class="primary" @click="isLoading = true">
+  <button class="primary">
     <slot v-if="!isLoading"></slot>
     <div title="4" v-if="isLoading">
       <svg
@@ -69,7 +69,7 @@ export default {
       type: String,
       required: false
     },
-    isLoading: new Boolean(false)
+    isLoading: Boolean
   },
   computed: {},
   data() {

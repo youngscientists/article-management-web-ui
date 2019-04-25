@@ -29,7 +29,7 @@ export const list = ({
 		.then(response => response.json())
 		.then(response => {
 			console.log(response)
-			if (response.error) Vue.toasted.show(`Error: ${response.error.error}`)
+			if (response.error) Vue.toasted.show(`Error: ${response.error}`)
 			else if (response instanceof Array) {
 				commit(types.ARTICLES, response)
 				loadingToast.goAway(0)
@@ -61,7 +61,7 @@ export const getStates = ({
 		.then(response => response.json())
 		.then(response => {
 			console.log(response)
-			if (response.error) Vue.toasted.show(`Error: ${response.error.error}`)
+			if (response.error) Vue.toasted.show(`Error: ${response.error}`)
 			else if (response instanceof Array) {
 				commit(types.STATES, response)
 			} else {
