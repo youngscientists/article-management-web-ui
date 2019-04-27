@@ -71,6 +71,9 @@ export default {
     },
     codeRequested() {
       return this.$store.state.auth.codeRequested;
+    },
+    next() {
+      return this.$route.params.from
     }
   },
   /**
@@ -119,9 +122,9 @@ export default {
     const authToken = Cookies.get("authToken");
     console.log(`Authtoken is ${authToken}`);
     if (authToken != "undefined") {
-      this.$store.dispatch("auth/verifyToken", authToken);
+      this.$store.dispatch("auth/verifyToken", authToken, this.next);
     }
-  }
+  },
 };
 </script>
 

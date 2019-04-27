@@ -18,6 +18,7 @@ export default {
 	[LOGIN](state, { user, authToken }) {
 		state.authenticated = true
 		state.authToken = authToken
+		state.codeRequested = false
 		store.dispatch("user/setUser", user)
 		Cookies.set("authToken", authToken, {
 			expires: 1

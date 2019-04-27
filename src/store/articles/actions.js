@@ -26,7 +26,7 @@ export const list = ({
 	if (!store.state.auth.authToken) Vue.toasted.global.error_message()
 	new APIProxy()
 		.fetchArticles(store.state.auth.authToken, query)
-		.then(response => response.json())
+		//
 		.then(response => {
 			console.log(response)
 			if (response.error) Vue.toasted.show(`Error: ${response.error}`)
@@ -58,7 +58,7 @@ export const getStates = ({
 	}
 	new APIProxy()
 		.getStates(store.state.auth.authToken)
-		.then(response => response.json())
+		//
 		.then(response => {
 			console.log(response)
 			if (response.error) Vue.toasted.show(`Error: ${response.error}`)
@@ -98,7 +98,7 @@ export const get = ({
 
 	new APIProxy()
 		.getArticle(store.state.auth.authToken, id)
-		.then(response => response.json())
+		//
 		.then(response => {
 			commit(types.ACTIVEARTICLE, response)
 			commit(types.FETCHING_ARTICLE, {
@@ -144,7 +144,7 @@ export const assign = ({
 		.updateArticle(store.state.auth.authToken, id, {
 			editors
 		})
-		.then(response => response.json())
+		//
 		.then(response => {
 			if (response.error) {
 				commit(types.UPDATING, {
@@ -192,7 +192,7 @@ export const update = ({
 	}
 	new APIProxy()
 		.updateArticle(store.state.auth.authToken, id, props)
-		.then(response => response.json())
+		//
 		.then(response => {
 			if (response.error) {
 				commit(types.UPDATING, {

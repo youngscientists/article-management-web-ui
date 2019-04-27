@@ -21,7 +21,8 @@ const debug = process.env.NODE_ENV !== "production"
 
 const vuexPersist = new VuexPersist({
 	key: 'ams',
-	storage: localStorage
+	storage: localStorage,
+	modules: ["auth", "user"]
 })
 
 Vue.use(Vuex)

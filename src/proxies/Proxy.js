@@ -1,4 +1,5 @@
 import Vue from "vue"
+import store from "../store"
 
 class BaseProxy {
 	/**
@@ -91,8 +92,18 @@ class BaseProxy {
 
 		}
 
-		return fetch(url + this.getParameterString(), options).catch(() => {
+		return fetch(url + this.getParameterString(), options)
+		.then(response => response.json())
+		.then(response => {
+			console.log(Vue)
+			if (response.error == "Your authtoken has expired. Please log in again.") {
+				store.dispatch("auth/logout")
+			}
+			return response
+		})	
+		.catch(() => {
 			Vue.toasted.error("API Unavailable")
+			store.dispatch("auth/logout")
 		})
 	}
 

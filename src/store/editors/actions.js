@@ -25,7 +25,7 @@ export const list = ({
 	if (!store.state.auth.authToken) Vue.toasted.global.error_message()
 	new APIProxy()
 		.fetchEditors(store.state.auth.authToken, query)
-		.then(response => response.json())
+		//
 		.then(response => {
 			console.log(response)
 			if (response.error) Vue.toasted.show(`Error: ${response.error}`)
@@ -69,7 +69,7 @@ export const get = ({
 
 	new APIProxy()
 		.getArticle(store.state.auth.authToken, id)
-		.then(response => response.json())
+		//
 		.then(response => {
 			commit(types.ACTIVEEDITOR, response)
 			commit(types.FETCHING_EDITOR, {
@@ -122,7 +122,7 @@ export const assign = ({
 			email
 		}
 	})
-	.then(response => response.json())
+	//
 	.then(response => {
 		if (response.error) {
 			commit(types.UPDATING, {
@@ -171,7 +171,7 @@ export const update = ({
 		.updateArticle(store.state.auth.authToken, id, {
 			status
 		})
-		.then(response => response.json())
+		//
 		.then(response => {
 			if (response.error) {
 				commit(types.UPDATING, {
@@ -223,7 +223,7 @@ export const create = ({
 	}
 	new APIProxy()
 		.createEditor(store.state.auth.authToken, editor)
-		.then(response => response.json())
+		//
 		.then(response => {
 			if (response.error) {
 				commit(types.UPDATING, {

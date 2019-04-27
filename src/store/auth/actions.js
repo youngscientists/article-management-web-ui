@@ -10,13 +10,16 @@ import Vue from "vue"
 import * as types from "./mutation-types"
 import APIProxy from "../../proxies/APIProxy"
 
-const postLogin = user => {
+const postLogin = (user, to) => {
 	Vue.toasted.show(`Welcome, ${user.name}`, {
 		icon: "how_to_reg"
 	})
+	if (to) {
+		Vue.router.push(to)
+	} else {
 	Vue.router.push({
 		name: "home.index"
-	})
+	})}
 }
 
 export const check = ({ commit }) => {
@@ -30,7 +33,7 @@ export const requestCode = ({ commit }, email) => {
 	})
 	new APIProxy()
 		.requestCode(email)
-		.then(response => response.json())
+		//
 		.then(response => {
 			commit
 			console.log(response)
@@ -60,7 +63,7 @@ export const login = ({ commit }, user) => {
 	const toast = Vue.toasted.global.loading_message({ message: "Logging in..." })
 	new APIProxy()
 		.login(user.email, user.code)
-		.then(response => response.json())
+		//
 		.then(response => {
 			commit
 			console.log(response)
@@ -86,19 +89,19 @@ export const login = ({ commit }, user) => {
  * @param {Function} o.commit
  * @param {String} authToken
  */
-export const verifyToken = ({ commit }, authToken) => {
+export const verifyToken = ({ commit }, authToken, to) => {
 	const toast = Vue.toasted.global.loading_message({
 		message: "Verifying previous session..."
 	})
 	new APIProxy()
 		.verifyToken(authToken)
-		.then(response => response.json())
+		//
 		.then(response => {
 			toast.goAway(0)
 			if (response.user) {
 				const user = response.user
 				commit(types.LOGIN, { user, authToken })
-				postLogin(response.user)
+				postLogin(response.user, to)
 			} else {
 				Vue.toasted.show(`Please log in again`, {
 					icon: "domain_disabled"
