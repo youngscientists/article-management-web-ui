@@ -1,15 +1,18 @@
-![AMS Logo](https://assets.ysjournal.com/img/article-management.png)
+<p align="center">
+<img src="https://assets.ysjournal.com/img/logo-production.png" width=150 />
+</p>
+<h1 align="center">Article Management System Web UI</h1>
+<p align="center">
+    <img src="https://badges.frapsoft.com/typescript/version/typescript-next.svg?v=101" />
+    <img src="https://david-dm.org/youngscientists/article-management-web-ui.svg" />
+    <img src="https://travis-ci.org/youngscientists/article-management-web-ui.svg?branch=v3" />
+</p>
 
-A UI for a system for managing articles submitted by the many contributing authors of the Young Scientist Journal.
+## Features
+- Manage Articles
+- Add editors
 
-## UI
-
-This software is designed as a basic front end for the Article Managment System API, another in house design that was built for the Young Scientists Journal. The project can be viewed [here](https://github.com/youngscientists/article-management). The full documentation on how to use the API can be found there.
-
-## Technical
-
-- Web UI written in Vue
 
 > Built with :heart: for the [Young Scientists Journal](https://ysjournal.com).
 
-> UI design by [Stewart McGown](https://twistedcore.co.uk)
+> Original design by [Stewart McGown](https://twistedcore.co.uk)

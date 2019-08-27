@@ -1,93 +1,117 @@
 <template>
-  <transition name="modal">
-    <div class="modal-mask">
-      <div class="modal-wrapper" @click="doClose">
-        <div class="modal-container">
-          <div class="modal-header">
+  <SlideYUpTransition :duration="animationDuration">
+    <div class="modal fade"
+         @click.self="closeModal"
+         :class="[{'show d-block': show}, {'d-none': !show}, {'modal-mini': type === 'mini'}]"
+         v-show="show"
+         tabindex="-1"
+         role="dialog"
+         :aria-hidden="!show">
+
+      <div class="modal-dialog modal-dialog-centered"
+           :class="[{'modal-notice': type === 'notice'}, modalClasses]">
+        <div class="modal-content" :class="[gradient ? `bg-gradient-${gradient}` : '',modalContentClasses]">
+
+          <div class="modal-header" :class="[headerClasses]" v-if="$slots.header">
             <slot name="header"></slot>
-          </div>
-
-          <div class="modal-body">
-            <slot name="body"></slot>
-          </div>
-
-          <div class="modal-footer">
-            <slot name="footer">
-              <button class="modal-default-button" @click="$emit('close')">OK</button>
+            <slot name="close-button">
+              <button type="button"
+                      class="close"
+                      v-if="showClose"
+                      @click="closeModal"
+                      data-dismiss="modal"
+                      aria-label="Close">
+                <span :aria-hidden="!show">×</span>
+              </button>
             </slot>
+          </div>
+
+          <div class="modal-body" :class="bodyClasses">
+            <slot></slot>
+          </div>
+
+          <div class="modal-footer" :class="footerClasses" v-if="$slots.footer">
+            <slot name="footer"></slot>
           </div>
         </div>
       </div>
-    </div>
-  </transition>
-</template>
 
+    </div>
+  </SlideYUpTransition>
+</template>
 <script>
+import { SlideYUpTransition } from "vue2-transitions";
+
 export default {
-  name: "Modal",
+  name: "modal",
+  components: {
+    SlideYUpTransition
+  },
+  props: {
+    show: Boolean,
+    showClose: {
+      type: Boolean,
+      default: true
+    },
+    type: {
+      type: String,
+      default: "",
+      validator(value) {
+        let acceptedValues = ["", "notice", "mini"];
+        return acceptedValues.indexOf(value) !== -1;
+      },
+      description: 'Modal type (notice|mini|"") '
+    },
+    modalClasses: {
+      type: [Object, String],
+      description: "Modal dialog css classes"
+    },
+    modalContentClasses: {
+      type: [Object, String],
+      description: "Modal dialog content css classes"
+    },
+    gradient: {
+      type: String,
+      description: "Modal gradient type (danger, primary etc)"
+    },
+    headerClasses: {
+      type: [Object, String],
+      description: "Modal Header css classes"
+    },
+    bodyClasses: {
+      type: [Object, String],
+      description: "Modal Body css classes"
+    },
+    footerClasses: {
+      type: [Object, String],
+      description: "Modal Footer css classes"
+    },
+    animationDuration: {
+      type: Number,
+      default: 500,
+      description: "Modal transition duration"
+    }
+  },
   methods: {
-    doClose(e) {
-      if ([].slice.call(e.target.classList).includes("modal-wrapper"))
-        this.$emit("close");
+    closeModal() {
+      this.$emit("update:show", false);
+      this.$emit("close");
+    }
+  },
+  watch: {
+    show(val) {
+      let documentClasses = document.body.classList;
+      if (val) {
+        documentClasses.add("modal-open");
+      } else {
+        documentClasses.remove("modal-open");
+      }
     }
   }
 };
 </script>
-
-<style lang="scss" scoped>
-.modal-mask {
-  position: fixed;
-  z-index: 9998;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  transition: opacity 0.3s ease;
-  overflow-y: scroll;
-}
-
-.modal-wrapper {
-}
-
-.modal-container {
-  max-width: 80%;
-  margin: 32px auto;
-  padding: 20px 30px;
-  background-color: #fff;
-  border-radius: 2px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
-  transition: all 0.3s ease;
-  font-family: Helvetica, Arial, sans-serif;
-  overflow-x: hidden;
-}
-
-.modal-header h3 {
-  margin-top: 0;
-  color: #42b983;
-}
-
-.modal-body {
-  margin: 20px 0;
-}
-
-/*
- * The following styles are auto-applied to elements with
- * transition="modal" when their visibility is toggled
- * by Vue.js.
- *
- * You can easily play with the modal transition by editing
- * these styles.
- */
-
-.modal-enter,
-.modal-leave-active {
-  opacity: 0;
-}
-
-.modal-enter .modal-container,
-.modal-leave-active .modal-container {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
+<style>
+.modal.show {
+  background-color: rgba(0, 0, 0, 0.3);
 }
 </style>

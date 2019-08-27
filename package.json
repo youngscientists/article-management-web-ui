@@ -1,51 +1,47 @@
 {
-  "name": "article-management-web-ui",
+  "name": "vue-argon-dashboard",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "dev": "vue-cli-service serve"
   },
   "dependencies": {
-    "cookies": "^0.7.3",
-    "vuex-persist": "^2.0.0",
-    "vuex-persistedstate": "^2.5.4"
+    "bootstrap": "4.3.1",
+    "bootstrap-vue": "2.0.0-rc.15",
+    "chart.js": "2.8.0",
+    "core-js": "2.6.5",
+    "flatpickr": "4.5.7",
+    "nouislider": "13.1.4",
+    "register-service-worker": "1.6.2",
+    "vue": "2.6.6",
+    "vue-chartjs": "3.4.2",
+    "vue-clipboard2": "0.3.0",
+    "vue-flatpickr-component": "8.1.2",
+    "vue-property-decorator": "^7.0.0",
+    "vue-router": "3.0.1",
+    "vue2-transitions": "0.3.0",
+    "vuex": "^3.1.1"
   },
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^5.6.3",
-    "@fortawesome/fontawesome-svg-core": "^1.2.12",
-    "@fortawesome/free-solid-svg-icons": "^5.6.3",
-    "@fortawesome/vue-fontawesome": "^0.1.5",
-    "@vue/cli-plugin-babel": "^3.2.0",
-    "@vue/cli-plugin-eslint": "^3.2.0",
-    "@vue/cli-service": "^3.6.0",
+    "@typescript-eslint/eslint-plugin": "^2.0.0",
+    "@typescript-eslint/parser": "^2.0.0",
+    "@vue/cli-plugin-babel": "^3.5.0",
+    "@vue/cli-plugin-eslint": "^3.5.0",
+    "@vue/cli-plugin-pwa": "^3.5.0",
+    "@vue/cli-service": "^3.5.0",
+    "@vue/eslint-config-typescript": "^4.0.0",
     "babel-eslint": "^10.0.1",
-    "css-loader": "^2.1.0",
     "eslint": "^5.8.0",
-    "eslint-plugin-vue": "^5.0.0-0",
-    "install": "^0.12.2",
-    "js-cookie": "^2.2.0",
-    "material-icons": "^0.3.0",
-    "md5": "^2.2.1",
-    "moment": "^2.24.0",
-    "node-sass": "^4.11.0",
-    "npm": "^6.9.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "node-sass": "^4.9.0",
     "sass-loader": "^7.1.0",
-    "skeleton-css": "^2.0.4",
-    "style-loader": "^0.23.1",
-    "vue": "^2.5.17",
-    "vue-router": "^3.0.2",
-    "vue-table-component": "^1.9.2",
-    "vue-template-compiler": "^2.5.17",
-    "vue-toasted": "^1.1.26",
-    "vue2-autocomplete-js": "^0.2.2",
-    "vuejs-datatable": "^1.7.0",
-    "vuetable-2": "^1.7.5",
-    "vuex": "^3.0.1",
-    "webpack": "^4.27.1",
-    "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.14"
+    "typescript": "^3.7.0-dev.20190824",
+    "vue-class-component": "^6.3.2",
+    "vue-cli-plugin-typescript": "0.0.1",
+    "vue-template-compiler": "2.6.6"
   },
   "eslintConfig": {
     "root": true,
@@ -54,13 +50,12 @@
     },
     "extends": [
       "plugin:vue/essential",
-      "eslint:recommended"
+      "eslint:recommended",
+      "@vue/typescript"
     ],
-    "rules": {
-      "no-console": 0
-    },
+    "rules": {},
     "parserOptions": {
-      "parser": "babel-eslint"
+      "parser": "@typescript-eslint/parser"
     }
   },
   "postcss": {

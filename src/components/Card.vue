@@ -1,109 +1,70 @@
 <template>
-  <div :class="classNamesContainer">
-    <h4 v-if="hasSlot('header')" :class="classNamesHeader">
-      <slot name="header"/>
-    </h4>
-    <div v-if="hasSlot('body')" class="card-body">
-      <slot name="body"/>
+    <div class="card"
+         :class="[
+         {'card-lift--hover': hover},
+         {'shadow': shadow},
+         {[`shadow-${shadowSize}`]: shadowSize},
+         {[`bg-gradient-${gradient}`]: gradient},
+         {[`bg-${type}`]: type}
+       ]">
+        <div class="card-header" :class="headerClasses" v-if="$slots.header">
+            <slot name="header">
+            </slot>
+        </div>
+        <div class="card-body" :class="bodyClasses" v-if="!noBody">
+            <slot></slot>
+        </div>
+
+        <slot v-if="noBody"></slot>
+
+        <div class="card-footer" :class="footerClasses" v-if="$slots.footer">
+            <slot name="footer"></slot>
+        </div>
     </div>
-    <div v-if="hasSlot('footer')" class="card-footer">
-      <slot name="footer"/>
-    </div>
-  </div>
 </template>
-
 <script>
-/* ============
- * Card Component
- * ============
- *
- * A basic card component.
- *
- * Gives an idea how components work.
- */
-import SlotMixin from "@/mixins/slot";
 export default {
-  /**
-   * The name of the component.
-   */
-  name: "Card",
-  /**
-   * The mixins that the component can use.
-   */
-  mixins: [SlotMixin],
-  /**
-   * The properties that the component accepts.
-   */
+  name: "card",
   props: {
-    contextualStyle: {
-      default: "primary",
+    type: {
       type: String,
-      required: false
+      description: "Card type"
     },
-    // eslint-disable-next-line
-    centered: false,
-    textCentered: Boolean,
-    fullWidth: Boolean
-  },
-  /**
-   * The computed properties that the component can use.
-   */
-  computed: {
-    /**
-     * Computed property which will compute the classes
-     * for the header of the card.
-     *
-     * @returns {Array} The classes for the header.
-     */
-    classNamesHeader() {
-      const classNames = ["card-header"];
-      if (this.contextualStyle) {
-        classNames.push(`bg-${this.contextualStyle}`);
-        classNames.push("text-white");
-      } else {
-        classNames.push("bg-default");
-      }
-      return classNames;
+    gradient: {
+      type: String,
+      description: "Card background gradient type (warning,danger etc)"
     },
-    classNamesContainer() {
-      const classNames = ["card"];
-
-      if (this.centered) {
-        classNames.push("centered");
-      }
-
-      if (this.textCentered) {
-        classNames.push("text-centered");
-      }
-
-      if (this.fullWidth === true) {
-        classNames.push("fullwidth");
-      }
-      return classNames;
+    hover: {
+      type: Boolean,
+      description: "Whether card should move on hover"
+    },
+    shadow: {
+      type: Boolean,
+      description: "Whether card has shadow"
+    },
+    shadowSize: {
+      type: String,
+      description: "Card shadow size"
+    },
+    noBody: {
+      type: Boolean,
+      default: false,
+      description: "Whether card should have wrapper body class"
+    },
+    bodyClasses: {
+      type: [String, Object, Array],
+      description: "Card body css classes"
+    },
+    headerClasses: {
+      type: [String, Object, Array],
+      description: "Card header css classes"
+    },
+    footerClasses: {
+      type: [String, Object, Array],
+      description: "Card footer css classes"
     }
   }
 };
 </script>
-
-<style lang="scss" scoped>
-.card {
-  padding: 16px;
-  width: 100%;
-  background: #ffffff;
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-}
-
-@media only screen and (min-width: 768px) {
-.card.centered {
-  margin: 0 auto;
-  width: 50%;
-}
-}
-.card.text-centered {
-  text-align: center;
-}
-
-.card.fullwidth {
-  width: 100%;
-}
+<style>
 </style>
