@@ -64,7 +64,8 @@ export default {
   },
   computed: {
     user() {
-      return this.$store.getters["account/user"];
+      // NOTE $store seems to be Undefined
+      /* return this.$store.getters["account/user"]; */
     }
   },
   methods: {
