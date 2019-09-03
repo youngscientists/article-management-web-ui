@@ -1,6 +1,6 @@
 {
-  "name": "vue-argon-dashboard",
-  "short_name": "vue-argon-dashboard",
+  "name": "Article Management System",
+  "short_name": "AMS",
   "icons": [
     {
       "src": "./img/icons/android-chrome-192x192.png",

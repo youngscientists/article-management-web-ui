@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import HomeLayout from '@/layout/HomeLayout.vue';
 import AuthLayout from '@/layout/AuthLayout.vue';
+import SettingsLayout from '@/layout/SettingsLayout.vue';
 
 Vue.use(Router);
 
@@ -16,53 +17,30 @@ export default new Router({
         {
           path: '/login',
           name: 'login',
-          component: () => import(/* webpackChunkName: "demo" */ './views/Login.vue')
-        },
-        {
-          path: '/register',
-          name: 'register',
-          component: () => import(/* webpackChunkName: "demo" */ './views/Register.vue')
+          component: () => import('./views/Login.vue')
         },
         {
           path: '/login-help',
           name: 'login-help',
-          component: () => import(/* webpackChunkName: "demo" */ './views/LoginHelp.vue')
+          component: () => import('./views/LoginHelp.vue')
         }
       ]
     },
-
     {
-      path: '/',
-      redirect: 'home',
+      path: '/home',
+      redirect: '/home/articles',
       component: HomeLayout,
+      name: 'home',
       children: [
         {
-          path: '/articles',
+          path: '/home/articles',
           name: 'articles',
-          // route level code-splitting
-          // this generates a separate chunk (about.[hash].js) for this route
-          // which is lazy-loaded when the route is visited.
-          component: () => import(/* webpackChunkName: "demo" */ './views/Articles.vue')
+          component: () => import('./views/Articles.vue')
         },
         {
-          path: '/icons',
-          name: 'icons',
-          component: () => import(/* webpackChunkName: "demo" */ './views/Icons.vue')
-        },
-        {
-          path: '/profile',
+          path: '/home/profile',
           name: 'profile',
-          component: () => import(/* webpackChunkName: "demo" */ './views/UserProfile.vue')
-        },
-        {
-          path: '/maps',
-          name: 'maps',
-          component: () => import(/* webpackChunkName: "demo" */ './views/Maps.vue')
-        },
-        {
-          path: '/tables',
-          name: 'tables',
-          component: () => import(/* webpackChunkName: "demo" */ './views/Tables.vue')
+          component: () => import('./views/UserProfile.vue')
         }
       ]
     }

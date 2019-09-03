@@ -27,7 +27,7 @@
               <base-button
                 type="primary"
                 class="my-4"
-                @click="isCodeFieldVisible ? $router.push({name: 'articles'}) : isCodeFieldVisible = true"
+                @click="isCodeFieldVisible ? $router.push({name: 'home'}) : isCodeFieldVisible = true"
               >{{isCodeFieldVisible ? 'Enter AMS' : 'Request Code'}}</base-button>
             </div>
           </form>

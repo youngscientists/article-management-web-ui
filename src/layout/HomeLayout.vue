@@ -2,7 +2,7 @@
   <div class="wrapper" :class="{ 'nav-open': $sidebar.showSidebar }">
     <side-bar
       :background-color="sidebarBackground"
-      short-title="AMS"
+      shortTitle="AMS"
       title="Article Management System"
     >
       <template slot="links">
@@ -10,21 +10,34 @@
           :link="{
             name: 'Articles',
             icon: 'ni ni-single-copy-04 text-primary',
-            path: '/articles'
+            path: '/home/articles'
           }"
         />
 
-        <!-- <sidebar-item :link="{name: 'Icons', icon: 'ni ni-planet text-blue', path: '/icons'}" /> -->
-        <!-- <sidebar-item :link="{name: 'Maps', icon: 'ni ni-pin-3 text-orange', path: '/maps'}" /> -->
         <sidebar-item
-          :link="{name: 'User Profile', icon: 'ni ni-single-02 text-yellow', path: '/profile'}"
+          :link="{name: 'User Profile', icon: 'ni ni-single-02 text-yellow', path: '/home/profile'}"
         />
-        <!--  <sidebar-item
-          :link="{name: 'Tables', icon: 'ni ni-bullet-list-67 text-red', path: '/tables'}"
-        />-->
+        <sidebar-button
+          icon="ni ni-settings-gear-65 text-black"
+          name="Settings"
+          @click="modals.modal0 = true"
+        />
       </template>
     </side-bar>
     <div class="main-content" :data="sidebarBackground">
+      <modal :show.sync="modals.modal0" modalClasses="modal-lg">
+        <template slot="header">
+          <h1 class="modal-title">
+            <b>Settings</b>
+          </h1>
+        </template>
+
+        <settings></settings>
+        <template slot="footer">
+          <base-button type="secondary" @click="modals.modal0 = false">Close</base-button>
+          <base-button type="primary">Save changes</base-button>
+        </template>
+      </modal>
       <home-navbar></home-navbar>
 
       <div @click="toggleSidebar">
@@ -41,15 +54,18 @@
 import HomeNavbar from "./HomeNavbar.vue";
 import ContentFooter from "./ContentFooter.vue";
 import { FadeTransition } from "vue2-transitions";
+import Settings from "../views/Settings/Settings.vue";
 
 export default {
   components: {
     HomeNavbar,
     ContentFooter,
-    FadeTransition
+    FadeTransition,
+    Settings
   },
   data() {
     return {
+      modals: { modal0: false },
       sidebarBackground: "vue" //vue|blue|orange|green|red|primary
     };
   },

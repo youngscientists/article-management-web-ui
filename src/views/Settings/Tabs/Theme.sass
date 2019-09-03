@@ -1,0 +1,65 @@
+///S
+
+
+
+#themeSettingsMain
+  padding: 0.5rem 3rem
+  transition: padding 250ms ease
+
+  #themeSettingsScroll
+    transition: padding 250ms ease
+    max-height: 40vh
+    overflow: auto
+    border-radius: 1rem
+    margin-top: 1rem
+    padding: 0.5rem 4rem
+    display: grid
+    grid-template-columns: auto auto
+    grid-gap: 1rem
+
+    .themeSettingsColor
+      transition: background 250ms ease
+      border-radius: 1rem
+      border-top: 1px solid #eee
+      border-bottom: 1px solid #eee
+      background: #ddd
+      padding: 1rem 2rem
+      border: none
+      display: flex
+      justify-content: space-around
+      cursor: pointer
+      &:hover
+        background: #ccc
+        box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08)
+      b
+        align-self: center
+      .themeSettingsColorPatch
+        display: inline-block
+        align-self: center
+        border-radius: 50%
+        width: 4rem
+        height: 4rem
+
+// TODO add media queries that work.
+// @media screen and ( max-width: 575px )
+//   #themeSettingsMain
+//     padding: 0.5rem 1rem
+//     #themeSettingsScroll
+//       padding: 0.5rem 1rem
+// @media screen and ( max-width: 1000px )
+//   #themeSettingsMain
+//     padding: 0.5rem 2rem
+//     #themeSettingsScroll
+//       padding: 0.5rem 4rem
+
+::-webkit-scrollbar
+  width: 10px !important
+  height: 10px !important
+
+::-webkit-scrollbar-track
+  background: #fff
+::-webkit-scrollbar-thumb
+  background: #444
+  border-radius: 1rem
+::-webkit-scrollbar-thumb:hover
+  background: #666
