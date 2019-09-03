@@ -2,7 +2,7 @@
   <li class="nav-item">
     <div class="nav-link" style="cursor: pointer;" @click="handleClick">
       <template>
-        <i :class="icon"></i>
+        <i :class="icon" v-theme="{color: 'icon'}"></i>
         <span class="nav-link-text" v-theme="{color: 'primaryFont'}">{{ name }}</span>
       </template>
     </div>

@@ -20,21 +20,21 @@
         <sidebar-button
           icon="ni ni-settings-gear-65 text-black"
           name="Settings"
-          @click="modals.modal0 = true"
+          @click="modals.settings = true"
         />
       </template>
     </side-bar>
     <div class="main-content" :data="sidebarBackground">
-      <modal :show.sync="modals.modal0" modalClasses="modal-lg">
+      <modal :show.sync="modals.settings" modalClasses="modal-lg">
         <template slot="header">
           <h1 class="modal-title">
-            <b>Settings</b>
+            <b v-theme="{color: 'accentFont'}">Settings</b>
           </h1>
         </template>
 
         <settings></settings>
         <template slot="footer">
-          <base-button type="secondary" @click="modals.modal0 = false">Close</base-button>
+          <base-button type="secondary" @click="modals.settings = false">Close</base-button>
           <base-button type="primary">Save changes</base-button>
         </template>
       </modal>
@@ -65,7 +65,7 @@ export default {
   },
   data() {
     return {
-      modals: { modal0: false },
+      modals: { settings: false },
       sidebarBackground: "vue" //vue|blue|orange|green|red|primary
     };
   },

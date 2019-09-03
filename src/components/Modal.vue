@@ -14,6 +14,7 @@
         :class="[{'modal-notice': type === 'notice'}, modalClasses]"
       >
         <div
+          v-theme="{background: 'primaryBg'}"
           class="modal-content"
           :class="[gradient ? `bg-gradient-${gradient}` : '',modalContentClasses]"
         >
@@ -27,8 +28,9 @@
                 @click="closeModal"
                 data-dismiss="modal"
                 aria-label="Close"
+                v-theme="{color: 'icon'}"
               >
-                <span :aria-hidden="!show">×</span>
+                <span v-theme="{color: 'icon'}" :aria-hidden="!show">×</span>
               </button>
             </slot>
           </div>

@@ -1,0 +1,33 @@
+
+.colorPickerContainer
+  background: #222
+  width: 100%
+  padding: 20px
+  border-radius: 5px
+  cursor: default
+  .colorPickerColorArea
+    display: grid
+    grid-template-columns: 60px 60px 60px
+    grid-gap: 4px
+
+    .colorPickerColor
+      width: 60px
+      height: 200px
+      border-radius: 5px
+      position: relative
+
+      .colorPickerSlider
+        position: absolute
+        width: 52px
+        height: 8px
+        background: #eee
+        border-radius: 2px
+        margin: 4px
+        cursor: pointer
+
+    .colorPickerColor:nth-child(1)
+      background: linear-gradient(0deg, #000 0%,#f00 100%)
+    .colorPickerColor:nth-child(2)
+      background: linear-gradient(0deg, #000 0%,#0f0 100%)
+    .colorPickerColor:nth-child(3)
+      background: linear-gradient(0deg, #000 0%,#00f 100%)
