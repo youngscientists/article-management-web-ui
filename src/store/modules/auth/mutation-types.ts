@@ -6,14 +6,10 @@
  * on the auth module.
  */
 
-export const CHECK = 'CHECK';
-export const REGISTER = 'REGISTER';
-export const LOGIN = 'LOGIN';
-export const LOGOUT = 'LOGOUT';
+export const pin = 'pin';
+export const token = 'token';
 
 export default {
-  CHECK,
-  REGISTER,
-  LOGIN,
-  LOGOUT,
+  pin,
+  token
 };

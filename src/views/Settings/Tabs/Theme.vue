@@ -9,7 +9,7 @@
           </div>
 
           <div v-if="active === key">
-            <ColorPicker :color="new sColor(color).Get()" :colorKey="key"></ColorPicker>
+            <ColorPicker :color="StringToRGB(color)" :colorKey="key"></ColorPicker>
           </div>
         </div>
       </div>
@@ -18,9 +18,9 @@
 </template>
   
 <script>
-import store from "../../../store";
+import store from "@/store";
 import ColorPicker from "@/components/ColorPicker/ColorPicker";
-import sColor from "s.color";
+import { StringToRGB } from "s.color";
 export default {
   name: "Theme",
   components: {
@@ -29,7 +29,7 @@ export default {
   data() {
     return {
       active: "primary",
-      sColor: sColor
+      StringToRGB: StringToRGB
     };
   },
   computed: {

@@ -7,4 +7,6 @@
 
 export default {
   authenticated: false,
+  pinRequested: false,
+  token: ''
 };

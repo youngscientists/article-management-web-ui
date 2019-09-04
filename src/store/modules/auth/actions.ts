@@ -10,45 +10,37 @@ import Vue from 'vue';
 import store from '@/store';
 import * as types from './mutation-types';
 import router from '@/router';
+import { apiCall } from '@/utility/api/api';
 
-export const check = ({ commit }) => {
-  commit(types.CHECK);
+export const requestPin = (state, payload) => {
+  apiCall('auth/pin', { email: payload.email })
+    .then(res => {
+      return res.json();
+    })
+    .then(data => {
+      if (data.success === true) {
+        store.commit('auth/pin', true);
+      } else {
+        // TODO display error notification.
+      }
+    });
 };
-
-export const login = ({ commit }) => {
-  /*
-   * Normally you would use a proxy to log the user in:
-   *
-   * new Proxy()
-   *  .login(payload)
-   *  .then((response) => {
-   *    commit(types.LOGIN, response);
-   *    store.dispatch('account/find');
-   *    Vue.router.push({
-   *      name: 'home.index',
-   *    });
-   *  })
-   *  .catch(() => {
-   *    console.log('Request failed...');
-   *  });
-   */
-  commit(types.LOGIN, 'RandomGeneratedToken');
-  store.dispatch('account/find');
-
-  router.push({
-    name: 'home.index',
-  });
-};
-
-export const logout = ({ commit }) => {
-  commit(types.LOGOUT);
-  router.push({
-    name: 'login.index',
-  });
+export const requestToken = (state, payload) => {
+  apiCall('auth/token', { email: payload.email, pin: payload.pin })
+    .then(res => {
+      return res.json();
+    })
+    .then(data => {
+      if (data.token) {
+        store.commit('auth/pin', data.token);
+        router.push('home');
+      } else {
+        // TODO display error notification.
+      }
+    });
 };
 
 export default {
-  check,
-  login,
-  logout,
+  requestPin,
+  requestToken
 };

@@ -2,7 +2,6 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import HomeLayout from '@/layout/HomeLayout.vue';
 import AuthLayout from '@/layout/AuthLayout.vue';
-import SettingsLayout from '@/layout/SettingsLayout.vue';
 
 Vue.use(Router);
 

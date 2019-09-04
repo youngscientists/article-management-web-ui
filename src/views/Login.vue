@@ -12,23 +12,25 @@
               placeholder="Email"
               addon-left-icon="ni ni-email-83"
               v-model="model.email"
+              @keypress.enter="(store.dispatch('auth/requestPin', {email: model.email}))"
             ></base-input>
 
             <base-input
-              v-if="isCodeFieldVisible"
+              v-if="GetAuth.pinRequested"
               class="input-group-alternative"
               placeholder="Code"
               type="password"
               addon-left-icon="ni ni-lock-circle-open"
-              v-model="model.password"
+              v-model="model.pin"
+              @keypress.enter="(store.dispatch('auth/requestToken', {email: model.email, pin: model.pin}))"
             ></base-input>
 
             <div class="text-center">
               <base-button
                 type="primary"
                 class="my-4"
-                @click="isCodeFieldVisible ? $router.push({name: 'home'}) : isCodeFieldVisible = true"
-              >{{isCodeFieldVisible ? 'Enter AMS' : 'Request Code'}}</base-button>
+                @click="GetAuth.pinRequested ? (store.dispatch('auth/requestToken', {email: model.email, pin: model.pin})) : (store.dispatch('auth/requestPin', {email: model.email}))"
+              >{{GetAuth.pinRequested ? 'Enter AMS' : 'Request Pin'}}</base-button>
             </div>
           </form>
         </div>
@@ -44,16 +46,23 @@
   </div>
 </template>
 <script>
+import store from "@/store";
 export default {
   name: "login",
   data() {
     return {
       model: {
         email: "",
-        password: ""
+        pin: ""
       },
-      isCodeFieldVisible: false
+      isPinFieldVisible: false,
+      store
     };
+  },
+  computed: {
+    GetAuth() {
+      return store.state.auth;
+    }
   }
 };
 </script>
