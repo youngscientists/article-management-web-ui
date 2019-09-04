@@ -1,19 +1,24 @@
 <template>
   <div class="row justify-content-center">
     <div class="col-lg-5 col-md-7">
-      <div class="card bg-secondary shadow border-0">
+      <div class="card border-0" v-theme="{background: 'primaryBg', shadow: true}">
         <div class="card-body px-lg-5 py-lg-5">
           <div class="text-center text-muted mb-4">
-            <h1>Help</h1>
+            <h1 v-theme="{color: 'primary'}">Help</h1>
           </div>
-          <div>
+          <div v-theme="{color: 'primaryFont'}">
             Welcome to the
-            <a href="https://ysjournal.com" target="_blank">Young Scientists Journal</a> article management system.
+            <a
+              href="https://ysjournal.com"
+              target="_blank"
+              v-theme="{color: 'link'}"
+            >Young Scientists Journal</a> article management system.
             To gain access, you must be registered with the journal as an editor.
             If you are not an editor and wish to become one, please send an email to: chief.editor@ysjournal.com
             <br />
             <br />If you are already an editor but your email is not recognized, notify the production team immediately on the #productionheros
             <a
+              v-theme="{color: 'link'}"
               href="https://ysjournal.slack.com"
               target="_blank"
             >Slack</a> channel.

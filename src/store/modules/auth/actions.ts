@@ -6,9 +6,7 @@
  * auth module.
  */
 
-import Vue from 'vue';
 import store from '@/store';
-import * as types from './mutation-types';
 import router from '@/router';
 import { apiCall } from '@/utility/api/api';
 
@@ -32,7 +30,7 @@ export const requestToken = (state, payload) => {
     })
     .then(data => {
       if (data.token) {
-        store.commit('auth/pin', data.token);
+        store.commit('auth/token', data.token);
         router.push('home');
       } else {
         // TODO display error notification.

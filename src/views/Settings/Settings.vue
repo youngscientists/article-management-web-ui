@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import Theme from "./Tabs/Theme";
+import Theme from "./Tabs/SettingTheme";
 export default {
   name: "Settings",
   components: {

@@ -55,6 +55,8 @@ import HomeNavbar from "./HomeNavbar.vue";
 import ContentFooter from "./ContentFooter.vue";
 import { FadeTransition } from "vue2-transitions";
 import Settings from "../views/Settings/Settings.vue";
+import store from "@/store";
+import router from "@/router";
 
 export default {
   components: {
@@ -74,6 +76,16 @@ export default {
       if (this.$sidebar.showSidebar) {
         this.$sidebar.displaySidebar(false);
       }
+    }
+  },
+  computed: {
+    GetAuth() {
+      return store.state.auth;
+    }
+  },
+  mounted() {
+    if (!store.state.auth.token) {
+      router.push({ name: "login" });
     }
   }
 };

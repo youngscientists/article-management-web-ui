@@ -22,7 +22,7 @@ import store from "@/store";
 import ColorPicker from "@/components/ColorPicker/ColorPicker";
 import { StringToRGB } from "s.color";
 export default {
-  name: "Theme",
+  name: "SettingTheme",
   components: {
     ColorPicker: ColorPicker
   },
@@ -41,5 +41,5 @@ export default {
 </script>
 
 <style lang="sass">
-@import ./Theme
+@import ./SettingTheme
 </style>

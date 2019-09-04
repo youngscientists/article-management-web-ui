@@ -5,6 +5,7 @@ import './registerServiceWorker';
 import ArgonDashboard from './plugins/argon-dashboard';
 
 import store from './store';
+import { SetThemeStyle } from './Theme/Theme.Utility';
 
 Vue.config.productionTip = false;
 
@@ -14,3 +15,4 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app');
+SetThemeStyle(); // initializes the theme styles

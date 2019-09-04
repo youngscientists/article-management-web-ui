@@ -1,17 +1,8 @@
 <template>
-  <div class="main-content bg-default">
-    <!-- Navbar -->
-    <base-nav
-      class="navbar-top navbar-horizontal navbar-dark"
-      containerClasses="px-4 container"
-      expand
-    >
-      <router-link slot="brand" class="navbar-brand" to="/">
-        <img class="login-logo" src="img/brand/logo.png" />
-      </router-link>
-    </base-nav>
+  <div class="main-content" v-theme="{background: 'secondary'}">
     <!-- Header -->
-    <div class="header bg-gradient-success py-7 py-lg-8">
+    <div class="header py-7 py-lg-8" v-theme="{background: 'primary'}">
+      <img class="login-logo" src="img/brand/logo.png" />
       <div class="separator separator-bottom separator-skew zindex-100">
         <svg
           x="0"
@@ -21,7 +12,11 @@
           version="1.1"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <polygon class="fill-default" points="2560 0 2560 100 0 100" />
+          <polygon
+            v-theme="{fill: 'secondary'}"
+            class="fill-default"
+            points="2560 0 2560 100 0 100"
+          />
         </svg>
       </div>
     </div>
@@ -53,12 +48,29 @@ export default {
   height: 100%
   width: 100%
   position: absolute
-.footer
-  position: absolute
-  bottom: 0
 .login-logo
   width: 10rem !important
   height: 10rem !important
+  position: absolute
+  top: 20px
+  left: 20%
+  transition: left 200ms ease
+@media screen and ( max-width: 1200px )
+  .login-logo
+    left: 10%
+@media screen and ( max-width: 1000px )
+  .login-logo
+    left: 2%
+@media screen and ( max-width: 800px )
+  .login-logo
+    left: 4%
+    width: 4rem !important
+    height: 4rem !important
+  .header
+    margin-bottom: 3rem
+
+    
+
 
 
 </style>

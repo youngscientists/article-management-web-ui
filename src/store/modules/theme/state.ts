@@ -5,23 +5,22 @@
  * The initial state of the auth module.
  */
 
-export interface ITheme {
-  primaryBg: string;
-  primaryFont: string;
-  accentFont: string;
-  primary: string;
-  icon: string;
-  cards: string;
+interface ITheme {
+  shadow: string;
   [key: string]: string;
 }
 
 const DefaultTheme: ITheme = {
+  shadow: '#673ab7',
   primaryBg: '#222',
-  primary: '#699',
+  primary: '#c00',
+  primaryHover: '#d00',
   primaryFont: '#eee',
-  accentFont: '#5E72E4',
+  link: '#59f',
+  accentFont: '#673ab7',
   icon: '#eee',
-  cards: '#444'
+  cards: '#444',
+  secondary: '#4C1717'
 };
 
 export default DefaultTheme;

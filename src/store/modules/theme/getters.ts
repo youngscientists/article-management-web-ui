@@ -6,4 +6,14 @@
  * auth module.
  */
 
-export default {};
+export default {
+  getAll: state => {
+    const CleanObject = {};
+    for (const key in state) {
+      if (state.hasOwnProperty(key)) {
+        CleanObject[key] = state[key];
+      }
+    }
+    return CleanObject;
+  }
+};
