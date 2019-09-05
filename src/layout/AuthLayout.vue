@@ -1,24 +1,12 @@
 <template>
   <div class="main-content" v-theme="{background: 'secondary'}">
     <!-- Header -->
-    <div class="header py-7 py-lg-8" v-theme="{background: 'primary'}">
+    <div class="header py-8 py-lg-8" v-theme="{background: 'primary'}">
       <img class="login-logo" src="img/brand/logo.png" />
-      <div class="separator separator-bottom separator-skew zindex-100">
-        <svg
-          x="0"
-          y="0"
-          viewBox="0 0 2560 100"
-          preserveAspectRatio="none"
-          version="1.1"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <polygon
-            v-theme="{fill: 'secondary'}"
-            class="fill-default"
-            points="2560 0 2560 100 0 100"
-          />
-        </svg>
-      </div>
+      <div
+        class="separator separator-bottom separator-skew zindex-100 test"
+        v-theme="{after: 'secondary'}"
+      ></div>
     </div>
     <!-- Page content -->
     <div class="container mt--8 pb-5">
@@ -64,10 +52,22 @@ export default {
 @media screen and ( max-width: 800px )
   .login-logo
     left: 4%
-    width: 4rem !important
-    height: 4rem !important
+    width: 7rem !important
+    height: 7rem !important
   .header
     margin-bottom: 3rem
+.test
+  &::after
+    position: absolute
+    top: 20px
+    left: 0
+
+    content: ' '
+    width: 200vw !important
+    height: 200px !important
+    z-index: 1000
+    background: #000
+    transform: rotate( -1deg ) !important
 
     
 

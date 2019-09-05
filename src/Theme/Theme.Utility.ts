@@ -26,22 +26,30 @@ export function SetThemeStyle() {
     if (themeColors.hasOwnProperty(key)) {
       const color = themeColors[key];
       styleContent += `.t-bg-${key},
-.t-h-bg-${key}:hover {
+.t-h-bg-${key}:hover,
+.t-f-bg-${key}:active,
+.t-af-${key}::after {
   background-color: ${color} !important;
 }
 `;
       styleContent += `.t-c-${key},
-.t-h-c-${key}:hover{
+.t-h-c-${key}:hover,
+.t-a-c-${key}:active,
+.t-p-c-${key}::placeholder,
+.t-p-h-c-${key}:hover::placeholder,
+.t-p-f-c-${key}:focus::placeholder {
   color: ${color} !important;
 }
 `;
       styleContent += `.t-f-${key},
-.t-h-f-${key}:hover {
+.t-h-f-${key}:hover,
+.t-f-f-${key}:active {
   fill: ${color} !important;
 }
 `;
       styleContent += `.t-b-${key},
-.t-h-v-${key}:hover {
+.t-h-b-${key}:hover,
+.t-f-b-${key}:active {
   border-color: ${color} !important;
 }
 `;

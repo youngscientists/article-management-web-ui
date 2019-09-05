@@ -19,6 +19,8 @@ const DefaultTheme: ITheme = {
   link: '#59f',
   accentFont: '#673ab7',
   icon: '#eee',
+  muted: '#777',
+  mutedHover: '#555',
   cards: '#444',
   secondary: '#4C1717'
 };

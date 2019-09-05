@@ -20,13 +20,17 @@
     <div v-if="addonLeftIcon || $slots.addonLeft" class="input-group-prepend">
       <span class="input-group-text" v-theme="{background: 'cards'}">
         <slot name="addonLeft">
-          <i :class="addonLeftIcon"></i>
+          <i
+            v-theme="{color: `${focused ? 'icon' : 'muted'}`, update: [{type: 'color', value:  `${focused ? 'muted' : 'icon' }`},]}"
+            :class="addonLeftIcon"
+          ></i>
         </slot>
       </span>
     </div>
     <slot v-bind="slotData">
       <input
-        v-theme="{background: 'cards'}"
+        spellcheck="false"
+        v-theme="{background: 'cards', color: 'primaryFont', placeholder: {color: 'muted', hover: 'mutedHover',focus: 'mutedHover'}}"
         :value="value"
         v-on="listeners"
         v-bind="$attrs"
@@ -40,7 +44,10 @@
     <div v-if="addonRightIcon || $slots.addonRight" class="input-group-append">
       <span class="input-group-text" v-theme="{background: 'cards'}">
         <slot name="addonRight">
-          <i :class="addonRightIcon"></i>
+          <i
+            v-theme="{color: `${focused ? 'icon' : 'muted'}`, update: [{type: 'color', value:  `${focused ? 'muted' : 'icon' }`},]}"
+            :class="addonRightIcon"
+          ></i>
         </slot>
       </span>
     </div>
@@ -95,7 +102,7 @@ export default {
     },
     addonLeftIcon: {
       type: String,
-      description: "Addont left icon"
+      description: "Addon left icon"
     }
   },
   data() {
