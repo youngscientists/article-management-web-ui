@@ -84,7 +84,7 @@ export default {
     }
   },
   mounted() {
-    if (!store.state.auth.token) {
+    if (!store.state.auth.token && process.env.VUE_APP_MODE !== "dev") {
       router.push({ name: "login" });
     }
   }

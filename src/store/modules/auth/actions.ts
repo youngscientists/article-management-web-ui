@@ -9,10 +9,9 @@
 import store from '@/store';
 import router from '@/router';
 import { apiCall } from '@/utility/api/api';
-import { Password } from 'suf-password';
 
 export const requestPin = (state, payload) => {
-  if (Password.Validate(payload.email, [{ type: 'customRegex', customRegex: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ }]).passed) {
+  if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(payload.email)) {
     apiCall('auth/pin', { email: payload.email })
       .then(res => {
         return res.json();
