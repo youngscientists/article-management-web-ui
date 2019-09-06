@@ -4,7 +4,7 @@
     <div class="header py-8 py-lg-8" v-theme="{background: 'primary'}">
       <img class="login-logo" src="img/brand/logo.png" />
       <div
-        class="separator separator-bottom separator-skew zindex-100 test"
+        class="separator separator-bottom separator-skew zindex-100 login-after"
         v-theme="{after: 'secondary'}"
       ></div>
     </div>
@@ -16,20 +16,19 @@
     </div>
   </div>
 </template>
-<script>
+<script lang="ts">
 import { SlideYUpTransition } from "vue2-transitions";
-export default {
-  name: "auth-layout",
+import Vue from "vue";
+import Component from "vue-class-component";
+
+@Component({
   components: {
     SlideYUpTransition
-  },
-  data() {
-    return {
-      year: new Date().getFullYear(),
-      showMenu: false
-    };
   }
-};
+})
+export default class App extends Vue {
+  name: "auth-layout";
+}
 </script>
 <style lang="sass" scoped>
 .main-content
@@ -43,6 +42,9 @@ export default {
   top: 20px
   left: 20%
   transition: left 200ms ease
+@media screen and ( max-width: 1400px )
+  .login-logo
+    left: 15%
 @media screen and ( max-width: 1200px )
   .login-logo
     left: 10%
@@ -56,7 +58,7 @@ export default {
     height: 7rem !important
   .header
     margin-bottom: 3rem
-.test
+.login-after
   &::after
     position: absolute
     top: 20px

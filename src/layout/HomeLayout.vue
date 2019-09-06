@@ -50,7 +50,9 @@
     </div>
   </div>
 </template>
-<script>
+<script lang="ts">
+import Vue from "vue";
+import Component from "vue-class-component";
 import HomeNavbar from "./HomeNavbar.vue";
 import ContentFooter from "./ContentFooter.vue";
 import { FadeTransition } from "vue2-transitions";
@@ -58,18 +60,12 @@ import Settings from "../views/Settings/Settings.vue";
 import store from "@/store";
 import router from "@/router";
 
-export default {
+@Component({
   components: {
     HomeNavbar,
     ContentFooter,
     FadeTransition,
     Settings
-  },
-  data() {
-    return {
-      modals: { settings: false },
-      sidebarBackground: "vue" //vue|blue|orange|green|red|primary
-    };
   },
   methods: {
     toggleSidebar() {
@@ -83,12 +79,20 @@ export default {
       return store.state.auth;
     }
   },
+  data() {
+    return {
+      modals: { settings: false },
+      sidebarBackground: "vue" //vue|blue|orange|green|red|primary
+    };
+  }
+})
+export default class HomeLayout extends Vue {
   mounted() {
     if (!store.state.auth.token && process.env.VUE_APP_MODE !== "dev") {
       router.push({ name: "login" });
     }
   }
-};
+}
 </script>
 <style lang="sass">
 </style>

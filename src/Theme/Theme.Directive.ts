@@ -1,7 +1,9 @@
 import { DirectiveBinding } from 'vue/types/options';
 import { VNode } from 'vue/types/vnode';
 
-export default {
+import { DirectiveOptions } from 'vue';
+
+const directive: DirectiveOptions = {
   inserted: (el: HTMLElement, binding: DirectiveBinding, vNode: VNode) => {
     setColors(el, binding.value, false);
   },
@@ -11,6 +13,8 @@ export default {
     }
   }
 };
+
+export default directive;
 interface SetColorInputBase {
   background: string;
   color: string;

@@ -6,16 +6,17 @@
  * auth module.
  */
 
+import Vue from 'vue';
 import store, { RootState } from '@/store';
 import router from '@/router';
 import { apiCall } from '@/utility/api/api';
 import { AuthState } from './state';
-import { ActionTree, Action, ActionContext, Store } from 'vuex';
+import { ActionTree, ActionContext, Store } from 'vuex';
 
 interface Payload {
   email: string;
   pin: string;
-  vm: any;
+  vm: Vue;
 }
 
 export const requestPin = function(this: Store<RootState>, injectee: ActionContext<AuthState, RootState>, payload: Payload) {

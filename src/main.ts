@@ -2,14 +2,14 @@ import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
 import './registerServiceWorker';
-import ArgonDashboard from './plugins/argon-dashboard';
+import Plugins from './plugins/Plugins';
 
 import store from './store';
 import { SetThemeStyle } from './Theme/Theme.Utility';
 
 Vue.config.productionTip = false;
 
-Vue.use(ArgonDashboard);
+Vue.use(Plugins);
 new Vue({
   router,
   store,

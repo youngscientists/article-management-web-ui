@@ -50,7 +50,12 @@ import Vue from "vue";
 import store from "@/store";
 import Component from "vue-class-component";
 
-const AppProps = Vue.extend({
+@Component({
+  computed: {
+    GetAuth() {
+      return store.state.auth;
+    }
+  },
   data() {
     return {
       model: {
@@ -62,16 +67,8 @@ const AppProps = Vue.extend({
       ref: this
     };
   }
-});
-
-@Component({
-  computed: {
-    GetAuth() {
-      return store.state.auth;
-    }
-  }
 })
-export default class App extends AppProps {
+export default class App extends Vue {
   name: "login";
 }
 </script>

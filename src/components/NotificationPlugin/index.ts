@@ -1,7 +1,21 @@
 import Notifications from './Notifications.vue';
 import { PluginObject } from 'vue';
 
-class NotificationStore {
+export interface Notification {
+  message: string;
+  title?: string;
+  icon?: string;
+  verticalAlign?: string;
+  horizontalAlign?: string;
+  type?: 'default' | 'info' | 'primary' | 'danger' | 'warning' | 'success';
+  timeout?: number;
+  timestamp?: Date;
+  component?: any;
+  showClose?: boolean;
+  closeOnClick?: boolean;
+  clickHandler?: Function;
+}
+export class NotificationStore {
   public state = []; // here the notifications will be added
   public settings = {
     overlap: false,
@@ -13,31 +27,29 @@ class NotificationStore {
     showClose: true
   };
 
-  constructor(options: any = {}) {
+  constructor(options = {}) {
     this.setOptions(options);
   }
 
   public setOptions(options) {
     this.settings = Object.assign(this.settings, options);
   }
-  public removeNotification(timestamp) {
+  public removeNotification(timestamp: Date) {
     const indexToDelete = this.state.findIndex(n => n.timestamp === timestamp);
     if (indexToDelete !== -1) {
       this.state.splice(indexToDelete, 1);
     }
   }
-  public addNotification(notification) {
+  public addNotification(notification: any) {
     if (typeof notification === 'string' || notification instanceof String) {
       notification = { message: notification };
     }
     notification.timestamp = new Date();
-    notification.timestamp.setMilliseconds(
-      notification.timestamp.getMilliseconds() + this.state.length
-    );
+    notification.timestamp.setMilliseconds(notification.timestamp.getMilliseconds() + this.state.length);
     notification = Object.assign({}, this.settings, notification);
     this.state.push(notification);
   }
-  public notify(notification) {
+  public notify(notification: Notification | string) {
     if (Array.isArray(notification)) {
       notification.forEach(notificationInstance => {
         this.addNotification(notificationInstance);
@@ -46,7 +58,7 @@ class NotificationStore {
       this.addNotification(notification);
     }
   }
-};
+}
 
 const NotificationsPlugin: PluginObject<NotificationStore> = {
   install(Vue, options) {
