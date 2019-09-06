@@ -38,14 +38,13 @@
           <base-button type="primary">Save changes</base-button>
         </template>
       </modal>
-      <home-navbar></home-navbar>
+      <!-- <home-navbar></home-navbar> -->
 
       <div @click="toggleSidebar">
         <fade-transition :duration="200" origin="center top" mode="out-in">
-          <!-- your content here -->
           <router-view></router-view>
         </fade-transition>
-        <content-footer v-if="!$route.meta.hideFooter"></content-footer>
+        <!-- <content-footer v-if="!$route.meta.hideFooter"></content-footer> -->
       </div>
     </div>
   </div>
@@ -88,11 +87,10 @@ import router from "@/router";
 })
 export default class HomeLayout extends Vue {
   mounted() {
-    if (!store.state.auth.token && process.env.VUE_APP_MODE !== "dev") {
+    if (!store.state.auth.token) {
+      // && process.env.VUE_APP_MODE !== "dev"
       router.push({ name: "login" });
     }
   }
 }
 </script>
-<style lang="sass">
-</style>

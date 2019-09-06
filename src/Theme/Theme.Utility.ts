@@ -11,7 +11,23 @@ export function SetThemeStyle() {
 
   const themeColors = store.getters['theme/getAll'];
   const shadow = StringToRGB(themeColors.shadow);
-  let styleContent = `.t-shadow {
+  let styleContent = `
+
+*::-webkit-scrollbar {
+  width: 10px !important;
+  height: 10px !important;
+}
+*::-webkit-scrollbar-track {
+  background: ${themeColors.primaryBg}
+}
+*::-webkit-scrollbar-thumb {
+  background: ${themeColors.mutedHover};
+  border-radius: 1rem;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: ${themeColors.muted};
+}
+.t-shadow {
   box-shadow: 0 0 2rem 0 rgba(${shadow.r * 255}, ${shadow.g * 255}, ${shadow.b * 255}, .15) !important;
 }
 .t-shadow-sm {

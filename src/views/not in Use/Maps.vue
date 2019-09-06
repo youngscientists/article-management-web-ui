@@ -94,7 +94,7 @@ export default {
     let map = document.getElementById("map-canvas");
     let lat = map.getAttribute("data-lat");
     let lng = map.getAttribute("data-lng");
-
+    console.log("AAAA");
     const myLatlng = new google.maps.LatLng(lat, lng);
     const mapOptions = {
       zoom: 12,

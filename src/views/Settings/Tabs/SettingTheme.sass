@@ -39,26 +39,21 @@
           width: 4rem
           height: 4rem
 
-// TODO add media queries that work.
-// @media screen and ( max-width: 575px )
-//   #themeSettingsMain
-//     padding: 0.5rem 1rem
-//     #themeSettingsScroll
-//       padding: 0.5rem 1rem
-// @media screen and ( max-width: 1000px )
-//   #themeSettingsMain
-//     padding: 0.5rem 2rem
-//     #themeSettingsScroll
-//       padding: 0.5rem 4rem
-
-::-webkit-scrollbar
-  width: 10px !important
-  height: 10px !important
-
-::-webkit-scrollbar-track
-  background: #fff
-::-webkit-scrollbar-thumb
-  background: #444
-  border-radius: 1rem
-::-webkit-scrollbar-thumb:hover
-  background: #666
+@media screen and ( max-width: 575px )
+  #themeSettingsMain
+    padding: 0.5rem 1rem
+    #themeSettingsScroll
+      padding: 0.5rem 1rem
+      .themeSettingsColor
+        padding: 1rem
+        .themeSettingsColorName
+          margin: 0.5rem
+          .themeSettingsColorPatch
+            width: 2rem
+            height: 2rem
+@media screen and ( max-width: 1000px )
+  #themeSettingsMain
+    padding: 0.5rem 2rem
+    #themeSettingsScroll
+      grid-template-columns: auto
+      padding: 0.5rem 4rem

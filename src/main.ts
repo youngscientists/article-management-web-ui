@@ -6,6 +6,7 @@ import Plugins from './plugins/Plugins';
 
 import store from './store';
 import { SetThemeStyle } from './Theme/Theme.Utility';
+import { InitCookie } from './utility/cookie/cookie';
 
 Vue.config.productionTip = false;
 
@@ -16,3 +17,4 @@ new Vue({
   render: h => h(App)
 }).$mount('#app');
 SetThemeStyle(); // initializes the theme styles
+InitCookie(); // get token from cookie

@@ -1,16 +1,18 @@
 <template>
   <nav
-    class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light"
+    class="navbar navbar-vertical fixed-left navbar-expand-md"
     id="sidenav-main"
     v-theme="{background: 'primaryBg'}"
   >
     <div class="container-fluid">
       <!--Toggler-->
       <navbar-toggle-button @click.native="showSidebar">
-        <span class="navbar-toggler-icon"></span>
+        <i class="ni ni-bullet-list-67" v-theme="{color: 'icon'}"></i>
+        <!-- <span class="navbar-toggler-icon" ></span> -->
       </navbar-toggle-button>
       <router-link class="navbar-brand" to="/home">
-        <h1 v-theme="{color: 'accentFont'}">{{shortTitle}}</h1>
+        <img src="img/brand/logo.png" />
+        <!-- <h1 v-theme="{color: 'accentFont'}">{{shortTitle}}</h1> -->
       </router-link>
 
       <slot name="mobile-right">
@@ -28,7 +30,7 @@
           <div class="row">
             <div class="col-6 collapse-brand">
               <router-link to="/">
-                <img src="img/brand/logo-dark.png" />
+                <img src="img/brand/logo.png" />
               </router-link>
             </div>
             <div class="col-6 collapse-close">
@@ -81,3 +83,4 @@ export default {
   }
 };
 </script>
+
