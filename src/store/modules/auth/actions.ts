@@ -6,11 +6,19 @@
  * auth module.
  */
 
-import store from '@/store';
+import store, { RootState } from '@/store';
 import router from '@/router';
 import { apiCall } from '@/utility/api/api';
+import { AuthState } from './state';
+import { ActionTree, Action, ActionContext, Store } from 'vuex';
 
-export const requestPin = (state, payload) => {
+interface Payload {
+  email: string;
+  pin: string;
+  vm: any;
+}
+
+export const requestPin = function(this: Store<RootState>, injectee: ActionContext<AuthState, RootState>, payload: Payload) {
   if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(payload.email)) {
     apiCall('auth/pin', { email: payload.email })
       .then(res => {
@@ -27,7 +35,7 @@ export const requestPin = (state, payload) => {
     payload.vm.$notify({ type: 'warning', message: 'Please enter a valid email address!', icon: 'ni ni-bell-55 ' });
   }
 };
-export const requestToken = (state, payload) => {
+export const requestToken = function(this: Store<RootState>, injectee: ActionContext<AuthState, RootState>, payload: Payload) {
   apiCall('auth/token', { email: payload.email, pin: payload.pin })
     .then(res => {
       return res.json();
@@ -42,7 +50,9 @@ export const requestToken = (state, payload) => {
     });
 };
 
-export default {
+const AuthActions: ActionTree<AuthState, RootState> = {
   requestPin,
   requestToken
 };
+
+export default AuthActions;

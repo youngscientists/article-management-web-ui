@@ -45,10 +45,12 @@
     </div>
   </div>
 </template>
-<script>
+<script lang="ts">
+import Vue from "vue";
 import store from "@/store";
-export default {
-  name: "login",
+import Component from "vue-class-component";
+
+const AppProps = Vue.extend({
   data() {
     return {
       model: {
@@ -59,13 +61,19 @@ export default {
       store,
       ref: this
     };
-  },
+  }
+});
+
+@Component({
   computed: {
     GetAuth() {
       return store.state.auth;
     }
   }
-};
+})
+export default class App extends AppProps {
+  name: "login";
+}
 </script>
 <style>
 </style>

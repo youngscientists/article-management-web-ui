@@ -1,19 +1,9 @@
 /* ============
- * Mutation types for the account module
+ * Mutation types for the theme module
  * ============
  *
  * The mutation types that are available
- * on the auth module.
+ * on the theme module.
  */
 
-export const CHECK = 'CHECK';
-export const REGISTER = 'REGISTER';
-export const LOGIN = 'LOGIN';
-export const LOGOUT = 'LOGOUT';
-
-export default {
-  CHECK,
-  REGISTER,
-  LOGIN,
-  LOGOUT,
-};
+export default {};

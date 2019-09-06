@@ -1,17 +1,21 @@
 /* ============
- * Auth Module
+ * Theme Module
  * ============
  */
 
 import actions from './actions';
 import getters from './getters';
 import mutations from './mutations';
-import state from './state';
+import state, { ThemeState } from './state';
+import { Module } from 'vuex';
+import { RootState } from '@/store';
 
-export default {
+const ThemeStoreModule: Module<ThemeState, RootState> = {
   namespaced: true,
   actions,
   getters,
   mutations,
-  state,
+  state
 };
+
+export default ThemeStoreModule;

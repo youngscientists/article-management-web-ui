@@ -6,12 +6,16 @@
 import actions from './actions';
 import getters from './getters';
 import mutations from './mutations';
-import state from './state';
+import state, { AuthState } from './state';
+import { Module } from 'vuex';
+import { RootState } from '@/store';
 
-export default {
+const AuthStoreModule: Module<AuthState, RootState> = {
   namespaced: true,
   actions,
   getters,
   mutations,
-  state,
+  state
 };
+
+export default AuthStoreModule;

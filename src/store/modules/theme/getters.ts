@@ -1,13 +1,17 @@
+import { ThemeState } from './state';
+import { RootState } from '@/store';
+import { GetterTree } from 'vuex';
+
 /* ============
- * Getters for the auth module
+ * Getters for the theme module
  * ============
  *
  * The getters that are available on the
- * auth module.
+ * theme module.
  */
 
-export default {
-  getAll: state => {
+const getters: GetterTree<ThemeState, RootState> = {
+  getAll: function(state: ThemeState) {
     const CleanObject = {};
     for (const key in state) {
       if (state.hasOwnProperty(key)) {
@@ -17,3 +21,5 @@ export default {
     return CleanObject;
   }
 };
+
+export default getters;

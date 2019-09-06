@@ -1,9 +1,9 @@
 /* ============
- * Actions for the auth module
+ * Actions for the theme module
  * ============
  *
  * The actions that are available on the
- * auth module.
+ * theme module.
  */
 
 export default {};

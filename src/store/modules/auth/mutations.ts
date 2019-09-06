@@ -6,15 +6,17 @@
  * account module.
  */
 
-import Vue from 'vue';
 import { pin, token } from './mutation-types';
+import { MutationTree } from 'vuex';
+import { AuthState } from './state';
 
-/* eslint-disable no-param-reassign */
-export default {
-  [pin](state: any, payload: any) {
+const mutations: MutationTree<AuthState> = {
+  [pin](state: AuthState, payload: any) {
     state.pinRequested = payload;
   },
-  [token](state: any, payload: any) {
+  [token](state: AuthState, payload: any) {
     state.token = payload;
   }
 };
+
+export default mutations;

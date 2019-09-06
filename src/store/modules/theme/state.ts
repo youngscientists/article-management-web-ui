@@ -1,16 +1,16 @@
 /* ============
- * State of the auth module
+ * State of the Theme module
  * ============
  *
- * The initial state of the auth module.
+ * The initial state of the Theme module.
  */
 
-interface ITheme {
+export interface ThemeState {
   shadow: string;
   [key: string]: string;
 }
 
-const DefaultTheme: ITheme = {
+const DefaultTheme: ThemeState = {
   shadow: '#673ab7',
   primaryBg: '#222',
   primary: '#c00',

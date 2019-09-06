@@ -5,8 +5,16 @@
  * The initial state of the auth module.
  */
 
-export default {
+export interface AuthState {
+  authenticated: boolean;
+  pinRequested: boolean;
+  token: string;
+}
+
+const state: AuthState = {
   authenticated: false,
   pinRequested: false,
   token: ''
 };
+
+export default state;
