@@ -5,11 +5,11 @@ import { DirectiveOptions } from 'vue';
 
 const directive: DirectiveOptions = {
   inserted: (el: HTMLElement, binding: DirectiveBinding, vNode: VNode) => {
-    setColors(el, binding.value, false);
+    vThemeSetClasses(el, binding.value, false);
   },
   update: (el: HTMLElement, binding: DirectiveBinding, vNode: VNode) => {
     if (binding.value && binding.value.update) {
-      setColors(el, binding.value, true);
+      vThemeSetClasses(el, binding.value, true);
     }
   }
 };
@@ -30,7 +30,7 @@ export interface vTheme extends SetColorInputBase {
   update: { type: 'shadow' | 'color' | 'background' | 'fill' | 'border'; value: string }[];
 }
 
-function setColors(el: HTMLElement, input: vTheme, canUpdate: boolean) {
+export function vThemeSetClasses(el: HTMLElement, input: vTheme, canUpdate: boolean) {
   // update is true if input.update is truthy and the update hook gets called.
   if (canUpdate && input.update) {
     for (const update of input.update) {

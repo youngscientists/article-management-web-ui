@@ -6,7 +6,7 @@
 import actions from './actions';
 import getters from './getters';
 import mutations from './mutations';
-import state, { ThemeState } from './state';
+import State, { ThemeState } from './state';
 import { Module } from 'vuex';
 import { RootState } from '@/store';
 
@@ -15,7 +15,7 @@ const ThemeStoreModule: Module<ThemeState, RootState> = {
   actions,
   getters,
   mutations,
-  state
+  state: State
 };
 
 export default ThemeStoreModule;

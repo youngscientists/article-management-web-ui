@@ -1,5 +1,6 @@
 import store from '@/store';
 import { StringToRGB } from 's.color';
+import { Theme } from '@/store/modules/theme/state';
 export function SetThemeStyle() {
   let themeElement = document.getElementById('themeStyleTag');
   if (themeElement === null) {
@@ -9,23 +10,26 @@ export function SetThemeStyle() {
     themeElement = styleEl;
   }
 
-  const themeColors = store.getters['theme/getAll'];
-  const shadow = StringToRGB(themeColors.shadow);
+  const themeColors: Theme['colors'] = store.getters['theme/getCurrentThemeColors'];
+  const themeDefaults: Theme['defaults'] = store.getters['theme/getCurrentThemeDefaults'];
+  const shadow = StringToRGB(themeColors[themeDefaults.shadow]);
   let styleContent = `
-
 *::-webkit-scrollbar {
   width: 10px !important;
   height: 10px !important;
 }
 *::-webkit-scrollbar-track {
-  background: ${themeColors.primaryBg}
+  background: ${themeColors[themeDefaults.scrollBar.track]};
 }
 *::-webkit-scrollbar-thumb {
-  background: ${themeColors.mutedHover};
+  background: ${themeColors[themeDefaults.scrollBar.thumb]};
   border-radius: 1rem;
 }
 *::-webkit-scrollbar-thumb:hover {
-  background: ${themeColors.muted};
+  background: ${themeColors[themeDefaults.scrollBar.thumbHover]};
+}
+* {
+  color: ${themeColors[themeDefaults.color]};
 }
 .t-shadow {
   box-shadow: 0 0 2rem 0 rgba(${shadow.r * 255}, ${shadow.g * 255}, ${shadow.b * 255}, .15) !important;
@@ -37,7 +41,7 @@ export function SetThemeStyle() {
   box-shadow: 0 0 3rem rgba(${shadow.r * 255}, ${shadow.g * 255}, ${shadow.b * 255}, .175) !important;
 }
 `;
-  delete themeColors.shadow;
+  delete themeColors[themeDefaults.shadow];
   for (const key in themeColors) {
     if (themeColors.hasOwnProperty(key)) {
       const color = themeColors[key];

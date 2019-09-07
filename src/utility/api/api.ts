@@ -6,6 +6,7 @@ export function apiPOST(path: POST, data: any) {
     headers: {
       'Content-Type': 'application/json'
     },
+    credentials: 'omit',
     body: JSON.stringify(data)
   });
 }

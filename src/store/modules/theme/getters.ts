@@ -1,4 +1,4 @@
-import { ThemeState } from './state';
+import { ThemeState, Theme } from './state';
 import { RootState } from '@/store';
 import { GetterTree } from 'vuex';
 
@@ -11,14 +11,17 @@ import { GetterTree } from 'vuex';
  */
 
 const getters: GetterTree<ThemeState, RootState> = {
-  getAll: function(state: ThemeState) {
-    const CleanObject = {};
-    for (const key in state) {
-      if (state.hasOwnProperty(key)) {
-        CleanObject[key] = state[key];
+  getCurrentThemeColors: function(state: ThemeState) {
+    const CleanObject: Theme['colors'] = {};
+    for (const key in state.themes[state.currentTheme].colors) {
+      if (state.themes[state.currentTheme].colors.hasOwnProperty(key)) {
+        CleanObject[key] = state.themes[state.currentTheme].colors[key];
       }
     }
     return CleanObject;
+  },
+  getCurrentThemeDefaults: function(state: ThemeState) {
+    return state.themes[state.currentTheme].defaults;
   }
 };
 
