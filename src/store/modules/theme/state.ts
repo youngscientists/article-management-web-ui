@@ -13,7 +13,7 @@ export interface Theme {
   name: string;
   canBeModified: boolean;
   colors: { [key: string]: string };
-  defaults: { color: string; scrollBar: { track: string; thumb: string; thumbHover: string }; shadow: string };
+  defaults: { color: string; background: string; scrollBar: { track: string; thumb: string; thumbHover: string }; shadow: string };
 }
 
 const State: ThemeState = {
@@ -44,7 +44,8 @@ const State: ThemeState = {
           thumbHover: 'muted',
           track: 'primaryBg'
         },
-        shadow: 'shadow'
+        shadow: 'shadow',
+        background: 'primary'
       }
     }
   }

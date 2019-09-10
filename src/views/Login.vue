@@ -1,7 +1,7 @@
 <template>
   <div class="row justify-content-center">
-    <div class="col-lg-5 col-md-7">
-      <div v-theme="{background: 'primaryBg', shadow: true}" class="card border-0">
+    <div class="col-lg-5 col-md-7 bg-transparent">
+      <div v-theme="{background: 'primaryBg', shadow: true}" class="card border-0 overflow-hidden">
         <div class="card-body px-lg-5 py-lg-5">
           <div class="text-center text-muted mb-4">
             <h1 v-theme="{color: 'primary'}">Login</h1>

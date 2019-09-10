@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import HomeLayout from '@/layout/HomeLayout.vue';
 import AuthLayout from '@/layout/AuthLayout.vue';
+import Content from '@/layout/Content.vue';
 
 Vue.use(Router);
 
@@ -25,6 +26,7 @@ export default new Router({
         }
       ]
     },
+
     {
       path: '/home',
       redirect: '/home/articles',
@@ -40,6 +42,17 @@ export default new Router({
           path: '/home/profile',
           name: 'profile',
           component: () => import('./views/UserProfile.vue')
+        }
+      ]
+    },
+    {
+      path: '/view',
+      component: Content,
+      children: [
+        {
+          path: '/view/:article',
+          name: 'article',
+          component: () => import('./views/ViewArticle.vue')
         }
       ]
     }

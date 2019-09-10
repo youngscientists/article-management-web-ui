@@ -10,8 +10,8 @@ export function apiPOST(path: POST, data: any) {
     body: JSON.stringify(data)
   });
 }
-export function apiGET(path: GET) {
-  return fetch(`${process.env.VUE_APP_API_URL}/api/${path}`, {
+export function apiGET(path: GET, query?: string) {
+  return fetch(`${process.env.VUE_APP_API_URL}/api/${path}${query !== undefined ? '?q='.concat(query) : ''}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -20,3 +20,4 @@ export function apiGET(path: GET) {
     credentials: 'omit'
   });
 }
+// /articles?q=trashed:false

@@ -14,22 +14,25 @@ export function SetThemeStyle() {
   const themeDefaults: Theme['defaults'] = store.getters['theme/getCurrentThemeDefaults'];
   const shadow = StringToRGB(themeColors[themeDefaults.shadow]);
   let styleContent = `
-*::-webkit-scrollbar {
+body::-webkit-scrollbar {
   width: 10px !important;
   height: 10px !important;
 }
-*::-webkit-scrollbar-track {
+body::-webkit-scrollbar-track {
   background: ${themeColors[themeDefaults.scrollBar.track]};
 }
-*::-webkit-scrollbar-thumb {
+body::-webkit-scrollbar-thumb {
   background: ${themeColors[themeDefaults.scrollBar.thumb]};
   border-radius: 1rem;
 }
-*::-webkit-scrollbar-thumb:hover {
+body::-webkit-scrollbar-thumb:hover {
   background: ${themeColors[themeDefaults.scrollBar.thumbHover]};
 }
-* {
+body, b, h1, h2, h3, h4, h5, span {
   color: ${themeColors[themeDefaults.color]};
+}
+body {
+  background: ${themeColors[themeDefaults.background]};
 }
 .t-shadow {
   box-shadow: 0 0 2rem 0 rgba(${shadow.r * 255}, ${shadow.g * 255}, ${shadow.b * 255}, .15) !important;
