@@ -28,7 +28,7 @@
       <modal :show.sync="modals.settings" modalClasses="modal-lg">
         <template slot="header">
           <h1 class="modal-title">
-            <b v-theme="{color: 'accentFont'}">Settings</b>
+            <b v-theme="{color: 'primaryFont'}">Settings</b>
           </h1>
         </template>
 

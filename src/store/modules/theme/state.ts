@@ -29,9 +29,10 @@ const State: ThemeState = {
         primaryHover: '#d00',
         primaryFont: '#eee',
         link: '#59f',
-        accentFont: '#ede7f6',
+        mutedFont: '#aaa',
         icon: '#ddd',
         muted: '#777',
+        border: '#555',
         mutedHover: '#555',
         cards: '#444',
         secondary: '#4C1717'

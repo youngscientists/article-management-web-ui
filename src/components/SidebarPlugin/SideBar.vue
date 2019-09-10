@@ -12,7 +12,7 @@
       </navbar-toggle-button>
       <router-link class="navbar-brand" to="/home">
         <img src="img/brand/logo.png" />
-        <!-- <h1 v-theme="{color: 'accentFont'}">{{shortTitle}}</h1> -->
+        <!-- <h1 v-theme="{color: 'primaryFont'}">{{shortTitle}}</h1> -->
       </router-link>
 
       <slot name="mobile-right">

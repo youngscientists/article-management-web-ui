@@ -1,5 +1,5 @@
 <template>
-  <div class="card shadow" v-theme="{background: 'primaryBg'}">
+  <div class="card" v-theme="{background: 'primaryBg', shadow: true}">
     <div class="card-header border-0" v-theme="{background: 'primaryBg'}">
       <div class="row align-items-center">
         <div class="col">
@@ -17,16 +17,103 @@
         addon-left-icon="fas fa-search"
       ></base-input>
     </div>
-    <div class="pr-4 pl-4 pb-2 articlesSortBy border-bottom" v-theme="{border: 'muted'}">
+    <!--     <div class="pr-4 pl-4 pb-2 articlesSortBy border-bottom" v-theme="{border: 'muted'}">
       <b>Sort By:</b>
       <a target="_blank" rel="noopener noreferrer">Title</a>
       <a target="_blank" rel="noopener noreferrer">Date</a>
       <a target="_blank" rel="noopener noreferrer">Type</a>
       <a target="_blank" rel="noopener noreferrer">Status</a>
       <a target="_blank" rel="noopener noreferrer">Modified</a>
-    </div>
+    </div>-->
 
-    <card-grid :data="tableData"></card-grid>
+    <!--  <div class="table-responsive">
+      <base-table
+        v-theme="{color: 'primaryFont'}"
+        class="table align-items-center table-flush"
+        :data="tableData"
+      >
+        <template slot="columns">
+          <th v-theme="{border: 'muted'}">Date</th>
+          <th v-theme="{border: 'muted'}">Title</th>
+          <th v-theme="{border: 'muted'}">Subject</th>
+          <th v-theme="{border: 'muted'}">Type</th>
+          <th v-theme="{border: 'muted'}">Editor</th>
+          <th v-theme="{border: 'muted'}">Status</th>
+          <th v-theme="{border: 'muted'}"></th>
+        </template>
+
+        <template slot-scope="{row}">
+          <td v-theme="{border: 'muted'}" class="date">{{new Date(row.date).toDateString()}}</td>
+          <th v-theme="{border: 'muted'}" scope="row">
+            <div>{{row.title}}</div>
+
+            <span class="name text-sm"></span>
+          </th>
+          <td v-theme="{border: 'muted'}" class="subject">{{row.subject}}</td>
+          <td v-theme="{border: 'muted'}" class="type">{{row.type}}</td>
+          <td v-theme="{border: 'muted'}" class="editor">{{row.editors[0].name}}</td>
+          <td v-theme="{border: 'muted'}">
+            <badge class="badge-dot mr-4" :type="row.statusType">
+              <i :class="`bg-${row.statusType}`"></i>
+              <span class="status">{{row.status}}</span>
+            </badge>
+          </td>
+
+          <td class="text-right" v-theme="{border: 'muted'}">
+            <base-dropdown class="dropdown" position="right">
+              <a
+                slot="title"
+                class="btn btn-sm btn-icon-only text-light"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <i v-theme="{color: 'icon'}" class="fas fa-ellipsis-v"></i>
+              </a>
+
+              <template>
+                <a class="dropdown-item" href="#">Delete</a>
+              </template>
+            </base-dropdown>
+          </td>
+        </template>
+      </base-table>
+    </div>-->
+    <div class="test">
+      <div class="article-table article-table-header pl-4 pr-4 pt-1" v-theme="{border: 'border'}">
+        <div class="article-table-h-3">Date</div>
+        <div>Title</div>
+        <div class="article-table-h-1">Subject</div>
+        <div class="article-table-h-2">Type</div>
+        <div class="article-table-h-4">Editor</div>
+        <div class="article-table-h-5">Status</div>
+      </div>
+      <div v-for="(row, key) in tableData" :key="key">
+        <div
+          class="article-table article-table-item pl-4 pr-4 pt-1"
+          v-theme="{border: 'border', hover: {
+          background: 'cards'
+        }}"
+          @click="activate(key)"
+        >
+          <div
+            class="article-table-h-3"
+            v-theme="{color: 'mutedFont'}"
+          >{{new Date(row.date).toDateString()}}</div>
+          <div scope="row">
+            <b>{{row.title}}</b>
+          </div>
+          <div class="article-table-h-1" v-theme="{color: 'mutedFont'}">{{row.subject}}</div>
+          <div class="article-table-h-2" v-theme="{color: 'mutedFont'}">{{row.type}}</div>
+          <div class="article-table-h-4" v-theme="{color: 'mutedFont'}">{{row.editors[0].name}}</div>
+          <div class="article-table-h-5" v-theme="{color: 'mutedFont'}">{{row.status}}</div>
+          <div v-if="active === key" class="article-table-details">
+            <div class="p-8 text-center">Details</div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="card-footer d-flex justify-content-end" v-theme="{background: 'primaryBg'}">
       <!-- <base-pagination total="30"></base-pagination> -->
@@ -38,27 +125,90 @@ import Vue from "vue";
 import Component from "vue-class-component";
 
 @Component({
+  data() {
+    return {
+      active: ""
+    };
+  },
   props: {
     type: {
       type: String
     },
     title: { type: String, default: "Articles" },
     tableData: Array
+  },
+  methods: {
+    activate: function(key) {
+      if (this.$data.active === key) {
+        this.$data.active = "";
+      } else {
+        this.$data.active = key;
+      }
+    }
   }
 })
 export default class ArticlesTable extends Vue {}
 </script>
 <style lang="sass" scoped>
-.articlesSortBy
-  display: flex
-  justify-content: space-between
-  margin: 1rem 0
-  a
-    cursor: pointer
-@media screen and ( max-width: 450px )
-  .articlesSortBy
-    flex-direction: column
-    text-align: center
-    a
-      margin: 0.1rem 0
+@mixin Hide
+  height: 0
+  width: 0
+  overflow: hidden
+
+.article-table-item
+  cursor: pointer
+.article-table-header
+  font-weight: 600
+
+.article-table-details
+  grid-column-start: 1
+  grid-column-end: 7
+
+.article-table
+  display: grid
+  grid-template-columns: 130px 1fr 100px 140px 160px 160px
+  border-bottom: 1px solid grey
+  transition: background 250ms ease
+ 
+
+@media screen and ( max-width: 1400px )
+  .article-table
+    grid-template-columns: 130px 1fr 0 140px 160px 160px
+    .article-table-h-1
+      @include Hide
+
+@media screen and ( max-width: 1300px )
+  .article-table
+    grid-template-columns: 130px 1fr 0 0 160px 160px
+    .article-table-h-2
+      @include Hide
+@media screen and ( max-width: 1200px )
+  .article-table
+    grid-template-columns: 0 1fr 0 0 160px 160px
+    .article-table-h-3
+      @include Hide
+@media screen and ( max-width: 1050px )
+  .article-table
+    grid-template-columns: 0 1fr 0 0 0 160px
+    .article-table-h-4
+      @include Hide
+@media screen and ( max-width: 520px )
+  .article-table
+    grid-template-columns: 0 1fr 0 0 0 0
+    .article-table-h-5
+      @include Hide
+
+// .articlesSortBy
+//   display: flex
+//   justify-content: space-between
+//   margin: 1rem 0
+//   a
+//     cursor: pointer
+// @media screen and ( max-width: 450px )
+//   .articlesSortBy
+//     flex-direction: column
+//     text-align: center
+//     a
+//       margin: 0.1rem 0
+
 </style>
