@@ -107,10 +107,7 @@ import router from "@/router";
 })
 export default class HomeLayout extends Vue {
   mounted() {
-    if (!store.state.auth.token) {
-      // && process.env.VUE_APP_MODE !== "dev"
-      router.push({ name: "login" });
-    }
+    
   }
 }
 </script>

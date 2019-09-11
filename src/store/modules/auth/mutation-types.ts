@@ -7,9 +7,7 @@
  */
 
 export const pin = 'pin';
-export const token = 'token';
 
 export default {
-  pin,
-  token
+  pin
 };

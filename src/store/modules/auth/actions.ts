@@ -9,7 +9,6 @@
 import router from '@/router';
 import { RootState } from '@/store';
 import { apiPOST } from '@/utility/api/api';
-import { AddCookie } from '@/utility/cookie/cookie';
 import Vue from 'vue';
 import { ActionContext, ActionTree, Store } from 'vuex';
 import { AuthState } from './state';
@@ -47,8 +46,6 @@ export const requestToken = function (this: Store<RootState>, injectee: ActionCo
     })
     .then(data => {
       if (data.token) {
-        AddCookie('Token', data.token);
-        this.commit('auth/token', data.token);
         router.push('home');
       } else {
         payload.vm.$notify({ type: 'warning', message: "That didn't work, please try again.", icon: 'ni ni-bell-55 ' });

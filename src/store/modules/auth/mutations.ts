@@ -6,16 +6,13 @@
  * account module.
  */
 
-import { pin, token } from './mutation-types';
 import { MutationTree } from 'vuex';
+import { pin } from './mutation-types';
 import { AuthState } from './state';
 
 const mutations: MutationTree<AuthState> = {
   [pin](state: AuthState, payload: any) {
     state.pinRequested = payload;
-  },
-  [token](state: AuthState, payload: any) {
-    state.token = payload;
   }
 };
 
