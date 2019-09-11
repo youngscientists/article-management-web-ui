@@ -1,16 +1,26 @@
 <template>
   <li class="nav-item">
-    <div class="nav-link" style="cursor: pointer;" @click="handleClick">
+    <div
+      class="nav-link"
+      style="cursor: pointer;"
+      @click="handleClick"
+    >
       <template>
-        <i :class="icon" v-theme="{color: 'icon'}"></i>
-        <span class="nav-link-text" v-theme="{color: 'primaryFont'}">{{ name }}</span>
+        <i
+          v-theme="{color: 'icon'}"
+          :class="icon"
+        />
+        <span
+          v-theme="{color: 'primaryFont'}"
+          class="nav-link-text"
+        >{{ name }}</span>
       </template>
     </div>
   </li>
 </template>
 <script>
 export default {
-  name: "sidebar-button",
+  name: "SidebarButton",
   inject: {
     autoClose: {
       default: true

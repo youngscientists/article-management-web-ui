@@ -1,18 +1,27 @@
 <template>
   <div class="colorPickerContainer">
     <div class="colorPickerColorArea">
-      <div class="colorPickerColor" @click="clickOnColor">
+      <div
+        class="colorPickerColor"
+        @click="clickOnColor"
+      >
         <div
           class="colorPickerSlider"
           :style="{bottom: `${color.r * 184}px `}"
           @mousedown="moveSlider"
-        ></div>
+        />
       </div>
       <div class="colorPickerColor">
-        <div class="colorPickerSlider" :style="{bottom: `${(color.g * 184)}px `}"></div>
+        <div
+          class="colorPickerSlider"
+          :style="{bottom: `${(color.g * 184)}px `}"
+        />
       </div>
       <div class="colorPickerColor">
-        <div class="colorPickerSlider" :style="{bottom: `${color.b * 184}px `}"></div>
+        <div
+          class="colorPickerSlider"
+          :style="{bottom: `${color.b * 184}px `}"
+        />
       </div>
     </div>
   </div>

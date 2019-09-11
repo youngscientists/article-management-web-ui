@@ -30,4 +30,4 @@ export default class BarChart extends Pie {
       { immediate: true }
     );
   }
-};
+}

@@ -1,46 +1,52 @@
 <template>
   <nav
-    class="navbar navbar-vertical fixed-left navbar-expand-md"
     id="sidenav-main"
     v-theme="{background: 'primaryBg'}"
+    class="navbar navbar-vertical fixed-left navbar-expand-md"
   >
     <div class="container-fluid">
       <!--Toggler-->
       <navbar-toggle-button @click.native="showSidebar">
-        <i class="ni ni-bullet-list-67" v-theme="{color: 'icon'}"></i>
+        <i
+          v-theme="{color: 'icon'}"
+          class="ni ni-bullet-list-67"
+        />
         <!-- <span class="navbar-toggler-icon" ></span> -->
       </navbar-toggle-button>
-      <router-link class="navbar-brand" to="/home">
-        <img src="img/brand/logo.png" />
+      <router-link
+        class="navbar-brand"
+        to="/home"
+      >
+        <img src="img/brand/logo.png">
         <!-- <h1 v-theme="{color: 'primaryFont'}">{{shortTitle}}</h1> -->
       </router-link>
 
       <slot name="mobile-right">
         <!-- placeholder div centers the title -->
-        <div></div>
+        <div />
       </slot>
-      <slot></slot>
+      <slot />
       <div
         v-show="$sidebar.showSidebar"
-        class="navbar-collapse collapse show"
         id="sidenav-collapse-main"
         v-theme="{background: 'primaryBg'}"
+        class="navbar-collapse collapse show"
       >
         <div class="navbar-collapse-header d-md-none">
           <div class="row">
             <div class="col-6 collapse-brand">
               <router-link to="/">
-                <img src="img/brand/logo.png" />
+                <img src="img/brand/logo.png">
               </router-link>
             </div>
             <div class="col-6 collapse-close">
-              <navbar-toggle-button @click.native="closeSidebar"></navbar-toggle-button>
+              <navbar-toggle-button @click.native="closeSidebar" />
             </div>
           </div>
         </div>
 
         <ul class="navbar-nav">
-          <slot name="links"></slot>
+          <slot name="links" />
         </ul>
       </div>
     </div>
@@ -49,7 +55,7 @@
 <script>
 import NavbarToggleButton from "@/components/Base/NavbarToggleButton";
 export default {
-  name: "sidebar",
+  name: "Sidebar",
   components: {
     NavbarToggleButton
   },
@@ -68,17 +74,17 @@ export default {
       autoClose: this.autoClose
     };
   },
+  beforeDestroy() {
+    if (this.$sidebar.showSidebar) {
+      this.$sidebar.showSidebar = false;
+    }
+  },
   methods: {
     closeSidebar() {
       this.$sidebar.displaySidebar(false);
     },
     showSidebar() {
       this.$sidebar.displaySidebar(true);
-    }
-  },
-  beforeDestroy() {
-    if (this.$sidebar.showSidebar) {
-      this.$sidebar.showSidebar = false;
     }
   }
 };

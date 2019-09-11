@@ -6,13 +6,13 @@
  * auth module.
  */
 
-import Vue from 'vue';
-import { RootState } from '@/store';
 import router from '@/router';
+import { RootState } from '@/store';
 import { apiPOST } from '@/utility/api/api';
-import { AuthState } from './state';
-import { ActionTree, ActionContext, Store } from 'vuex';
 import { AddCookie } from '@/utility/cookie/cookie';
+import Vue from 'vue';
+import { ActionContext, ActionTree, Store } from 'vuex';
+import { AuthState } from './state';
 
 interface Payload {
   email: string;
@@ -20,7 +20,7 @@ interface Payload {
   vm: Vue;
 }
 
-export const requestPin = function(this: Store<RootState>, injectee: ActionContext<AuthState, RootState>, payload: Payload) {
+export const requestPin = function (this: Store<RootState>, injectee: ActionContext<AuthState, RootState>, payload: Payload) {
   if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(payload.email)) {
     apiPOST('auth/pin', { email: payload.email })
       .then(res => {
@@ -40,7 +40,7 @@ export const requestPin = function(this: Store<RootState>, injectee: ActionConte
     payload.vm.$notify({ type: 'warning', message: 'Please enter a valid email address!', icon: 'ni ni-bell-55 ' });
   }
 };
-export const requestToken = function(this: Store<RootState>, injectee: ActionContext<AuthState, RootState>, payload: Payload) {
+export const requestToken = function (this: Store<RootState>, injectee: ActionContext<AuthState, RootState>, payload: Payload) {
   apiPOST('auth/token', { email: payload.email, pin: payload.pin })
     .then(res => {
       return res.json();

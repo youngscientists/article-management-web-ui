@@ -3,17 +3,24 @@
     <div class="card-header border-0">
       <div class="row align-items-center">
         <div class="col">
-          <h3 class="mb-0">Page visits</h3>
+          <h3 class="mb-0">
+            Page visits
+          </h3>
         </div>
         <div class="col text-right">
-          <a href="#!" class="btn btn-sm btn-primary">See all</a>
+          <a
+            href="#!"
+            class="btn btn-sm btn-primary"
+          >See all</a>
         </div>
       </div>
     </div>
 
     <div class="table-responsive">
-      <base-table thead-classes="thead-light"
-                  :data="tableData">
+      <base-table
+        thead-classes="thead-light"
+        :data="tableData"
+      >
         <template slot="columns">
           <th>Page name</th>
           <th>Visitors</th>
@@ -23,30 +30,29 @@
 
         <template slot-scope="{row}">
           <th scope="row">
-            {{row.page}}
+            {{ row.page }}
           </th>
           <td>
-            {{row.visitors}}
+            {{ row.visitors }}
           </td>
           <td>
-            {{row.unique}}
+            {{ row.unique }}
           </td>
           <td>
-            <i class="fas fa-arrow-up text-success mr-3"
-               :class="row.bounceRateDirection === 'up' ? 'text-success': 'text-danger'">
-            </i>
-            {{row.bounceRate}}
+            <i
+              class="fas fa-arrow-up text-success mr-3"
+              :class="row.bounceRateDirection === 'up' ? 'text-success': 'text-danger'"
+            />
+            {{ row.bounceRate }}
           </td>
         </template>
-
       </base-table>
     </div>
-
   </div>
 </template>
 <script>
   export default {
-    name: 'page-visits-table',
+    name: 'PageVisitsTable',
     data() {
       return {
         tableData: [

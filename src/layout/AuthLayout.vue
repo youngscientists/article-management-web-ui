@@ -1,17 +1,29 @@
 <template>
-  <div class="main-content" v-theme="{background: 'secondary'}">
+  <div
+    v-theme="{background: 'secondary'}"
+    class="main-content"
+  >
     <!-- Header -->
-    <div class="header py-8 py-lg-8" v-theme="{background: 'primary'}">
-      <img class="login-logo" src="img/brand/logo.png" />
+    <div
+      v-theme="{background: 'primary'}"
+      class="header py-8 py-lg-8"
+    >
+      <img
+        class="login-logo"
+        src="img/brand/logo.png"
+      >
       <div
-        class="separator separator-bottom separator-skew zindex-100 login-after"
         v-theme="{after: 'secondary'}"
-      ></div>
+        class="separator separator-bottom separator-skew zindex-100 login-after"
+      />
     </div>
     <!-- Page content -->
     <div class="container mt--8 pb-5">
-      <slide-y-up-transition mode="out-in" origin="center top">
-        <router-view></router-view>
+      <slide-y-up-transition
+        mode="out-in"
+        origin="center top"
+      >
+        <router-view />
       </slide-y-up-transition>
     </div>
   </div>

@@ -1,37 +1,45 @@
 <template>
   <div
+    v-theme="{background: 'cards'}"
     class="card"
     :class="[
-         {'card-lift--hover': hover},
-         {'shadow': shadow},
-         {[`shadow-${shadowSize}`]: shadowSize},
-         {[`bg-gradient-${gradient}`]: gradient},
-         {[`bg-${type}`]: type}
-       ]"
-    v-theme="{background: 'cards'}"
+      {'card-lift--hover': hover},
+      {'shadow': shadow},
+      {[`shadow-${shadowSize}`]: shadowSize},
+      {[`bg-gradient-${gradient}`]: gradient},
+      {[`bg-${type}`]: type}
+    ]"
   >
     <div
-      class="card-header"
-      :class="headerClasses"
       v-if="$slots.header"
       v-theme="{background: 'cards'}"
+      class="card-header"
+      :class="headerClasses"
     >
-      <slot name="header"></slot>
+      <slot name="header" />
     </div>
-    <div class="card-body" :class="bodyClasses" v-if="!noBody">
-      <slot></slot>
+    <div
+      v-if="!noBody"
+      class="card-body"
+      :class="bodyClasses"
+    >
+      <slot />
     </div>
 
-    <slot v-if="noBody"></slot>
+    <slot v-if="noBody" />
 
-    <div class="card-footer" :class="footerClasses" v-if="$slots.footer">
-      <slot name="footer"></slot>
+    <div
+      v-if="$slots.footer"
+      class="card-footer"
+      :class="footerClasses"
+    >
+      <slot name="footer" />
     </div>
   </div>
 </template>
 <script>
 export default {
-  name: "card",
+  name: "Card",
   props: {
     type: {
       type: String,

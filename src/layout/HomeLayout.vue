@@ -1,8 +1,11 @@
 <template>
-  <div class="wrapper" :class="{ 'nav-open': $sidebar.showSidebar }">
+  <div
+    class="wrapper"
+    :class="{ 'nav-open': $sidebar.showSidebar }"
+  >
     <side-bar
       :background-color="sidebarBackground"
-      shortTitle="AMS"
+      short-title="AMS"
       title="Article Management System"
     >
       <template slot="links">
@@ -24,25 +27,42 @@
         />
       </template>
     </side-bar>
-    <div class="main-content" :data="sidebarBackground">
-      <modal :show.sync="modals.settings" modalClasses="modal-lg">
+    <div
+      class="main-content"
+      :data="sidebarBackground"
+    >
+      <modal
+        :show.sync="modals.settings"
+        modal-classes="modal-lg"
+      >
         <template slot="header">
           <h1 class="modal-title">
             <b v-theme="{color: 'primaryFont'}">Settings</b>
           </h1>
         </template>
 
-        <settings></settings>
+        <settings />
         <template slot="footer">
-          <base-button type="secondary" @click="modals.settings = false">Close</base-button>
-          <base-button type="primary">Save changes</base-button>
+          <base-button
+            type="secondary"
+            @click="modals.settings = false"
+          >
+            Close
+          </base-button>
+          <base-button type="primary">
+            Save changes
+          </base-button>
         </template>
       </modal>
       <!-- <home-navbar></home-navbar> -->
 
       <div @click="toggleSidebar">
-        <fade-transition :duration="200" origin="center top" mode="out-in">
-          <router-view></router-view>
+        <fade-transition
+          :duration="200"
+          origin="center top"
+          mode="out-in"
+        >
+          <router-view />
         </fade-transition>
         <!-- <content-footer v-if="!$route.meta.hideFooter"></content-footer> -->
       </div>

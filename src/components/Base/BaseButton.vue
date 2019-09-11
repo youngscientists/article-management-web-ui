@@ -1,27 +1,36 @@
 <template>
   <component
     :is="tag"
-    :type="tag === 'button' ? nativeType: ''"
-    @click="handleClick"
-    class="btn"
     v-theme="type === 'primary' ? {background: 'primary', hover: {background: 'primaryHover'}, border: 'primary'} : {}"
+    :type="tag === 'button' ? nativeType: ''"
+    class="btn"
     :class="classes"
+    @click="handleClick"
   >
-    <span class="btn-inner--icon" v-if="$slots.icon || icon && $slots.default">
+    <span
+      v-if="$slots.icon || icon && $slots.default"
+      class="btn-inner--icon"
+    >
       <slot name="icon">
-        <i :class="icon"></i>
+        <i :class="icon" />
       </slot>
     </span>
-    <i v-if="!$slots.default" :class="icon"></i>
-    <span class="btn-inner--text" v-if="$slots.icon || icon && $slots.default">
-      <slot>{{text}}</slot>
+    <i
+      v-if="!$slots.default"
+      :class="icon"
+    />
+    <span
+      v-if="$slots.icon || icon && $slots.default"
+      class="btn-inner--text"
+    >
+      <slot>{{ text }}</slot>
     </span>
-    <slot v-if="!$slots.icon && !icon"></slot>
+    <slot v-if="!$slots.icon && !icon" />
   </component>
 </template>
 <script>
 export default {
-  name: "base-button",
+  name: "BaseButton",
   props: {
     tag: {
       type: String,

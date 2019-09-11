@@ -1,12 +1,19 @@
 <template>
-  <div class="custom-control custom-checkbox"
-       :class="[{disabled: disabled}, inlineClass]">
-    <input :id="cbId"
-           class="custom-control-input"
-           type="checkbox"
-           :disabled="disabled"
-           v-model="model"/>
-    <label :for="cbId" class="custom-control-label">
+  <div
+    class="custom-control custom-checkbox"
+    :class="[{disabled: disabled}, inlineClass]"
+  >
+    <input
+      :id="cbId"
+      v-model="model"
+      class="custom-control-input"
+      type="checkbox"
+      :disabled="disabled"
+    >
+    <label
+      :for="cbId"
+      class="custom-control-label"
+    >
       <slot>
         <span v-if="inline">&nbsp;</span>
       </slot>
@@ -17,7 +24,7 @@
 import { randomString } from "./stringUtils";
 
 export default {
-  name: "base-checkbox",
+  name: "BaseCheckbox",
   model: {
     prop: "checked"
   },

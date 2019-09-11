@@ -2,70 +2,88 @@
   <div
     class="form-group"
     :class="[
-       {'input-group': hasIcon},
-       {'has-danger': error},
-       {'focused': focused},
-       {'has-label': label || $slots.label},
-       {'has-success': valid === true},
-       {'has-danger': valid === false}
-       ]"
+      {'input-group': hasIcon},
+      {'has-danger': error},
+      {'focused': focused},
+      {'has-label': label || $slots.label},
+      {'has-success': valid === true},
+      {'has-danger': valid === false}
+    ]"
   >
     <slot name="label">
-      <label v-if="label" class="form-control-label" :class="labelClasses">
-        {{label}}
+      <label
+        v-if="label"
+        class="form-control-label"
+        :class="labelClasses"
+      >
+        {{ label }}
         <span v-if="required">*</span>
       </label>
     </slot>
 
-    <div v-if="addonLeftIcon || $slots.addonLeft" class="input-group-prepend">
-      <span class="input-group-text" v-theme="{background: 'cards'}">
+    <div
+      v-if="addonLeftIcon || $slots.addonLeft"
+      class="input-group-prepend"
+    >
+      <span
+        v-theme="{background: 'cards'}"
+        class="input-group-text"
+      >
         <slot name="addonLeft">
           <i
-            v-theme="{color: `${focused ? 'icon' : 'muted'}`, update: [{type: 'color', value:  `${focused ? 'muted' : 'icon' }`},]}"
+            v-theme="{color: `${focused ? 'icon' : 'muted'}`, update: [{type: 'color', value: `${focused ? 'muted' : 'icon' }`},]}"
             :class="addonLeftIcon"
-          ></i>
+          />
         </slot>
       </span>
     </div>
     <slot v-bind="slotData">
       <input
-        spellcheck="false"
         v-theme="{background: 'cards', color: 'primaryFont', placeholder: {color: 'muted', hover: 'mutedHover',focus: 'mutedHover'}}"
+        spellcheck="false"
         :value="value"
-        v-on="listeners"
         v-bind="$attrs"
         class="form-control"
         :class="[
-                     {'is-valid': valid === true},
-                     {'is-invalid': valid === false}, inputClasses]"
+          {'is-valid': valid === true},
+          {'is-invalid': valid === false}, inputClasses]"
         aria-describedby="addon-right addon-left"
-      />
+        v-on="listeners"
+      >
     </slot>
-    <div v-if="addonRightIcon || $slots.addonRight" class="input-group-append">
-      <span class="input-group-text" v-theme="{background: 'cards'}">
+    <div
+      v-if="addonRightIcon || $slots.addonRight"
+      class="input-group-append"
+    >
+      <span
+        v-theme="{background: 'cards'}"
+        class="input-group-text"
+      >
         <slot name="addonRight">
           <i
-            v-theme="{color: `${focused ? 'icon' : 'muted'}`, update: [{type: 'color', value:  `${focused ? 'muted' : 'icon' }`},]}"
+            v-theme="{color: `${focused ? 'icon' : 'muted'}`, update: [{type: 'color', value: `${focused ? 'muted' : 'icon' }`},]}"
             :class="addonRightIcon"
-          ></i>
+          />
         </slot>
       </span>
     </div>
-    <slot name="infoBlock"></slot>
+    <slot name="infoBlock" />
     <slot name="helpBlock">
       <div
+        v-if="error"
         class="text-danger invalid-feedback"
         style="display: block;"
         :class="{'mt-2': hasIcon}"
-        v-if="error"
-      >{{ error }}</div>
+      >
+        {{ error }}
+      </div>
     </slot>
   </div>
 </template>
 <script>
 export default {
+  name: "BaseInput",
   inheritAttrs: false,
-  name: "base-input",
   props: {
     required: {
       type: Boolean,
