@@ -36,7 +36,7 @@ export function vThemeSetClasses(el: HTMLElement, input: vTheme, canUpdate: bool
     for (const update of input.update) {
       switch (update.type) {
         case 'shadow':
-          el.classList.remove(`t-shadow${typeof input.shadow === 'string' ? input.shadow : ''}`);
+          el.classList.remove(`t-shadow${typeof input.shadow === 'string' ? '-'.concat(input.shadow) : ''}`);
           break;
         case 'background':
           el.classList.remove(`t-bg-${update.value}`);
@@ -55,7 +55,7 @@ export function vThemeSetClasses(el: HTMLElement, input: vTheme, canUpdate: bool
   }
   // base types
   if (input.shadow) {
-    el.classList.add(`t-shadow${typeof input.shadow === 'string' ? input.shadow : ''}`);
+    el.classList.add(`t-shadow${typeof input.shadow === 'string' ? '-'.concat(input.shadow) : ''}`);
   }
   if (input.background) {
     el.classList.add(`t-bg-${input.background}`);

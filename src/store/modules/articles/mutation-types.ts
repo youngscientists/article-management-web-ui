@@ -7,7 +7,9 @@
  */
 
 export const all = 'all';
+export const current = 'current';
 
 export default {
-  all
+  all,
+  current
 };

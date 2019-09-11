@@ -50,10 +50,12 @@ export interface Article {
 
 export interface ArticlesSate {
   allArticles: Article[];
+  currentArticle: Article;
 }
 
 const state: ArticlesSate = {
-  allArticles: []
+  allArticles: [],
+  currentArticle: undefined
 };
 
 export default state;

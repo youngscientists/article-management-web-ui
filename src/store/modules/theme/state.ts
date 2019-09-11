@@ -13,7 +13,16 @@ export interface Theme {
   name: string;
   canBeModified: boolean;
   colors: { [key: string]: string };
-  defaults: { color: string; background: string; scrollBar: { track: string; thumb: string; thumbHover: string }; shadow: string };
+  defaults: {
+    color: string;
+    background: string;
+    scrollBar: { track: string; thumb: string; thumbHover: string };
+    shadow: string;
+    loader: {
+      primary: string;
+      accent: string;
+    };
+  };
 }
 
 const State: ThemeState = {
@@ -23,7 +32,7 @@ const State: ThemeState = {
       name: 'Dark Theme (default)',
       canBeModified: false,
       colors: {
-        shadow: '#673ab7',
+        shadow: '#b39ddb',
         primaryBg: '#222',
         primary: '#c00',
         primaryHover: '#d00',
@@ -33,6 +42,7 @@ const State: ThemeState = {
         icon: '#ddd',
         muted: '#777',
         border: '#555',
+        button: '#333',
         mutedHover: '#555',
         cards: '#444',
         secondary: '#4C1717'
@@ -45,7 +55,11 @@ const State: ThemeState = {
           track: 'primaryBg'
         },
         shadow: 'shadow',
-        background: 'primary'
+        background: 'primary',
+        loader: {
+          accent: 'primary',
+          primary: 'cards'
+        }
       }
     }
   }

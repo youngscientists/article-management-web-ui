@@ -28,17 +28,35 @@ body::-webkit-scrollbar-thumb {
 body::-webkit-scrollbar-thumb:hover {
   background: ${themeColors[themeDefaults.scrollBar.thumbHover]};
 }
-body, b, h1, h2, h3, h4, h5, span {
+body, b, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, span {
   color: ${themeColors[themeDefaults.color]};
 }
 body {
   background: ${themeColors[themeDefaults.background]};
 }
+.loader {
+  border: 5px solid ${themeColors[themeDefaults.loader.primary]};
+  border-top: 5px solid ${themeColors[themeDefaults.loader.accent]};
+  border-radius: 50%;
+  background: #0000;
+  width: 40px;
+  height: 40px;
+  animation: spin 1.5s linear infinite;
+  margin: 50px;
+}
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
 .t-shadow {
   box-shadow: 0 0 2rem 0 rgba(${shadow.r * 255}, ${shadow.g * 255}, ${shadow.b * 255}, .15) !important;
 }
 .t-shadow-sm {
-  box-shadow: 0 0 .5rem rgba(${shadow.r * 255}, ${shadow.g * 255}, ${shadow.b * 255}, .075) !important;
+  box-shadow: 0 0 .5rem rgba(${shadow.r * 255}, ${shadow.g * 255}, ${shadow.b * 255}, .15) !important;
 }
 .t-shadow-lg {
   box-shadow: 0 0 3rem rgba(${shadow.r * 255}, ${shadow.g * 255}, ${shadow.b * 255}, .175) !important;

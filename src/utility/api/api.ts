@@ -10,14 +10,26 @@ export function apiPOST(path: POST, data: any) {
     body: JSON.stringify(data)
   });
 }
-export function apiGET(path: GET, query?: string) {
-  return fetch(`${process.env.VUE_APP_API_URL}/api/${path}${query !== undefined ? '?q='.concat(query) : ''}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${store.state.auth.token}`
-    },
-    credentials: 'omit'
-  });
+export function apiGET(
+  path: GET,
+  options?: {
+    query?: string;
+    id?: string;
+  }
+) {
+  options = options !== undefined ? options : {};
+  return fetch(
+    `${process.env.VUE_APP_API_URL}/api/${path}${options.id !== undefined ? '/'.concat(options.id) : ''}${
+      options.query !== undefined ? '?q='.concat(options.query) : ''
+    }`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${store.state.auth.token}`
+      },
+      credentials: 'omit'
+    }
+  );
 }
 // /articles?q=trashed:false
