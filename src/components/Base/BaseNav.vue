@@ -2,17 +2,19 @@
   <nav
     class="navbar"
     :class="[
-            {'navbar-expand-md': expand},
-            {'navbar-transparent': transparent},
-            {[`bg-${type}`]: type}
-         ]"
+      {'navbar-expand-md': expand},
+      {'navbar-transparent': transparent},
+      {[`bg-${type}`]: type}
+    ]"
   >
     <div :class="containerClasses">
       <slot name="brand">
         <router-link
           :to="$route.path"
           class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block"
-        >{{$route.name}}</router-link>
+        >
+          {{ $route.name }}
+        </router-link>
       </slot>
       <navbar-toggle-button
         v-if="showToggleButton"
@@ -20,16 +22,16 @@
         :target="contentId"
         @click.native.stop="toggled = !toggled"
       >
-        <span class="navbar-toggler-icon"></span>
+        <span class="navbar-toggler-icon" />
       </navbar-toggle-button>
 
       <div
-        class="collapse navbar-collapse"
-        :class="{show: toggled}"
         :id="contentId"
         v-click-outside="closeMenu"
+        class="collapse navbar-collapse"
+        :class="{show: toggled}"
       >
-        <slot :close-menu="closeMenu"></slot>
+        <slot :close-menu="closeMenu" />
       </div>
     </div>
   </nav>
@@ -38,7 +40,7 @@
 import NavbarToggleButton from "./NavbarToggleButton";
 
 export default {
-  name: "base-nav",
+  name: "BaseNav",
   components: {
     NavbarToggleButton
   },

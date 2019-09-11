@@ -1,6 +1,5 @@
 <template>
   <div
-    @click="tryClose"
     data-notify="container"
     class="alert alert-notify alert-dismissible"
     :class="[
@@ -12,33 +11,45 @@
     role="alert"
     :style="customPosition"
     data-notify-position="top-center"
+    @click="tryClose"
   >
     <template v-if="icon || $slots.icon">
       <slot name="icon">
-            <span class="alert-icon" data-notify="icon">
-              <i :class="icon"></i>
-            </span>
+        <span
+          class="alert-icon"
+          data-notify="icon"
+        >
+          <i :class="icon" />
+        </span>
       </slot>
     </template>
 
     <span class="alert-text">
 
-      <span v-if="title" class="title">
-        <b>{{ title }}<br/></b>
+      <span
+        v-if="title"
+        class="title"
+      >
+        <b>{{ title }}<br></b>
       </span>
-      <span v-if="message" v-html="message"></span>
+      <span
+        v-if="message"
+        v-html="message"
+      />
       <content-render
         v-if="!message && component"
         :component="component"
-      ></content-render>
+      />
     </span>
 
     <slot name="dismiss-icon">
-      <button type="button"
-              class="close"
-              data-dismiss="alert"
-              aria-label="Close"
-              @click="close">
+      <button
+        type="button"
+        class="close"
+        data-dismiss="alert"
+        aria-label="Close"
+        @click="close"
+      >
         <span aria-hidden="true">×</span>
       </button>
     </slot>
@@ -46,7 +57,7 @@
 </template>
 <script>
   export default {
-    name: 'notification',
+    name: 'Notification',
     components: {
       contentRender: {
         props: ['component'],
@@ -147,6 +158,12 @@
         return styles;
       }
     },
+    mounted() {
+      this.elmHeight = this.$el.clientHeight;
+      if (this.timeout) {
+        setTimeout(this.close, this.timeout);
+      }
+    },
     methods: {
       close() {
         this.$emit('close', this.timestamp);
@@ -158,12 +175,6 @@
         if (this.closeOnClick) {
           this.close();
         }
-      }
-    },
-    mounted() {
-      this.elmHeight = this.$el.clientHeight;
-      if (this.timeout) {
-        setTimeout(this.close, this.timeout);
       }
     }
   };

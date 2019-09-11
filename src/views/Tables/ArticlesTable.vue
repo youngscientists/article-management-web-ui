@@ -1,12 +1,28 @@
 <template>
-  <div class="card" v-theme="{background: 'primaryBg', shadow: true}">
-    <div class="card-header border-0" v-theme="{background: 'primaryBg'}">
+  <div
+    v-theme="{background: 'primaryBg', shadow: true}"
+    class="card"
+  >
+    <div
+      v-theme="{background: 'primaryBg'}"
+      class="card-header border-0"
+    >
       <div class="row align-items-center">
         <div class="col">
-          <h3 class="mb-0" v-theme="{background: 'primaryBg', color: 'primaryFont'}">{{title}}</h3>
+          <h3
+            v-theme="{background: 'primaryBg', color: 'primaryFont'}"
+            class="mb-0"
+          >
+            {{ title }}
+          </h3>
         </div>
         <div class="col text-right">
-          <base-button type="primary" size="sm">Refresh</base-button>
+          <base-button
+            type="primary"
+            size="sm"
+          >
+            Refresh
+          </base-button>
         </div>
       </div>
     </div>
@@ -15,7 +31,7 @@
         class="input-group-alternative mb-3"
         placeholder="Search"
         addon-left-icon="fas fa-search"
-      ></base-input>
+      />
     </div>
     <!--     <div class="pr-4 pl-4 pb-2 articlesSortBy border-bottom" v-theme="{border: 'muted'}">
       <b>Sort By:</b>
@@ -81,41 +97,87 @@
       </base-table>
     </div>-->
     <div class="test">
-      <div class="article-table article-table-header pl-4 pr-4 pt-1" v-theme="{border: 'border'}">
-        <div class="article-table-h-3">Date</div>
+      <div
+        v-theme="{border: 'border'}"
+        class="article-table article-table-header pl-4 pr-4 pt-1"
+      >
+        <div class="article-table-h-3">
+          Date
+        </div>
         <div>Title</div>
-        <div class="article-table-h-1">Subject</div>
-        <div class="article-table-h-2">Type</div>
-        <div class="article-table-h-4">Editor</div>
-        <div class="article-table-h-5">Status</div>
+        <div class="article-table-h-1">
+          Subject
+        </div>
+        <div class="article-table-h-2">
+          Type
+        </div>
+        <div class="article-table-h-4">
+          Editor
+        </div>
+        <div class="article-table-h-5">
+          Status
+        </div>
       </div>
-      <div v-for="(row, key) in tableData" :key="key">
+      <div
+        v-for="(row, key) in tableData"
+        :key="key"
+      >
         <div
-          class="article-table article-table-item pl-4 pr-4 pt-1"
           v-theme="{border: 'border', hover: {
-          background: 'cards'
-        }}"
+            background: 'cards'
+          }}"
+          class="article-table article-table-item pl-4 pr-4 pt-1"
           @click="activate(key)"
         >
           <div
-            class="article-table-h-3"
             v-theme="{color: 'mutedFont'}"
-          >{{new Date(row.date).toDateString()}}</div>
-          <div scope="row">
-            <b>{{row.title}}</b>
+            class="article-table-h-3"
+          >
+            {{ new Date(row.date).toDateString() }}
           </div>
-          <div class="article-table-h-1" v-theme="{color: 'mutedFont'}">{{row.subject}}</div>
-          <div class="article-table-h-2" v-theme="{color: 'mutedFont'}">{{row.type}}</div>
-          <div class="article-table-h-4" v-theme="{color: 'mutedFont'}">{{row.editors[0].name}}</div>
-          <div class="article-table-h-5" v-theme="{color: 'mutedFont'}">{{row.status}}</div>
-          <div v-if="active === key" class="article-table-details">
-            <div class="p-8 text-center">Details</div>
+          <div scope="row">
+            <b>{{ row.title }}</b>
+          </div>
+          <div
+            v-theme="{color: 'mutedFont'}"
+            class="article-table-h-1"
+          >
+            {{ row.subject }}
+          </div>
+          <div
+            v-theme="{color: 'mutedFont'}"
+            class="article-table-h-2"
+          >
+            {{ row.type }}
+          </div>
+          <div
+            v-theme="{color: 'mutedFont'}"
+            class="article-table-h-4"
+          >
+            {{ row.editors.map(e => e.name).join(', ') }}
+          </div>
+          <div
+            v-theme="{color: 'mutedFont'}"
+            class="article-table-h-5"
+          >
+            {{ row.status }}
+          </div>
+          <div
+            v-if="active === key"
+            class="article-table-details"
+          >
+            <div class="p-8 text-center">
+              Details
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="card-footer d-flex justify-content-end" v-theme="{background: 'primaryBg'}">
+    <div
+      v-theme="{background: 'primaryBg'}"
+      class="card-footer d-flex justify-content-end"
+    >
       <!-- <base-pagination total="30"></base-pagination> -->
     </div>
   </div>

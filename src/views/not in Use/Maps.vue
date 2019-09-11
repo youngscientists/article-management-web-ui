@@ -1,6 +1,9 @@
 <template>
   <div>
-    <base-header type="gradient-success" class="pb-6 pb-8 pt-5 pt-md-8">
+    <base-header
+      type="gradient-success"
+      class="pb-6 pb-8 pt-5 pt-md-8"
+    >
       <!-- Card stats -->
       <div class="row">
         <div class="col-xl-3 col-lg-6">
@@ -13,7 +16,7 @@
           >
             <template slot="footer">
               <span class="text-success mr-2">
-                <i class="fa fa-arrow-up"></i> 3.48%
+                <i class="fa fa-arrow-up" /> 3.48%
               </span>
               <span class="text-nowrap">Since last month</span>
             </template>
@@ -29,7 +32,7 @@
           >
             <template slot="footer">
               <span class="text-success mr-2">
-                <i class="fa fa-arrow-up"></i> 12.18%
+                <i class="fa fa-arrow-up" /> 12.18%
               </span>
               <span class="text-nowrap">Since last month</span>
             </template>
@@ -45,7 +48,7 @@
           >
             <template slot="footer">
               <span class="text-danger mr-2">
-                <i class="fa fa-arrow-down"></i> 5.72%
+                <i class="fa fa-arrow-down" /> 5.72%
               </span>
               <span class="text-nowrap">Since last month</span>
             </template>
@@ -61,7 +64,7 @@
           >
             <template slot="footer">
               <span class="text-success mr-2">
-                <i class="fa fa-arrow-up"></i> 54.8%
+                <i class="fa fa-arrow-up" /> 54.8%
               </span>
               <span class="text-nowrap">Since last month</span>
             </template>
@@ -80,7 +83,7 @@
               data-lat="40.748817"
               data-lng="-73.985428"
               style="height: 600px;"
-            ></div>
+            />
           </div>
         </div>
       </div>

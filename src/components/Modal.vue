@@ -1,13 +1,13 @@
 <template>
   <SlideYUpTransition :duration="animationDuration">
     <div
-      class="modal fade"
-      @click.self="closeModal"
-      :class="[{'show d-block': show}, {'d-none': !show}, {'modal-mini': type === 'mini'}]"
       v-show="show"
+      class="modal fade"
+      :class="[{'show d-block': show}, {'d-none': !show}, {'modal-mini': type === 'mini'}]"
       tabindex="-1"
       role="dialog"
       :aria-hidden="!show"
+      @click.self="closeModal"
     >
       <div
         class="modal-dialog modal-dialog-centered"
@@ -18,29 +18,43 @@
           class="modal-content"
           :class="[gradient ? `bg-gradient-${gradient}` : '',modalContentClasses]"
         >
-          <div class="modal-header" :class="[headerClasses]" v-if="$slots.header">
-            <slot name="header"></slot>
+          <div
+            v-if="$slots.header"
+            class="modal-header"
+            :class="[headerClasses]"
+          >
+            <slot name="header" />
             <slot name="close-button">
               <button
+                v-if="showClose"
+                v-theme="{color: 'icon'}"
                 type="button"
                 class="close"
-                v-if="showClose"
-                @click="closeModal"
                 data-dismiss="modal"
                 aria-label="Close"
-                v-theme="{color: 'icon'}"
+                @click="closeModal"
               >
-                <span v-theme="{color: 'icon'}" :aria-hidden="!show">×</span>
+                <span
+                  v-theme="{color: 'icon'}"
+                  :aria-hidden="!show"
+                >×</span>
               </button>
             </slot>
           </div>
 
-          <div class="modal-body" :class="bodyClasses">
-            <slot></slot>
+          <div
+            class="modal-body"
+            :class="bodyClasses"
+          >
+            <slot />
           </div>
 
-          <div class="modal-footer" :class="footerClasses" v-if="$slots.footer">
-            <slot name="footer"></slot>
+          <div
+            v-if="$slots.footer"
+            class="modal-footer"
+            :class="footerClasses"
+          >
+            <slot name="footer" />
           </div>
         </div>
       </div>
@@ -51,7 +65,7 @@
 import { SlideYUpTransition } from "vue2-transitions";
 
 export default {
-  name: "modal",
+  name: "Modal",
   components: {
     SlideYUpTransition
   },
@@ -100,12 +114,6 @@ export default {
       description: "Modal transition duration"
     }
   },
-  methods: {
-    closeModal() {
-      this.$emit("update:show", false);
-      this.$emit("close");
-    }
-  },
   watch: {
     show(val) {
       let documentClasses = document.body.classList;
@@ -114,6 +122,12 @@ export default {
       } else {
         documentClasses.remove("modal-open");
       }
+    }
+  },
+  methods: {
+    closeModal() {
+      this.$emit("update:show", false);
+      this.$emit("close");
     }
   }
 };

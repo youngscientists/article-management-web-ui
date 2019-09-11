@@ -1,20 +1,28 @@
 <template>
-  <div class="custom-control custom-radio" :class="[inlineClass, {disabled: disabled}]">
-    <input :id="cbId"
-           class="custom-control-input"
-           type="radio"
-           :disabled="disabled"
-           :value="name"
-           v-model="model" />
-    <label :for="cbId" class="custom-control-label">
-      <slot></slot>
+  <div
+    class="custom-control custom-radio"
+    :class="[inlineClass, {disabled: disabled}]"
+  >
+    <input
+      :id="cbId"
+      v-model="model"
+      class="custom-control-input"
+      type="radio"
+      :disabled="disabled"
+      :value="name"
+    >
+    <label
+      :for="cbId"
+      class="custom-control-label"
+    >
+      <slot />
     </label>
   </div>
 </template>
 <script>
 import { randomString } from "./stringUtils";
 export default {
-  name: "base-radio",
+  name: "BaseRadio",
   props: {
     name: {
       type: [String, Number],

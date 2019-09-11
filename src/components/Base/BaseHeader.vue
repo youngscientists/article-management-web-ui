@@ -1,15 +1,18 @@
 <template>
-  <div class="header" v-theme="{background: 'primary'}">
+  <div
+    v-theme="{background: 'primary'}"
+    class="header"
+  >
     <div class="container-fluid">
       <div class="header-body">
-        <slot></slot>
+        <slot />
       </div>
     </div>
   </div>
 </template>
 <script>
 export default {
-  name: "base-header",
+  name: "BaseHeader",
   props: {
     type: {
       type: String,

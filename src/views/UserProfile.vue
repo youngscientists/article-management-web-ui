@@ -5,16 +5,23 @@
       style="min-height: 600px; background-image: url(img/theme/profile-cover.jpg); background-size: cover; background-position: center top;"
     >
       <!-- Mask -->
-      <span class="mask bg-gradient-success opacity-8"></span>
+      <span class="mask bg-gradient-success opacity-8" />
       <!-- Header container -->
       <div class="container-fluid d-flex align-items-center">
         <div class="row">
           <div class="col-lg-7 col-md-10">
-            <h1 class="display-2 text-white">Hello Jesse</h1>
+            <h1 class="display-2 text-white">
+              Hello Jesse
+            </h1>
             <p
               class="text-white mt-0 mb-5"
-            >This is your profile page. You can see the progress you've made with your work and manage your projects or assigned tasks</p>
-            <a href="#!" class="btn btn-info">Edit profile</a>
+            >
+              This is your profile page. You can see the progress you've made with your work and manage your projects or assigned tasks
+            </p>
+            <a
+              href="#!"
+              class="btn btn-info"
+            >Edit profile</a>
           </div>
         </div>
       </div>
@@ -28,15 +35,30 @@
               <div class="col-lg-3 order-lg-2">
                 <div class="card-profile-image">
                   <a href="#">
-                    <img src="img/theme/team-4-800x800.jpg" class="rounded-circle" />
+                    <img
+                      src="img/theme/team-4-800x800.jpg"
+                      class="rounded-circle"
+                    >
                   </a>
                 </div>
               </div>
             </div>
             <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
               <div class="d-flex justify-content-between">
-                <base-button size="sm" type="info" class="mr-4">Connect</base-button>
-                <base-button size="sm" type="default" class="float-right">Message</base-button>
+                <base-button
+                  size="sm"
+                  type="info"
+                  class="mr-4"
+                >
+                  Connect
+                </base-button>
+                <base-button
+                  size="sm"
+                  type="default"
+                  class="float-right"
+                >
+                  Message
+                </base-button>
               </div>
             </div>
             <div class="card-body pt-0 pt-md-4">
@@ -64,15 +86,15 @@
                   <span class="font-weight-light">, 27</span>
                 </h3>
                 <div class="h5 font-weight-300">
-                  <i class="ni location_pin mr-2"></i>Bucharest, Romania
+                  <i class="ni location_pin mr-2" />Bucharest, Romania
                 </div>
                 <div class="h5 mt-4">
-                  <i class="ni business_briefcase-24 mr-2"></i>Solution Manager - Creative Tim Officer
+                  <i class="ni business_briefcase-24 mr-2" />Solution Manager - Creative Tim Officer
                 </div>
                 <div>
-                  <i class="ni education_hat mr-2"></i>University of Computer Science
+                  <i class="ni education_hat mr-2" />University of Computer Science
                 </div>
-                <hr class="my-4" />
+                <hr class="my-4">
                 <p>Ryan — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music.</p>
                 <a href="#">Show more</a>
               </div>
@@ -81,113 +103,133 @@
         </div>
 
         <div class="col-xl-8 order-xl-1">
-          <card shadow type="secondary">
-            <div slot="header" class="bg-white border-0">
+          <card
+            shadow
+            type="secondary"
+          >
+            <div
+              slot="header"
+              class="bg-white border-0"
+            >
               <div class="row align-items-center">
                 <div class="col-8">
-                  <h3 class="mb-0">My account</h3>
+                  <h3 class="mb-0">
+                    My account
+                  </h3>
                 </div>
                 <div class="col-4 text-right">
-                  <a href="#!" class="btn btn-sm btn-primary">Settings</a>
+                  <a
+                    href="#!"
+                    class="btn btn-sm btn-primary"
+                  >Settings</a>
                 </div>
               </div>
             </div>
             <template>
               <form @submit.prevent>
-                <h6 class="heading-small text-muted mb-4">User information</h6>
+                <h6 class="heading-small text-muted mb-4">
+                  User information
+                </h6>
                 <div class="pl-lg-4">
                   <div class="row">
                     <div class="col-lg-6">
                       <base-input
+                        v-model="model.username"
                         alternative
                         label="Username"
                         placeholder="Username"
                         input-classes="form-control-alternative"
-                        v-model="model.username"
                       />
                     </div>
                     <div class="col-lg-6">
                       <base-input
+                        v-model="model.email"
                         alternative
                         label="Email address"
                         placeholder="jesse@example.com"
                         input-classes="form-control-alternative"
-                        v-model="model.email"
                       />
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-lg-6">
                       <base-input
+                        v-model="model.firstName"
                         alternative
                         label="First name"
                         placeholder="First name"
                         input-classes="form-control-alternative"
-                        v-model="model.firstName"
                       />
                     </div>
                     <div class="col-lg-6">
                       <base-input
+                        v-model="model.lastName"
                         alternative
                         label="Last name"
                         placeholder="Last name"
                         input-classes="form-control-alternative"
-                        v-model="model.lastName"
                       />
                     </div>
                   </div>
                 </div>
-                <hr class="my-4" />
+                <hr class="my-4">
                 <!-- Address -->
-                <h6 class="heading-small text-muted mb-4">Contact information</h6>
+                <h6 class="heading-small text-muted mb-4">
+                  Contact information
+                </h6>
                 <div class="pl-lg-4">
                   <div class="row">
                     <div class="col-md-12">
                       <base-input
+                        v-model="model.address"
                         alternative
                         label="Address"
                         placeholder="Home Address"
                         input-classes="form-control-alternative"
-                        v-model="model.address"
                       />
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-lg-4">
                       <base-input
+                        v-model="model.city"
                         alternative
                         label="City"
                         placeholder="City"
                         input-classes="form-control-alternative"
-                        v-model="model.city"
                       />
                     </div>
                     <div class="col-lg-4">
                       <base-input
+                        v-model="model.country"
                         alternative
                         label="Country"
                         placeholder="Country"
                         input-classes="form-control-alternative"
-                        v-model="model.country"
                       />
                     </div>
                     <div class="col-lg-4">
                       <base-input
+                        v-model="model.zipCode"
                         alternative
                         label="Postal code"
                         placeholder="Postal code"
                         input-classes="form-control-alternative"
-                        v-model="model.zipCode"
                       />
                     </div>
                   </div>
                 </div>
-                <hr class="my-4" />
+                <hr class="my-4">
                 <!-- Description -->
-                <h6 class="heading-small text-muted mb-4">About me</h6>
+                <h6 class="heading-small text-muted mb-4">
+                  About me
+                </h6>
                 <div class="pl-lg-4">
                   <div class="form-group">
-                    <base-input alternative label="About Me">
+                    <base-input
+                      alternative
+                      label="About Me"
+                    >
                       <textarea
                         rows="4"
                         class="form-control form-control-alternative"
@@ -206,7 +248,7 @@
 </template>
 <script>
 export default {
-  name: "user-profile",
+  name: "UserProfile",
   data() {
     return {
       model: {

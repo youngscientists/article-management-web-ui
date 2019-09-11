@@ -1,17 +1,18 @@
 <template>
-    <div class="input-slider-container">
-        <div class="input-slider"
-             ref="slider"
-             :class="[`slider-${type}`]"
-             :disabled="disabled">
-        </div>
-    </div>
+  <div class="input-slider-container">
+    <div
+      ref="slider"
+      class="input-slider"
+      :class="[`slider-${type}`]"
+      :disabled="disabled"
+    />
+  </div>
 </template>
 <script>
 import noUiSlider from "nouislider";
 
 export default {
-  name: "base-slider",
+  name: "BaseSlider",
   props: {
     value: {
       type: [String, Array, Number],
@@ -44,35 +45,15 @@ export default {
       description: "noUiSlider options"
     }
   },
-  computed: {
-    connect() {
-      return Array.isArray(this.value) || [true, false];
-    }
-  },
   data() {
     return {
       slider: null
     };
   },
-  methods: {
-    createSlider() {
-      noUiSlider.create(this.$refs.slider, {
-        start: this.value,
-        connect: this.connect,
-        range: this.range,
-        ...this.options
-      });
-      const slider = this.$refs.slider.noUiSlider;
-      slider.on("slide", () => {
-        let value = slider.get();
-        if (value !== this.value) {
-          this.$emit("input", value);
-        }
-      });
+  computed: {
+    connect() {
+      return Array.isArray(this.value) || [true, false];
     }
-  },
-  mounted() {
-    this.createSlider();
   },
   watch: {
     value(newValue, oldValue) {
@@ -90,6 +71,26 @@ export default {
           slider.set(newValue);
         }
       }
+    }
+  },
+  mounted() {
+    this.createSlider();
+  },
+  methods: {
+    createSlider() {
+      noUiSlider.create(this.$refs.slider, {
+        start: this.value,
+        connect: this.connect,
+        range: this.range,
+        ...this.options
+      });
+      const slider = this.$refs.slider.noUiSlider;
+      slider.on("slide", () => {
+        let value = slider.get();
+        if (value !== this.value) {
+          this.$emit("input", value);
+        }
+      });
     }
   }
 };

@@ -1,40 +1,43 @@
 <template>
   <div>
     <div class="container tableCardContainer pl-4 pr-4">
-      <div v-for="(row, key) in data" :key="key">
+      <div
+        v-for="(row, key) in data"
+        :key="key"
+      >
         <card v-theme="{color: 'primaryFont'}">
-          <template slot="header"></template>
+          <template slot="header" />
           <div class="tableCardBody">
             <div class="tableCardHeader">
               <h3 v-theme="{color: 'primaryFont'}">
-                <b>{{row.title}}</b>
+                <b>{{ row.title }}</b>
               </h3>
             </div>
             <div class="tableCardItem">
               <b>Editor:</b>
-              {{row.editors[0].name}}
+              {{ row.editors[0].name }}
             </div>
 
             <div class="tableCardItem">
               <b>Subject:</b>
-              {{row.subject}}
+              {{ row.subject }}
             </div>
             <div class="tableCardItem">
               <b>Type:</b>
-              {{row.type}}
+              {{ row.type }}
             </div>
 
             <div class="tableCardItem">
               <b>Status:</b>
-              {{row.status}}
+              {{ row.status }}
             </div>
             <div class="tableCardItem">
               <b>Modified:</b>
-              {{new Date(row.modified).toDateString()}}
+              {{ new Date(row.modified).toDateString() }}
             </div>
             <div class="tableCardItem">
               <b>Date:</b>
-              {{new Date(row.date).toDateString()}}
+              {{ new Date(row.date).toDateString() }}
             </div>
           </div>
         </card>

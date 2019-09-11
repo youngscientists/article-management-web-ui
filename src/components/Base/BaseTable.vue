@@ -1,20 +1,39 @@
 <template>
-  <table class="table tablesorter" :class="tableClass">
+  <table
+    class="table tablesorter"
+    :class="tableClass"
+  >
     <!--  -->
     <thead v-theme="{background: 'primaryBg'}">
       <tr>
-        <slot name="columns" :columns="columns">
-          <th v-for="column in columns" :key="column">{{ column }}</th>
+        <slot
+          name="columns"
+          :columns="columns"
+        >
+          <th
+            v-for="column in columns"
+            :key="column"
+          >
+            {{ column }}
+          </th>
         </slot>
       </tr>
     </thead>
     <tbody :class="tbodyClasses">
-      <tr v-for="(item, index) in data" :key="index">
-        <slot :row="item" :index="index">
+      <tr
+        v-for="(item, index) in data"
+        :key="index"
+      >
+        <slot
+          :row="item"
+          :index="index"
+        >
           <td
             v-for="(column, index) in colsWithValue(item)"
             :key="index"
-          >{{ itemValue(item, column) }}</td>
+          >
+            {{ itemValue(item, column) }}
+          </td>
         </slot>
       </tr>
     </tbody>
@@ -22,7 +41,7 @@
 </template>
 <script>
 export default {
-  name: "base-table",
+  name: "BaseTable",
   props: {
     columns: {
       type: Array,
