@@ -9,13 +9,25 @@ export function apiPOST(path: POST, data: any) {
     body: JSON.stringify(data)
   });
 }
-export function apiGET(path: GET) {
-  return fetch(`${process.env.VUE_APP_API_URL}/api/${path}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    credentials: 'include'
-  });
+export function apiGET(
+  path: GET,
+  options?: {
+    query?: string;
+    id?: string;
+  }
+) {
+  options = options !== undefined ? options : {};
+  return fetch(
+    `${process.env.VUE_APP_API_URL}/api/${path}${path}${options.id !== undefined ? '/'.concat(options.id) : ''}${
+      options.query !== undefined ? '?q='.concat(options.query) : ''
+    }`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      credentials: 'include'
+    }
+  );
 }
 // /articles?q=trashed:false
