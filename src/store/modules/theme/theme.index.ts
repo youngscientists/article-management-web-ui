@@ -1,15 +1,6 @@
-/* ============
- * State of the Theme module
- * ============
- *
- * The initial state of the Theme module.
- */
+import { Module, VuexModule } from 'vuex-module-decorators';
 
-export interface ThemeState {
-  currentTheme: string;
-  themes: { [name: string]: Theme };
-}
-export interface Theme {
+export interface ITheme {
   name: string;
   canBeModified: boolean;
   colors: { [key: string]: string };
@@ -25,9 +16,10 @@ export interface Theme {
   };
 }
 
-const State: ThemeState = {
-  currentTheme: 'default',
-  themes: {
+@Module({ name: 'theme' })
+export default class ThemeModule extends VuexModule {
+  private currentTheme: string = 'default';
+  private themes: { [name: string]: ITheme } = {
     default: {
       name: 'Dark Theme (default)',
       canBeModified: false,
@@ -62,7 +54,19 @@ const State: ThemeState = {
         }
       }
     }
-  }
-};
+  };
 
-export default State;
+  get CurrentThemeColors() {
+    const CleanObject: ITheme['colors'] = {};
+    for (const key in this.themes[this.currentTheme].colors) {
+      if (this.themes[this.currentTheme].colors.hasOwnProperty(key)) {
+        CleanObject[key] = this.themes[this.currentTheme].colors[key];
+      }
+    }
+    return CleanObject;
+  }
+
+  get CurrentThemeDefaults() {
+    return this.themes[this.currentTheme].defaults;
+  }
+}

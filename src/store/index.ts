@@ -12,25 +12,16 @@ import createLogger from 'vuex/dist/logger';
 
 // Modules
 import account from './modules/account';
-import auth from './modules/auth';
-import theme from './modules/theme';
-import articles from './modules/articles';
+import auth from './modules/auth/auth.index';
+import theme from './modules/theme/theme.index';
+import articles from './modules/articles/articles.index';
 import Vue from 'vue';
-import { AuthState } from './modules/auth/state';
-import { ThemeState } from './modules/theme/state';
-import { ArticlesSate } from './modules/articles/state';
 
 Vue.use(Vuex);
 
 const debug = process.env.NODE_ENV !== 'production';
 
-export interface RootState {
-  auth: AuthState;
-  theme: ThemeState;
-  articles: ArticlesSate;
-}
-
-export default new Vuex.Store<RootState>({
+export default new Vuex.Store({
   /**
    * Assign the modules to the store.
    */

@@ -1,6 +1,10 @@
 import store from '@/store';
 import { StringToRGB } from 's.color';
-import { Theme } from '@/store/modules/theme/state';
+import { ITheme } from '@/store/modules/theme/theme.index';
+import { getModule } from 'vuex-module-decorators';
+import themeModule from '@/store/modules/theme/theme.index';
+const theme = getModule(themeModule, store);
+
 export function SetThemeStyle() {
   let themeElement = document.getElementById('themeStyleTag');
   if (themeElement === null) {
@@ -10,8 +14,8 @@ export function SetThemeStyle() {
     themeElement = styleEl;
   }
 
-  const themeColors: Theme['colors'] = store.getters['theme/getCurrentThemeColors'];
-  const themeDefaults: Theme['defaults'] = store.getters['theme/getCurrentThemeDefaults'];
+  const themeColors: ITheme['colors'] = theme.CurrentThemeColors;
+  const themeDefaults: ITheme['defaults'] = theme.CurrentThemeDefaults;
   const shadow = StringToRGB(themeColors[themeDefaults.shadow]);
   let styleContent = `
 body::-webkit-scrollbar {

@@ -13,35 +13,39 @@
     <div v-if="Data !== undefined" class="view-article-container d-flex justify-content-center">
       <div class="card w-100 p-4" v-theme="{background: 'primaryBg', update: ['background']}">
         <div class="border-bottom" v-theme="{border: 'border'}">
-          <div class="mb-3">
+          <div class="mb-2">
             <b class="h2">{{Data.title}}</b>
           </div>
           <div class="h5">
-            <span class="h5">Type / Subject / Date?</span>
-            <div class="float-right text-center">
-              <base-button
-                class="mt-1 mb-3 ml-1"
-                icon="fas fa-book-open"
-                v-theme="{background: 'primary', hover: {background: 'primaryHover'}, border: 'primaryBg'}"
-              >Read</base-button>
-              <base-button
-                class="mt-1 mb-3 ml-1"
-                icon="fas fa-pen"
-                v-theme="{background: 'primary', hover: {background: 'primaryHover'}, border: 'primaryBg'}"
-              >Mark</base-button>
-              <base-button
-                class="mt-1 mb-3 ml-1"
-                icon="ni ni-folder-17"
-                v-theme="{background: 'primary', hover: {background: 'primaryHover'}, border: 'primaryBg'}"
-              >Folder</base-button>
-              <base-button
-                class="mt-1 mb-3 ml-1"
-                icon="ni ni-cloud-download-95"
-                v-theme="{background: 'primary', hover: {background: 'primaryHover'}, border: 'primaryBg'}"
-              >Download</base-button>
+            <div>
+              <span
+                class="h5"
+              >{{Data.type}} {{Data.subject !== null ? '|'.concat(Data.subject) : '' }} | {{ new Date(Data.date).toDateString() }}</span>
             </div>
           </div>
         </div>
+        <!--  <div class="float-left text-center mt-2">
+          <base-button
+            class="mt-1 mb-3 ml-1"
+            icon="fas fa-book-open"
+            v-theme="{background: 'primary', hover: {background: 'primaryHover'}, border: 'primaryBg'}"
+          >Read</base-button>
+          <base-button
+            class="mt-1 mb-3 ml-1"
+            icon="fas fa-pen"
+            v-theme="{background: 'primary', hover: {background: 'primaryHover'}, border: 'primaryBg'}"
+          >Mark</base-button>
+          <base-button
+            class="mt-1 mb-3 ml-1"
+            icon="ni ni-folder-17"
+            v-theme="{background: 'primary', hover: {background: 'primaryHover'}, border: 'primaryBg'}"
+          >Folder</base-button>
+          <base-button
+            class="mt-1 mb-3 ml-1"
+            icon="ni ni-cloud-download-95"
+            v-theme="{background: 'primary', hover: {background: 'primaryHover'}, border: 'primaryBg'}"
+          >Download</base-button>
+        </div>-->
         <div class="view-article-content mt-2 mb-4">
           <div>
             <div class="p-4 d-flex justify-content-center">
@@ -89,7 +93,8 @@
             </div>
             <div class="mt-4">
               <div>
-                <b>Status ---</b>
+                <!-- TODO Status Badge -->
+                <b>Status {{Data.status}}</b>
               </div>
               <base-input class="input-group-alternative mt-4 ml-3 mr-3"></base-input>
               <base-button
@@ -98,31 +103,34 @@
                 v-theme="{background: 'primary', hover: {background: 'primaryHover'}, border: 'primaryBg'}"
               >Update</base-button>
             </div>
-            <!--  <div class="mt-4">
+            <div class="mt-4">
               <div>
                 <b>Actions</b>
               </div>
-              <base-button
-                class="mt-3 mb-3 ml-3"
-                icon="fas fa-book-open"
-                v-theme="{background: 'primary', hover: {background: 'primaryHover'}, border: 'primaryBg'}"
-              >Read</base-button>
-              <base-button
-                class="mt-3 mb-3 ml-1"
-                icon="fas fa-pen"
-                v-theme="{background: 'primary', hover: {background: 'primaryHover'}, border: 'primaryBg'}"
-              >Mark</base-button>
-              <base-button
-                class="mt-3 mb-3 ml-1"
-                icon="ni ni-folder-17"
-                v-theme="{background: 'primary', hover: {background: 'primaryHover'}, border: 'primaryBg'}"
-              >Folder</base-button>
-              <base-button
-                class="mt-3 mb-3 ml-1"
-                icon="ni ni-cloud-download-95"
-                v-theme="{background: 'primary', hover: {background: 'primaryHover'}, border: 'primaryBg'}"
-              >Download</base-button>
-            </div>-->
+              <div class="mt-3 mb-3">
+                <base-button
+                  class="m-1"
+                  icon="fas fa-book-open"
+                  v-theme="{background: 'primary', hover: {background: 'primaryHover'}, border: 'primaryBg'}"
+                >Read</base-button>
+                <base-button
+                  class="m-1"
+                  icon="fas fa-pen"
+                  v-theme="{background: 'primary', hover: {background: 'primaryHover'}, border: 'primaryBg'}"
+                >Mark</base-button>
+                <base-button
+                  class="m-1"
+                  icon="ni ni-folder-17"
+                  v-theme="{background: 'primary', hover: {background: 'primaryHover'}, border: 'primaryBg'}"
+                >Folder</base-button>
+                <base-button
+                  class="m-1"
+                  icon="ni ni-cloud-download-95"
+                  v-theme="{background: 'primary', hover: {background: 'primaryHover'}, border: 'primaryBg'}"
+                >Download</base-button>
+              </div>
+            </div>
+
             <div class="mt-4">
               <b>Notes</b>
               <base-input class="input-group-alternative m-3" placeholder="Additional Notes"></base-input>
@@ -137,7 +145,7 @@
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
-import { apiGET } from "@/utility/api/api";
+import { apiGET, apiHandleError } from "@/utility/api/api";
 // import store from "@/store";
 @Component({
   computed: {
@@ -146,9 +154,10 @@ import { apiGET } from "@/utility/api/api";
     }
   },
   mounted() {
-    apiGET("articles", { id: "0a0fcda0-6dd7-4cb7-a57b-16155d7b0221" })
+    apiGET("articles", { id: this.$route.params.article })
       .then(res => res.json())
       .then(res => {
+        apiHandleError(res);
         console.log("RES", res);
         this.$store.commit("articles/current", res);
       });
@@ -167,7 +176,7 @@ export default class ViewArticle extends Vue {}
 
 .view-article-container
   padding-top: 5.5rem
-  padding-bottom: 6rem
+  padding-bottom: 2rem
   padding-left: 64rem
   padding-right: 64rem
   transition: padding 250ms ease

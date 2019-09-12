@@ -12,7 +12,7 @@
               class="input-group-alternative mb-3"
               placeholder="Email"
               addon-left-icon="ni ni-email-83"
-              @keypress.enter="((store.dispatch('auth/requestPin', {email: model.email, vm: ref})))"
+              @keypress.enter="(auth.requestPin({email: model.email, vm: ref}))"
             />
 
             <base-input
@@ -22,14 +22,14 @@
               placeholder="Code"
               type="password"
               addon-left-icon="ni ni-lock-circle-open"
-              @keypress.enter="(store.dispatch('auth/requestToken', {email: model.email, pin: model.pin, vm: ref}))"
+              @keypress.enter="(auth.requestToken({email: model.email, pin: model.pin, vm: ref}))"
             />
 
             <div class="text-center">
               <base-button
                 type="primary"
                 class="my-4"
-                @click="GetAuth.pinRequested ? (store.dispatch('auth/requestToken', {email: model.email, pin: model.pin, vm: ref})) : (store.dispatch('auth/requestPin', {email: model.email, vm: ref}))"
+                @click="GetAuth.pinRequested ? (auth.requestToken({email: model.email, pin: model.pin, vm: ref})) : (auth.requestPin({email: model.email, vm: ref}))"
               >{{ GetAuth.pinRequested ? 'Enter AMS' : 'Request Pin' }}</base-button>
             </div>
           </form>
@@ -49,11 +49,14 @@
 import Vue from "vue";
 import store from "@/store";
 import Component from "vue-class-component";
+import { getModule } from "vuex-module-decorators";
+import authModule from "@/store/modules/auth/auth.index";
+const auth = getModule(authModule, store);
 
 @Component({
   computed: {
     GetAuth() {
-      return store.state.auth;
+      return auth;
     }
   },
   data() {
@@ -63,7 +66,7 @@ import Component from "vue-class-component";
         pin: ""
       },
       isPinFieldVisible: false,
-      store,
+      auth,
       ref: this
     };
   }

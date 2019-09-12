@@ -1,4 +1,5 @@
 import { GET, POST } from './api.interfaces';
+import router from '@/router';
 export function apiPOST(path: POST, data: any) {
   return fetch(`${process.env.VUE_APP_API_URL}/api/${path}`, {
     method: 'POST',
@@ -18,7 +19,7 @@ export function apiGET(
 ) {
   options = options !== undefined ? options : {};
   return fetch(
-    `${process.env.VUE_APP_API_URL}/api/${path}${path}${options.id !== undefined ? '/'.concat(options.id) : ''}${
+    `${process.env.VUE_APP_API_URL}/api/${path}${options.id !== undefined ? '/'.concat(options.id) : ''}${
       options.query !== undefined ? '?q='.concat(options.query) : ''
     }`,
     {
@@ -30,4 +31,14 @@ export function apiGET(
     }
   );
 }
-// /articles?q=trashed:false
+/**
+ * Returns true if there is NO error.
+ */
+export function apiHandleError(res: any) {
+  if (res.name === 'JsonWebTokenError') {
+    console.warn('[apiHandleError] Token Required');
+    router.push({ name: 'login' });
+    return false;
+  }
+  return true;
+}
