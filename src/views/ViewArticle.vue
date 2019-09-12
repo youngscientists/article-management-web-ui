@@ -5,22 +5,37 @@
         <b>VIEW ARTICLE</b>
       </h1>
     </div>
-    <div v-if="Data === undefined" class="view-article-container d-flex justify-content-center">
-      <div class="card p-4 d-flex justify-content-center" v-theme="{background: 'primaryBg'}">
-        <div class="loader"></div>
+    <div
+      v-if="Data === undefined"
+      class="view-article-container d-flex justify-content-center"
+    >
+      <div
+        v-theme="{background: 'primaryBg'}"
+        class="card p-4 d-flex justify-content-center"
+      >
+        <div class="loader" />
       </div>
     </div>
-    <div v-if="Data !== undefined" class="view-article-container d-flex justify-content-center">
-      <div class="card w-100 p-4" v-theme="{background: 'primaryBg', update: ['background']}">
-        <div class="border-bottom" v-theme="{border: 'border'}">
+    <div
+      v-if="Data !== undefined"
+      class="view-article-container d-flex justify-content-center"
+    >
+      <div
+        v-theme="{background: 'primaryBg', update: ['background']}"
+        class="card w-100 p-4"
+      >
+        <div
+          v-theme="{border: 'border'}"
+          class="border-bottom"
+        >
           <div class="mb-2">
-            <b class="h2">{{Data.title}}</b>
+            <b class="h2">{{ Data.title }}</b>
           </div>
           <div class="h5">
             <div>
               <span
                 class="h5"
-              >{{Data.type}} {{Data.subject !== null ? '|'.concat(Data.subject) : '' }} | {{ new Date(Data.date).toDateString() }}</span>
+              >{{ Data.type }} {{ Data.subject !== null ? '|'.concat(Data.subject) : '' }} | {{ new Date(Data.date).toDateString() }}</span>
             </div>
           </div>
         </div>
@@ -53,16 +68,23 @@
                 <img
                   class="img-fluid rounded d-block"
                   src="https://cdna.artstation.com/p/assets/images/images/016/840/134/large/leonard-grosoli-render-01.jpg?1553674810"
-                />
+                >
               </div>
             </div>
 
-            <div class="text-center mb-4">Name</div>
-            <base-input class="input-group-alternative mb-4" placeholder="email"></base-input>
+            <div class="text-center mb-4">
+              Name
+            </div>
+            <base-input
+              class="input-group-alternative mb-4"
+              placeholder="email"
+            />
             <div class="text-center">
               <base-button
                 v-theme="{background: 'button', hover: {background: 'secondary'}, border: 'primaryBg'}"
-              >Contact Author</base-button>
+              >
+                Contact Author
+              </base-button>
             </div>
           </div>
           <div class="p-4">
@@ -75,33 +97,42 @@
                   <img
                     class="avatar"
                     src="https://cdna.artstation.com/p/assets/images/images/016/840/134/large/leonard-grosoli-render-01.jpg?1553674810"
+                  >
+                  <div class="ml-3">
+                    Name
+                  </div>
+                  <base-input
+                    class="input-group-alternative mb-0 ml-3 mr-3"
+                    placeholder="Email"
                   />
-                  <div class="ml-3">Name</div>
-                  <base-input class="input-group-alternative mb-0 ml-3 mr-3" placeholder="Email"></base-input>
-                  <i class="fas fa-trash"></i>
+                  <i class="fas fa-trash" />
                 </div>
               </div>
               <div class="m-3">
-                <i class="fas fa-plus mr-2"></i>
+                <i class="fas fa-plus mr-2" />
                 <u>Add Editor</u>
                 <base-button
+                  v-theme="{background: 'primary', hover: {background: 'primaryHover'}, border: 'primaryBg'}"
                   class="m-3"
                   icon="fas fa-user"
-                  v-theme="{background: 'primary', hover: {background: 'primaryHover'}, border: 'primaryBg'}"
-                >Assign</base-button>
+                >
+                  Assign
+                </base-button>
               </div>
             </div>
             <div class="mt-4">
               <div>
                 <!-- TODO Status Badge -->
-                <b>Status {{Data.status}}</b>
+                <b>Status {{ Data.status }}</b>
               </div>
-              <base-input class="input-group-alternative mt-4 ml-3 mr-3"></base-input>
+              <base-input class="input-group-alternative mt-4 ml-3 mr-3" />
               <base-button
+                v-theme="{background: 'primary', hover: {background: 'primaryHover'}, border: 'primaryBg'}"
                 class="mb-3 ml-3 mr-3"
                 icon="fas fa-sync"
-                v-theme="{background: 'primary', hover: {background: 'primaryHover'}, border: 'primaryBg'}"
-              >Update</base-button>
+              >
+                Update
+              </base-button>
             </div>
             <div class="mt-4">
               <div>
@@ -109,31 +140,42 @@
               </div>
               <div class="mt-3 mb-3">
                 <base-button
+                  v-theme="{background: 'primary', hover: {background: 'primaryHover'}, border: 'primaryBg'}"
                   class="m-1"
                   icon="fas fa-book-open"
-                  v-theme="{background: 'primary', hover: {background: 'primaryHover'}, border: 'primaryBg'}"
-                >Read</base-button>
+                >
+                  Read
+                </base-button>
                 <base-button
+                  v-theme="{background: 'primary', hover: {background: 'primaryHover'}, border: 'primaryBg'}"
                   class="m-1"
                   icon="fas fa-pen"
-                  v-theme="{background: 'primary', hover: {background: 'primaryHover'}, border: 'primaryBg'}"
-                >Mark</base-button>
+                >
+                  Mark
+                </base-button>
                 <base-button
+                  v-theme="{background: 'primary', hover: {background: 'primaryHover'}, border: 'primaryBg'}"
                   class="m-1"
                   icon="ni ni-folder-17"
-                  v-theme="{background: 'primary', hover: {background: 'primaryHover'}, border: 'primaryBg'}"
-                >Folder</base-button>
+                >
+                  Folder
+                </base-button>
                 <base-button
+                  v-theme="{background: 'primary', hover: {background: 'primaryHover'}, border: 'primaryBg'}"
                   class="m-1"
                   icon="ni ni-cloud-download-95"
-                  v-theme="{background: 'primary', hover: {background: 'primaryHover'}, border: 'primaryBg'}"
-                >Download</base-button>
+                >
+                  Download
+                </base-button>
               </div>
             </div>
 
             <div class="mt-4">
               <b>Notes</b>
-              <base-input class="input-group-alternative m-3" placeholder="Additional Notes"></base-input>
+              <base-input
+                class="input-group-alternative m-3"
+                placeholder="Additional Notes"
+              />
             </div>
           </div>
         </div>
