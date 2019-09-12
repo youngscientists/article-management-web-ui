@@ -2,7 +2,10 @@ REVIEW Can be removed!?
 <template>
   <div>
     <div class="container tableCardContainer pl-4 pr-4">
-      <div v-for="(row, key) in data" :key="key">
+      <div
+        v-for="(row, key) in data"
+        :key="key"
+      >
         <card v-theme="{color: 'primaryFont'}">
           <template slot="header" />
           <div class="tableCardBody">

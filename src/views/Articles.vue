@@ -1,9 +1,15 @@
 <template>
   <div>
-    <base-header class="pb-4 pb-5 pt-4 pt-md-5" style="min-height: 100vh;">
+    <base-header
+      class="pb-4 pb-5 pt-4 pt-md-5"
+      style="min-height: 100vh;"
+    >
       <div class="row">
         <div class="col">
-          <articles-table title="Articles" :table-data="GetArticles" />
+          <articles-table
+            title="Articles"
+            :table-data="GetArticles"
+          />
         </div>
       </div>
     </base-header>

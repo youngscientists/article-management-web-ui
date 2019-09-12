@@ -4,6 +4,7 @@ module.exports = {
         "no-console": 0,
         "@typescript-eslint/no-implicit-any": false,
         'vue/require-default-prop': false,
+        'space-before-blocks': ['error', 'always']
     },
     "env": {
         "browser": true,
