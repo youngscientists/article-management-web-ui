@@ -5,12 +5,12 @@
         <b>VIEW ARTICLE</b>
       </h1>
     </div>
-    <div v-if="Data === undefined" class="view-article-container d-flex justify-content-center">
+    <div v-if="Data === null" class="view-article-container d-flex justify-content-center">
       <div class="card p-4 d-flex justify-content-center" v-theme="{background: 'primaryBg'}">
         <div class="loader"></div>
       </div>
     </div>
-    <div v-if="Data !== undefined" class="view-article-container d-flex justify-content-center">
+    <div v-if="Data !== null" class="view-article-container d-flex justify-content-center">
       <div class="card w-100 p-4" v-theme="{background: 'primaryBg', update: ['background']}">
         <div class="border-bottom" v-theme="{border: 'border'}">
           <div class="mb-2">
@@ -93,8 +93,8 @@
             </div>
             <div class="mt-4">
               <div>
-                <!-- TODO Status Badge -->
-                <b>Status {{Data.status}}</b>
+                <b>Status</b>
+                <article-status class="ml-2" :status="Data.status"></article-status>
               </div>
               <base-input class="input-group-alternative mt-4 ml-3 mr-3"></base-input>
               <base-button
@@ -107,7 +107,7 @@
               <div>
                 <b>Actions</b>
               </div>
-              <div class="mt-3 mb-3">
+              <div class="mt-3 mb-3 ml-3">
                 <base-button
                   class="m-1"
                   icon="fas fa-book-open"
@@ -146,11 +146,21 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import { apiGET, apiHandleError } from "@/utility/api/api";
-// import store from "@/store";
+import store from "@/store";
+
+import { getModule } from "vuex-module-decorators";
+import articlesModule from "@/store/modules/articles/articles.index";
+const articles = getModule(articlesModule, store);
+
 @Component({
+  data() {
+    return {
+      articles
+    };
+  },
   computed: {
     Data() {
-      return this.$store.state.articles.currentArticle;
+      return articles.currentArticle;
     }
   },
   mounted() {
@@ -159,7 +169,7 @@ import { apiGET, apiHandleError } from "@/utility/api/api";
       .then(res => {
         apiHandleError(res);
         console.log("RES", res);
-        this.$store.commit("articles/current", res);
+        articles.current(res);
       });
   }
 })
@@ -172,7 +182,6 @@ export default class ViewArticle extends Vue {}
 .view-article-content
   display: grid
   grid-template-columns: 1.2fr 3fr
-
 
 .view-article-container
   padding-top: 5.5rem

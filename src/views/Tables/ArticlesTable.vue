@@ -1,28 +1,12 @@
 <template>
-  <div
-    v-theme="{background: 'primaryBg', shadow: true}"
-    class="card"
-  >
-    <div
-      v-theme="{background: 'primaryBg'}"
-      class="card-header border-0"
-    >
+  <div v-theme="{background: 'primaryBg', shadow: true}" class="card">
+    <div v-theme="{background: 'primaryBg'}" class="card-header border-0">
       <div class="row align-items-center">
         <div class="col">
-          <h3
-            v-theme="{background: 'primaryBg', color: 'primaryFont'}"
-            class="mb-0"
-          >
-            {{ title }}
-          </h3>
+          <h3 v-theme="{background: 'primaryBg', color: 'primaryFont'}" class="mb-0">{{ title }}</h3>
         </div>
         <div class="col text-right">
-          <base-button
-            type="primary"
-            size="sm"
-          >
-            Refresh
-          </base-button>
+          <base-button type="primary" size="sm">Refresh</base-button>
         </div>
       </div>
     </div>
@@ -97,87 +81,43 @@
       </base-table>
     </div>-->
     <div class="test">
-      <div
-        v-theme="{border: 'border'}"
-        class="article-table article-table-header pl-4 pr-4 pt-1"
-      >
-        <div class="article-table-h-3">
-          Date
-        </div>
+      <div v-theme="{border: 'border'}" class="article-table article-table-header pl-4 pr-4 pt-1">
+        <div class="article-table-h-3">Date</div>
         <div>Title</div>
-        <div class="article-table-h-1">
-          Subject
-        </div>
-        <div class="article-table-h-2">
-          Type
-        </div>
-        <div class="article-table-h-4">
-          Editor
-        </div>
-        <div class="article-table-h-5">
-          Status
-        </div>
+        <div class="article-table-h-1">Subject</div>
+        <div class="article-table-h-2">Type</div>
+        <div class="article-table-h-4">Editors</div>
+        <div class="article-table-h-5">Status</div>
       </div>
-      <div
-        v-for="(row, key) in tableData"
-        :key="key"
-      >
+      <div v-for="(row, key) in tableData" :key="key">
         <div
           v-theme="{border: 'border', hover: {
             background: 'cards'
           }}"
-          class="article-table article-table-item pl-4 pr-4 pt-1"
+          class="article-table article-table-item pl-4 pr-4 pt-2 pb-2"
           @click="activate(key)"
         >
           <div
             v-theme="{color: 'mutedFont'}"
             class="article-table-h-3"
-          >
-            {{ new Date(row.date).toDateString() }}
-          </div>
+          >{{ new Date(row.date).toDateString() }}</div>
           <div scope="row">
             <b>{{ row.title }}</b>
           </div>
-          <div
-            v-theme="{color: 'mutedFont'}"
-            class="article-table-h-1"
-          >
-            {{ row.subject }}
-          </div>
-          <div
-            v-theme="{color: 'mutedFont'}"
-            class="article-table-h-2"
-          >
-            {{ row.type }}
-          </div>
+          <div v-theme="{color: 'mutedFont'}" class="article-table-h-1">{{ row.subject }}</div>
+          <div v-theme="{color: 'mutedFont'}" class="article-table-h-2">{{ row.type }}</div>
           <div
             v-theme="{color: 'mutedFont'}"
             class="article-table-h-4"
-          >
-            {{ row.editors.map(e => e.name).join(', ') }}
-          </div>
-          <div
-            v-theme="{color: 'mutedFont'}"
-            class="article-table-h-5"
-          >
-            {{ row.status }}
-          </div>
-          <div
-            v-if="active === key"
-            class="article-table-details"
-          >
-            <div class="p-8 text-center">
-              Details
-            </div>
+          >{{ row.editors.map(e => e.name).join(', ') }}</div>
+          <div v-theme="{color: 'mutedFont'}" class="article-table-h-5">
+            <article-status class="ml-2" :status="row.status"></article-status>
           </div>
         </div>
       </div>
     </div>
 
-    <div
-      v-theme="{background: 'primaryBg'}"
-      class="card-footer d-flex justify-content-end"
-    >
+    <div v-theme="{background: 'primaryBg'}" class="card-footer d-flex justify-content-end">
       <!-- <base-pagination total="30"></base-pagination> -->
     </div>
   </div>
@@ -187,11 +127,6 @@ import Vue from "vue";
 import Component from "vue-class-component";
 
 @Component({
-  data() {
-    return {
-      active: ""
-    };
-  },
   props: {
     type: {
       type: String
@@ -201,11 +136,7 @@ import Component from "vue-class-component";
   },
   methods: {
     activate: function(key) {
-      if (this.$data.active === key) {
-        this.$data.active = "";
-      } else {
-        this.$data.active = key;
-      }
+      console.log("Clicked", key);
     }
   }
 })
@@ -228,33 +159,33 @@ export default class ArticlesTable extends Vue {}
 
 .article-table
   display: grid
-  grid-template-columns: 130px 1fr 100px 140px 160px 160px
+  //                   Date Title Subject Type Editor Status
+  grid-template-columns: 130px 1fr 100px 140px 160px 210px
   border-bottom: 1px solid grey
   transition: background 250ms ease
- 
 
-@media screen and ( max-width: 1400px )
+@media screen and ( max-width: 1430px )
   .article-table
-    grid-template-columns: 130px 1fr 0 140px 160px 160px
+    grid-template-columns: 130px 1fr 0 140px 160px 210px
     .article-table-h-1
       @include Hide
 
-@media screen and ( max-width: 1300px )
+@media screen and ( max-width: 1330px )
   .article-table
-    grid-template-columns: 130px 1fr 0 0 160px 160px
+    grid-template-columns: 130px 1fr 0 0 160px 210px
     .article-table-h-2
       @include Hide
-@media screen and ( max-width: 1200px )
+@media screen and ( max-width: 1230px )
   .article-table
-    grid-template-columns: 0 1fr 0 0 160px 160px
+    grid-template-columns: 0 1fr 0 0 160px 210px
     .article-table-h-3
       @include Hide
-@media screen and ( max-width: 1050px )
+@media screen and ( max-width: 1080px )
   .article-table
-    grid-template-columns: 0 1fr 0 0 0 160px
+    grid-template-columns: 0 1fr 0 0 0 210px
     .article-table-h-4
       @include Hide
-@media screen and ( max-width: 520px )
+@media screen and ( max-width: 550px )
   .article-table
     grid-template-columns: 0 1fr 0 0 0 0
     .article-table-h-5

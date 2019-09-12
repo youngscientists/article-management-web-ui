@@ -5,7 +5,7 @@ import Vue from 'vue';
 @Module({ name: 'articles' })
 export default class ArticlesModule extends VuexModule {
   allArticles: Article[] = [];
-  currentArticle: Article = undefined;
+  currentArticle: Article = null;
   @Action
   getAllArticles(payload: Payload) {
     apiGET('articles')
@@ -57,13 +57,13 @@ export interface Article {
   editors: [];
   link: string;
 }
-export enum ArticleType {
+enum ArticleType {
   'ReviewArticle' = 'Review Article',
   'Blog' = 'Blog',
   'OriginalResearch' = 'Original Research',
   'MagazineArticle' = 'Magazine Article'
 }
-export enum ArticleStatus {
+enum ArticleStatus {
   'InReview' = 'In Review',
   'FailedDataCheck' = 'Failed Data Check',
   'PassedDataCheck' = 'Passed Data Check',

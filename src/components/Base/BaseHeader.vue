@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-theme="{background: 'primary'}"
-    class="header"
-  >
+  <div v-theme="{background: 'primary'}" class="header">
     <div class="container-fluid">
       <div class="header-body">
         <slot />
