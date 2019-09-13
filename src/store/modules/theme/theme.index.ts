@@ -1,4 +1,4 @@
-import { Module, VuexModule } from 'vuex-module-decorators';
+import { Module, VuexModule, Mutation } from 'vuex-module-decorators';
 import store from '@/store';
 export interface ITheme {
   name: string;
@@ -24,9 +24,9 @@ export interface ITheme {
 
 @Module({ name: 'theme', store: store })
 export default class ThemeModule extends VuexModule {
-  currentTheme: string = 'default';
+  currentTheme: string = 'light';
   themes: { [name: string]: ITheme } = {
-    default: {
+    dark: {
       name: 'Dark Theme (default)',
       canBeModified: false,
       colors: {
@@ -127,6 +127,57 @@ export default class ThemeModule extends VuexModule {
           'Passed Data Check': '#2aa'
         }
       }
+    },
+    custom: {
+      name: 'Custom Theme',
+      canBeModified: false,
+      colors: {
+        shadow: '#b39ddb',
+        primaryBg: '#fff',
+        primary: '#c00',
+        primaryHover: '#d00',
+        primaryFont: '#222',
+        link: '#59f',
+        mutedFont: '#444',
+        icon: '#333',
+        muted: '#aaa',
+        border: '#eee',
+        button: '#222',
+        mutedHover: '#bbb',
+        cards: '#ccc',
+        secondary: '#4C1717'
+      },
+      defaults: {
+        color: 'primaryFont',
+        scrollBar: {
+          thumb: 'mutedHover',
+          thumbHover: 'muted',
+          track: 'primaryBg'
+        },
+        shadow: 'shadow',
+        background: 'primary',
+        loader: {
+          accent: 'primary',
+          primary: 'cards'
+        }
+      },
+      badgeColors: {
+        default: '#090909',
+        status: {
+          Rejected: '#b00',
+          Published: '#0b0',
+          'Ready to Publish': '#070',
+          'Ethical Question': '#50a',
+          Submitted: '#24a',
+          'Failed Data Check': '#a50',
+          'Revisions Requested': '#ba0',
+          'Technical Review': '#90a',
+          'In Review': '#07c',
+          'Final Review': '#a25',
+          '2nd Editor Required': '#f45',
+          'Passed Data Check': '#2aa'
+        }
+      }
     }
   };
 
@@ -142,5 +193,9 @@ export default class ThemeModule extends VuexModule {
 
   get CurrentThemeDefaults() {
     return this.themes[this.currentTheme].defaults;
+  }
+  @Mutation
+  changeCurrent(themeName: string) {
+    this.currentTheme = themeName;
   }
 }

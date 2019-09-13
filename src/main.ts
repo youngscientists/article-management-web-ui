@@ -4,8 +4,7 @@ import Plugins from './plugins/Plugins';
 import './registerServiceWorker';
 import router from './router';
 import store from './store';
-import { SetThemeStyle } from './Theme/Theme.Utility';
-
+import { InitTheme } from './Theme/Theme.Utility';
 
 Vue.config.productionTip = false;
 
@@ -15,4 +14,4 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app');
-SetThemeStyle(); // initializes the theme styles
+InitTheme(); // initializes the theme styles

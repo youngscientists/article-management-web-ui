@@ -28,6 +28,8 @@ import themeModule from "@/store/modules/theme/theme.index";
 
 import ColorPicker from "@/components/ColorPicker/ColorPicker.vue";
 import { StringToRGB } from "s.color";
+import { UpdateTheme, SaveTheme } from "@/Theme/Theme.Utility";
+
 @Component({
   components: {
     ColorPicker: ColorPicker
@@ -35,7 +37,10 @@ import { StringToRGB } from "s.color";
   data() {
     return {
       active: "",
-      StringToRGB: StringToRGB,
+      StringToRGB,
+      UpdateTheme,
+      SaveTheme,
+      getModule,
       theme: getModule(themeModule, this.$store)
     };
   },
@@ -49,7 +54,10 @@ import { StringToRGB } from "s.color";
   },
   methods: {
     changeTheme: function() {
-      this.$store.state.theme.currentTheme = "light";
+      const theme = getModule(themeModule, this.$store);
+      theme.changeCurrent(theme.currentTheme === "light" ? "dark" : "light");
+      this.$data.UpdateTheme();
+      this.$data.SaveTheme();
     }
   }
 })

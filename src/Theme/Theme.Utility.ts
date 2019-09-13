@@ -3,9 +3,35 @@ import { StringToRGB } from 's.color';
 import { ITheme } from '@/store/modules/theme/theme.index';
 import { getModule } from 'vuex-module-decorators';
 import themeModule from '@/store/modules/theme/theme.index';
-const theme = getModule(themeModule, store);
 
-export function SetThemeStyle() {
+class ThemeData {
+  constructor(public customTheme: ITheme, public currentTheme: string) {}
+}
+
+export function InitTheme() {
+  GetTheme();
+  UpdateTheme();
+}
+
+export function GetTheme() {
+  const theme = getModule(themeModule, store);
+  const SavedThemeData = window.localStorage.getItem('SavedThemeData');
+  console.log('SavedThemeData', SavedThemeData);
+  if (SavedThemeData === null) {
+    SaveTheme();
+  } else {
+    const Data: ThemeData = JSON.parse(SavedThemeData);
+    theme.changeCurrent(Data.currentTheme);
+    // TODO mutate custom theme
+  }
+}
+export function SaveTheme() {
+  const theme = getModule(themeModule, store);
+  window.localStorage.setItem('SavedThemeData', JSON.stringify(new ThemeData(theme.themes.custom, theme.currentTheme)));
+}
+
+export function UpdateTheme() {
+  const theme = getModule(themeModule, store);
   let themeElement = document.getElementById('themeStyleTag');
   if (themeElement === null) {
     const styleEl = document.createElement('style');
