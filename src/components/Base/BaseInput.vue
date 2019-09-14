@@ -11,27 +11,17 @@
     ]"
   >
     <slot name="label">
-      <label
-        v-if="label"
-        class="form-control-label"
-        :class="labelClasses"
-      >
+      <label v-if="label" class="form-control-label" :class="labelClasses">
         {{ label }}
         <span v-if="required">*</span>
       </label>
     </slot>
 
-    <div
-      v-if="addonLeftIcon || $slots.addonLeft"
-      class="input-group-prepend"
-    >
-      <span
-        v-theme="{background: 'cards'}"
-        class="input-group-text"
-      >
+    <div v-if="addonLeftIcon || $slots.addonLeft" class="input-group-prepend">
+      <span v-theme="{background: 'cards'}" class="input-group-text">
         <slot name="addonLeft">
           <i
-            v-theme="{color: `${focused ? 'icon' : 'muted'}`, update: [{type: 'color', value: `${focused ? 'muted' : 'icon' }`},]}"
+            v-theme="{color: `${focused ? 'icon' : 'muted'}`, update: [{type: 'color', value: `${focused ? 'muted' : 'icon' }`}]}"
             :class="addonLeftIcon"
           />
         </slot>
@@ -49,16 +39,10 @@
           {'is-invalid': valid === false}, inputClasses]"
         aria-describedby="addon-right addon-left"
         v-on="listeners"
-      >
+      />
     </slot>
-    <div
-      v-if="addonRightIcon || $slots.addonRight"
-      class="input-group-append"
-    >
-      <span
-        v-theme="{background: 'cards'}"
-        class="input-group-text"
-      >
+    <div v-if="addonRightIcon || $slots.addonRight" class="input-group-append">
+      <span v-theme="{background: 'cards'}" class="input-group-text">
         <slot name="addonRight">
           <i
             v-theme="{color: `${focused ? 'icon' : 'muted'}`, update: [{type: 'color', value: `${focused ? 'muted' : 'icon' }`},]}"
@@ -74,9 +58,7 @@
         class="text-danger invalid-feedback"
         style="display: block;"
         :class="{'mt-2': hasIcon}"
-      >
-        {{ error }}
-      </div>
+      >{{ error }}</div>
     </slot>
   </div>
 </template>

@@ -15,12 +15,9 @@
              tabNavClasses
             ]"
         >
-          <li
-            v-for="tab in tabs"
-            :key="tab.id || tab.title"
-            class="nav-item"
-          >
+          <li v-for="tab in tabs" :key="tab.id || tab.title" class="nav-item">
             <a
+              v-theme="{color: 'primary'}"
               data-toggle="tab"
               role="tab"
               class="nav-link"
@@ -35,11 +32,7 @@
         </ul>
       </div>
     </template>
-    <div
-      slot="content"
-      class="tab-content"
-      :class="[tabContentClasses]"
-    >
+    <div slot="content" class="tab-content" :class="[tabContentClasses]">
       <slot v-bind="slotData" />
     </div>
   </component>

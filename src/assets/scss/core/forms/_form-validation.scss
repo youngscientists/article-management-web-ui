@@ -33,7 +33,7 @@
   }
 
   .form-control {
-    background-color: inherit; // $input-focus-bg; NOTE Changed
+    background-color: inherit;
 
     &:focus {
       border-color: $input-focus-border-color;
@@ -55,7 +55,7 @@
   }
 
   .form-control {
-    background-color: inherit; // $input-focus-bg; NOTE Changed
+    background-color: inherit;
 
     &:focus {
       border-color: $input-focus-border-color;

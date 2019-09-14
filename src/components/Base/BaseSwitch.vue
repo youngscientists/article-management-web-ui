@@ -1,12 +1,7 @@
 <template>
   <label class="custom-toggle">
-    <input
-      v-model="model"
-      type="checkbox"
-      v-bind="$attrs"
-      v-on="$listeners"
-    >
-    <span class="custom-toggle-slider rounded-circle" />
+    <input v-model="model" type="checkbox" v-bind="$attrs" v-on="$listeners" />
+    <span class="custom-toggle-slider rounded-circle t-checkboxSwitch" />
   </label>
 </template>
 <script>

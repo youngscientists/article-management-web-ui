@@ -2,7 +2,7 @@
   <div>
     <div class="text-center w-100 pt-4 position-absolute">
       <h1>
-        <b>VIEW ARTICLE</b>
+        <b v-theme="{color: 'secondaryFont'}">VIEW ARTICLE</b>
       </h1>
     </div>
     <div v-if="Data === null" class="view-article-container d-flex justify-content-center">
@@ -24,28 +24,6 @@
             </div>
           </div>
         </div>
-        <!--  <div class="float-left text-center mt-2">
-          <base-button
-            class="mt-1 mb-3 ml-1"
-            icon="fas fa-book-open"
-            v-theme="{background: 'primary', hover: {background: 'primaryHover'}, border: 'primaryBg'}"
-          >Read</base-button>
-          <base-button
-            class="mt-1 mb-3 ml-1"
-            icon="fas fa-pen"
-            v-theme="{background: 'primary', hover: {background: 'primaryHover'}, border: 'primaryBg'}"
-          >Mark</base-button>
-          <base-button
-            class="mt-1 mb-3 ml-1"
-            icon="ni ni-folder-17"
-            v-theme="{background: 'primary', hover: {background: 'primaryHover'}, border: 'primaryBg'}"
-          >Folder</base-button>
-          <base-button
-            class="mt-1 mb-3 ml-1"
-            icon="ni ni-cloud-download-95"
-            v-theme="{background: 'primary', hover: {background: 'primaryHover'}, border: 'primaryBg'}"
-          >Download</base-button>
-        </div>-->
         <div class="view-article-content mt-2 mb-4">
           <div>
             <div class="p-4 d-flex justify-content-center">
@@ -61,7 +39,7 @@
             <base-input class="input-group-alternative mb-4" placeholder="email" />
             <div class="text-center">
               <base-button
-                v-theme="{background: 'button', hover: {background: 'secondary'}, border: 'primaryBg'}"
+                v-theme="{color: 'primaryFont', background: 'button', hover: {background: 'cards', border: 'cards'}, border: 'button'}"
               >Contact Author</base-button>
             </div>
           </div>
@@ -84,11 +62,7 @@
               <div class="m-3">
                 <i class="fas fa-plus mr-2" />
                 <u>Add Editor</u>
-                <base-button
-                  v-theme="{background: 'primary', hover: {background: 'primaryHover'}, border: 'primaryBg'}"
-                  class="m-3"
-                  icon="fas fa-user"
-                >Assign</base-button>
+                <base-button type="primary" class="m-3" icon="fas fa-user">Assign</base-button>
               </div>
             </div>
             <div class="mt-4">
@@ -97,37 +71,17 @@
                 <article-status class="ml-2" :status="Data.status"></article-status>
               </div>
               <base-input class="input-group-alternative mt-4 ml-3 mr-3" />
-              <base-button
-                v-theme="{background: 'primary', hover: {background: 'primaryHover'}, border: 'primaryBg'}"
-                class="mb-3 ml-3 mr-3"
-                icon="fas fa-sync"
-              >Update</base-button>
+              <base-button type="primary" class="mb-3 ml-3 mr-3" icon="fas fa-sync">Update</base-button>
             </div>
             <div class="mt-4">
               <div>
                 <b>Actions</b>
               </div>
               <div class="mt-3 mb-3 ml-3">
-                <base-button
-                  v-theme="{background: 'primary', hover: {background: 'primaryHover'}, border: 'primaryBg'}"
-                  class="m-1"
-                  icon="fas fa-book-open"
-                >Read</base-button>
-                <base-button
-                  v-theme="{background: 'primary', hover: {background: 'primaryHover'}, border: 'primaryBg'}"
-                  class="m-1"
-                  icon="fas fa-pen"
-                >Mark</base-button>
-                <base-button
-                  v-theme="{background: 'primary', hover: {background: 'primaryHover'}, border: 'primaryBg'}"
-                  class="m-1"
-                  icon="ni ni-folder-17"
-                >Folder</base-button>
-                <base-button
-                  v-theme="{background: 'primary', hover: {background: 'primaryHover'}, border: 'primaryBg'}"
-                  class="m-1"
-                  icon="ni ni-cloud-download-95"
-                >Download</base-button>
+                <base-button type="primary" class="m-1" icon="fas fa-book-open">Read</base-button>
+                <base-button type="primary" class="m-1" icon="fas fa-pen">Mark</base-button>
+                <base-button type="primary" class="m-1" icon="ni ni-folder-17">Folder</base-button>
+                <base-button type="primary" class="m-1" icon="ni ni-cloud-download-95">Download</base-button>
               </div>
             </div>
 

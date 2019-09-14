@@ -6,7 +6,7 @@
           <h3 v-theme="{background: 'primaryBg', color: 'primaryFont'}" class="mb-0">{{ title }}</h3>
         </div>
         <div class="col text-right">
-          <base-button type="primary" size="sm">Refresh</base-button>
+          <base-button type="primary" size="sm" @click="refresh">Refresh</base-button>
         </div>
       </div>
     </div>
@@ -17,69 +17,6 @@
         addon-left-icon="fas fa-search"
       />
     </div>
-    <!--     <div class="pr-4 pl-4 pb-2 articlesSortBy border-bottom" v-theme="{border: 'muted'}">
-      <b>Sort By:</b>
-      <a target="_blank" rel="noopener noreferrer">Title</a>
-      <a target="_blank" rel="noopener noreferrer">Date</a>
-      <a target="_blank" rel="noopener noreferrer">Type</a>
-      <a target="_blank" rel="noopener noreferrer">Status</a>
-      <a target="_blank" rel="noopener noreferrer">Modified</a>
-    </div>-->
-
-    <!--  <div class="table-responsive">
-      <base-table
-        v-theme="{color: 'primaryFont'}"
-        class="table align-items-center table-flush"
-        :data="tableData"
-      >
-        <template slot="columns">
-          <th v-theme="{border: 'muted'}">Date</th>
-          <th v-theme="{border: 'muted'}">Title</th>
-          <th v-theme="{border: 'muted'}">Subject</th>
-          <th v-theme="{border: 'muted'}">Type</th>
-          <th v-theme="{border: 'muted'}">Editor</th>
-          <th v-theme="{border: 'muted'}">Status</th>
-          <th v-theme="{border: 'muted'}"></th>
-        </template>
-
-        <template slot-scope="{row}">
-          <td v-theme="{border: 'muted'}" class="date">{{new Date(row.date).toDateString()}}</td>
-          <th v-theme="{border: 'muted'}" scope="row">
-            <div>{{row.title}}</div>
-
-            <span class="name text-sm"></span>
-          </th>
-          <td v-theme="{border: 'muted'}" class="subject">{{row.subject}}</td>
-          <td v-theme="{border: 'muted'}" class="type">{{row.type}}</td>
-          <td v-theme="{border: 'muted'}" class="editor">{{row.editors[0].name}}</td>
-          <td v-theme="{border: 'muted'}">
-            <badge class="badge-dot mr-4" :type="row.statusType">
-              <i :class="`bg-${row.statusType}`"></i>
-              <span class="status">{{row.status}}</span>
-            </badge>
-          </td>
-
-          <td class="text-right" v-theme="{border: 'muted'}">
-            <base-dropdown class="dropdown" position="right">
-              <a
-                slot="title"
-                class="btn btn-sm btn-icon-only text-light"
-                role="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                <i v-theme="{color: 'icon'}" class="fas fa-ellipsis-v"></i>
-              </a>
-
-              <template>
-                <a class="dropdown-item" href="#">Delete</a>
-              </template>
-            </base-dropdown>
-          </td>
-        </template>
-      </base-table>
-    </div>-->
     <div class="test">
       <div v-theme="{border: 'border'}" class="article-table article-table-header pl-4 pr-4 pt-1">
         <div class="article-table-h-3">Date</div>
@@ -95,7 +32,7 @@
             background: 'cards'
           }}"
           class="article-table article-table-item pl-4 pr-4 pt-2 pb-2"
-          @click="activate(key)"
+          @click="activate( row.id)"
         >
           <div
             v-theme="{color: 'mutedFont'}"
@@ -117,14 +54,18 @@
       </div>
     </div>
 
-    <div v-theme="{background: 'primaryBg'}" class="card-footer d-flex justify-content-end">
-      <!-- <base-pagination total="30"></base-pagination> -->
-    </div>
+    <div v-theme="{background: 'primaryBg'}" class="card-footer"></div>
   </div>
 </template>
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
+import store from "@/store";
+
+import { getModule } from "vuex-module-decorators";
+import articlesModule from "@/store/modules/articles/articles.index";
+
+import router from "@/router";
 
 @Component({
   props: {
@@ -135,8 +76,13 @@ import Component from "vue-class-component";
     tableData: Array
   },
   methods: {
-    activate: function(key) {
-      console.log("Clicked", key);
+    activate: function(id) {
+      router.push({ name: "view", params: { article: id } });
+      console.log("Clicked", id);
+    },
+    refresh: function() {
+      const articles = getModule(articlesModule, this.$store);
+      articles.getAllArticles({ vm: this, refresh: true });
     }
   }
 })

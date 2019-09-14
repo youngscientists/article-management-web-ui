@@ -1,9 +1,29 @@
 import { Module, VuexModule, Mutation } from 'vuex-module-decorators';
 import store from '@/store';
+import { customThemeDefaults, darkTheme, lightTheme } from './theme.defaults';
 export interface ITheme {
   name: string;
   canBeModified: boolean;
-  colors: { [key: string]: string };
+  colors: {
+    shadow: string;
+    primaryBg: string;
+    primary: string;
+    primaryHover: string;
+    primaryFocus: string;
+    primaryFont: string;
+    secondaryFont: string;
+    link: string;
+    mutedFont: string;
+    icon: string;
+    muted: string;
+    border: string;
+    button: string;
+    mutedHover: string;
+    cards: string;
+    secondary: string;
+    [key: string]: string;
+  };
+  invertImageIcon: boolean;
   defaults: {
     color: string;
     background: string;
@@ -13,6 +33,11 @@ export interface ITheme {
       primary: string;
       accent: string;
     };
+    checkboxSwitch: {
+      checked: string;
+      unchecked: string;
+    };
+    sidebarActive: string;
   };
   badgeColors: {
     default: string;
@@ -21,174 +46,21 @@ export interface ITheme {
     };
   };
 }
+export interface IThemeColors {
+  [color: string]: string;
+}
 
 @Module({ name: 'theme', store: store })
 export default class ThemeModule extends VuexModule {
   currentTheme: string = 'light';
   themes: { [name: string]: ITheme } = {
-    dark: {
-      name: 'Dark Theme (default)',
-      canBeModified: false,
-      colors: {
-        shadow: '#b39ddb',
-        primaryBg: '#222',
-        primary: '#c00',
-        primaryHover: '#d00',
-        primaryFont: '#eee',
-        link: '#59f',
-        mutedFont: '#aaa',
-        icon: '#ddd',
-        muted: '#777',
-        border: '#555',
-        button: '#333',
-        mutedHover: '#555',
-        cards: '#444',
-        secondary: '#4C1717'
-      },
-      defaults: {
-        color: 'primaryFont',
-        scrollBar: {
-          thumb: 'mutedHover',
-          thumbHover: 'muted',
-          track: 'primaryBg'
-        },
-        shadow: 'shadow',
-        background: 'primary',
-        loader: {
-          accent: 'primary',
-          primary: 'cards'
-        }
-      },
-      badgeColors: {
-        default: '#090909',
-        status: {
-          Rejected: '#b00',
-          Published: '#0b0',
-          'Ready to Publish': '#070',
-          'Ethical Question': '#50a',
-          Submitted: '#24a',
-          'Failed Data Check': '#a50',
-          'Revisions Requested': '#ba0',
-          'Technical Review': '#90a',
-          'In Review': '#07c',
-          'Final Review': '#a25',
-          '2nd Editor Required': '#f45',
-          'Passed Data Check': '#2aa'
-        }
-      }
-    },
-    light: {
-      name: 'Light Theme',
-      canBeModified: false,
-      colors: {
-        shadow: '#b39ddb',
-        primaryBg: '#fff',
-        primary: '#c00',
-        primaryHover: '#d00',
-        primaryFont: '#222',
-        link: '#59f',
-        mutedFont: '#444',
-        icon: '#333',
-        muted: '#aaa',
-        border: '#eee',
-        button: '#222',
-        mutedHover: '#bbb',
-        cards: '#ccc',
-        secondary: '#4C1717'
-      },
-      defaults: {
-        color: 'primaryFont',
-        scrollBar: {
-          thumb: 'mutedHover',
-          thumbHover: 'muted',
-          track: 'primaryBg'
-        },
-        shadow: 'shadow',
-        background: 'primary',
-        loader: {
-          accent: 'primary',
-          primary: 'cards'
-        }
-      },
-      badgeColors: {
-        default: '#090909',
-        status: {
-          Rejected: '#b00',
-          Published: '#0b0',
-          'Ready to Publish': '#070',
-          'Ethical Question': '#50a',
-          Submitted: '#24a',
-          'Failed Data Check': '#a50',
-          'Revisions Requested': '#ba0',
-          'Technical Review': '#90a',
-          'In Review': '#07c',
-          'Final Review': '#a25',
-          '2nd Editor Required': '#f45',
-          'Passed Data Check': '#2aa'
-        }
-      }
-    },
-    custom: {
-      name: 'Custom Theme',
-      canBeModified: false,
-      colors: {
-        shadow: '#b39ddb',
-        primaryBg: '#fff',
-        primary: '#c00',
-        primaryHover: '#d00',
-        primaryFont: '#222',
-        link: '#59f',
-        mutedFont: '#444',
-        icon: '#333',
-        muted: '#aaa',
-        border: '#eee',
-        button: '#222',
-        mutedHover: '#bbb',
-        cards: '#ccc',
-        secondary: '#4C1717'
-      },
-      defaults: {
-        color: 'primaryFont',
-        scrollBar: {
-          thumb: 'mutedHover',
-          thumbHover: 'muted',
-          track: 'primaryBg'
-        },
-        shadow: 'shadow',
-        background: 'primary',
-        loader: {
-          accent: 'primary',
-          primary: 'cards'
-        }
-      },
-      badgeColors: {
-        default: '#090909',
-        status: {
-          Rejected: '#b00',
-          Published: '#0b0',
-          'Ready to Publish': '#070',
-          'Ethical Question': '#50a',
-          Submitted: '#24a',
-          'Failed Data Check': '#a50',
-          'Revisions Requested': '#ba0',
-          'Technical Review': '#90a',
-          'In Review': '#07c',
-          'Final Review': '#a25',
-          '2nd Editor Required': '#f45',
-          'Passed Data Check': '#2aa'
-        }
-      }
-    }
+    dark: darkTheme,
+    light: lightTheme,
+    custom: customThemeDefaults
   };
 
   get CurrentThemeColors() {
-    const CleanObject: ITheme['colors'] = {};
-    for (const key in this.themes[this.currentTheme].colors) {
-      if (this.themes[this.currentTheme].colors.hasOwnProperty(key)) {
-        CleanObject[key] = this.themes[this.currentTheme].colors[key];
-      }
-    }
-    return CleanObject;
+    return this.themes[this.currentTheme].colors;
   }
 
   get CurrentThemeDefaults() {
@@ -197,5 +69,25 @@ export default class ThemeModule extends VuexModule {
   @Mutation
   changeCurrent(themeName: string) {
     this.currentTheme = themeName;
+  }
+  @Mutation
+  changeCurrentColor(input: { key: string; value: string }) {
+    this.themes[this.currentTheme].colors[input.key] = input.value;
+  }
+  @Mutation
+  changeBadgeCurrentColor(input: { key: string; value: string }) {
+    this.themes[this.currentTheme].badgeColors.status[input.key] = input.value;
+  }
+  @Mutation
+  toggleInvertImageIcon() {
+    this.themes[this.currentTheme].invertImageIcon = !this.themes[this.currentTheme].invertImageIcon;
+  }
+  @Mutation
+  changeTheme(input: { themeName: string; value: ITheme }) {
+    if (this.themes[input.themeName].canBeModified) {
+      this.themes[input.themeName] = input.value;
+    } else {
+      console.warn(`[${input.themeName}] Cannot be Modified!`);
+    }
   }
 }

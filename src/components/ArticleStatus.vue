@@ -1,5 +1,6 @@
 <template>
   <b
+    v-theme="{color: 'secondaryFont'}"
     class="rounded p-2 pl-3 pr-3"
     :style="'background: '.concat(Color.status[status] !== undefined ? Color.status[status] : Color.default,';')"
   >{{status}}</b>

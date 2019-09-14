@@ -51,7 +51,7 @@ export default new Router({
       children: [
         {
           path: '/view/:article',
-          name: 'article',
+          name: 'view',
           component: () => import('./views/ViewArticle.vue')
         }
       ]

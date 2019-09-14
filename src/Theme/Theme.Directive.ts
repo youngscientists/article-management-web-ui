@@ -1,6 +1,8 @@
 import { DirectiveBinding } from 'vue/types/options';
 import { VNode } from 'vue/types/vnode';
-
+import store from '@/store';
+import { getModule } from 'vuex-module-decorators';
+import themeModule from '@/store/modules/theme/theme.index';
 import { DirectiveOptions } from 'vue';
 
 const directive: DirectiveOptions = {
@@ -22,17 +24,20 @@ interface SetColorInputBase {
   border: string;
 }
 export interface vTheme extends SetColorInputBase {
+  isImage: boolean;
   hover: SetColorInputBase;
   focus: SetColorInputBase;
-  after: string;
+  after: SetColorInputBase;
   placeholder: { color: string; hover: string; focus: string };
-  shadow: true | 'sm' | 'lg';
-  update: { type: 'shadow' | 'color' | 'background' | 'fill' | 'border'; value: string }[];
+  shadow: boolean | 'sm' | 'lg';
+  update: { type: 'shadow' | 'color' | 'background' | 'fill' | 'border' | 'hover'; value: string | SetColorInputBase }[] | true;
+  checkboxSwitch: boolean;
+  before: SetColorInputBase;
 }
 
 export function vThemeSetClasses(el: HTMLElement, input: vTheme, canUpdate: boolean) {
   // update is true if input.update is truthy and the update hook gets called.
-  if (canUpdate && input.update) {
+  if (canUpdate && typeof input.update !== 'boolean') {
     for (const update of input.update) {
       switch (update.type) {
         case 'shadow':
@@ -50,12 +55,44 @@ export function vThemeSetClasses(el: HTMLElement, input: vTheme, canUpdate: bool
         case 'border':
           el.classList.remove(`t-b-${update.value}`);
           break;
+        case 'hover':
+          if (typeof update.value !== 'string') {
+            if (update.value.background) {
+              el.classList.remove(`t-h-bg-${update.value.background}`);
+            }
+            if (update.value.color) {
+              el.classList.remove(`t-h-c-${update.value.color}`);
+            }
+            if (update.value.fill) {
+              el.classList.remove(`t-h-f-${update.value.fill}`);
+            }
+            if (update.value.border) {
+              el.classList.remove(`t-h-b-${update.value.border}`);
+            }
+          }
+          break;
       }
     }
   }
+
+  if (input.isImage) {
+    const theme = getModule(themeModule, store);
+    if (theme.themes[theme.currentTheme].invertImageIcon) {
+      el.classList.add('t-image-icon-invert');
+    } else {
+      el.classList.remove('t-image-icon-invert');
+    }
+  }
+  if (input.checkboxSwitch) {
+    el.classList.add('t-checkboxSwitch');
+  }
+
   // base types
   if (input.shadow) {
     el.classList.add(`t-shadow${typeof input.shadow === 'string' ? '-'.concat(input.shadow) : ''}`);
+  }
+  if (input.shadow === false) {
+    el.classList.add('t-shadow-none');
   }
   if (input.background) {
     el.classList.add(`t-bg-${input.background}`);
@@ -68,9 +105,6 @@ export function vThemeSetClasses(el: HTMLElement, input: vTheme, canUpdate: bool
   }
   if (input.border) {
     el.classList.add(`t-b-${input.border}`);
-  }
-  if (input.after) {
-    el.classList.add(`t-af-${input.after}`);
   }
 
   if (input.hover) {
@@ -112,6 +146,36 @@ export function vThemeSetClasses(el: HTMLElement, input: vTheme, canUpdate: bool
     }
     if (input.placeholder.focus) {
       el.classList.add(`t-p-f-c-${input.placeholder.focus}`);
+    }
+  }
+
+  if (input.after) {
+    if (input.after.border) {
+      el.classList.add(`t-af-b-${input.after.border}`);
+    }
+    if (input.after.background) {
+      el.classList.add(`t-af-bg-${input.after.background}`);
+    }
+    if (input.after.color) {
+      el.classList.add(`t-af-c-${input.after.color}`);
+    }
+    if (input.after.fill) {
+      el.classList.add(`t-af-f-${input.after.fill}`);
+    }
+  }
+
+  if (input.before) {
+    if (input.before.border) {
+      el.classList.add(`t-bf-b-${input.before.border}`);
+    }
+    if (input.before.background) {
+      el.classList.add(`t-bf-bg-${input.before.background}`);
+    }
+    if (input.before.color) {
+      el.classList.add(`t-bf-c-${input.before.color}`);
+    }
+    if (input.before.fill) {
+      el.classList.add(`t-bf-f-${input.before.fill}`);
     }
   }
 }

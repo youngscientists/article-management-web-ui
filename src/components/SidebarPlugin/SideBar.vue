@@ -7,17 +7,11 @@
     <div class="container-fluid">
       <!--Toggler-->
       <navbar-toggle-button @click.native="showSidebar">
-        <i
-          v-theme="{color: 'icon'}"
-          class="ni ni-bullet-list-67"
-        />
+        <i v-theme="{color: 'icon'}" class="ni ni-bullet-list-67" />
         <!-- <span class="navbar-toggler-icon" ></span> -->
       </navbar-toggle-button>
-      <router-link
-        class="navbar-brand"
-        to="/home"
-      >
-        <img src="img/brand/logo.png">
+      <router-link class="navbar-brand" to="/home">
+        <img v-theme="{isImage: true, update: true}" src="img/brand/logo.png" />
         <!-- <h1 v-theme="{color: 'primaryFont'}">{{shortTitle}}</h1> -->
       </router-link>
 
@@ -36,7 +30,7 @@
           <div class="row">
             <div class="col-6 collapse-brand">
               <router-link to="/">
-                <img src="img/brand/logo.png">
+                <img src="img/brand/logo.png" />
               </router-link>
             </div>
             <div class="col-6 collapse-close">

@@ -14,6 +14,9 @@ export default class ArticlesModule extends VuexModule {
         if (apiHandleError(res)) {
           console.log('ARTICLES', res);
           this.all(res);
+          if (payload.refresh) {
+            payload.vm.$notify({ type: 'success', message: 'Successfully Refreshed' });
+          }
         } else {
           payload.vm.$notify({ type: 'warning', message: 'Access Denied' });
         }
@@ -34,6 +37,7 @@ export default class ArticlesModule extends VuexModule {
 }
 interface Payload {
   vm: Vue;
+  refresh?: boolean;
 }
 
 export interface Article {

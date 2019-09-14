@@ -8,11 +8,8 @@
       @click.native="linkClick"
     >
       <template>
-        <i :class="link.icon" />
-        <span
-          v-theme="{color: 'primaryFont'}"
-          class="nav-link-text"
-        >{{ link.name }}</span>
+        <i :class="link.icon" v-theme="{color: 'icon'}" />
+        <span v-theme="{color: 'primaryFont'}" class="nav-link-text">{{ link.name }}</span>
       </template>
     </router-link>
   </li>

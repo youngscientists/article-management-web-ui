@@ -14,15 +14,11 @@
         :class="[{'modal-notice': type === 'notice'}, modalClasses]"
       >
         <div
-          v-theme="{background: 'primaryBg'}"
+          v-theme="{background: 'primaryBg', shadow: false}"
           class="modal-content"
           :class="[gradient ? `bg-gradient-${gradient}` : '',modalContentClasses]"
         >
-          <div
-            v-if="$slots.header"
-            class="modal-header"
-            :class="[headerClasses]"
-          >
+          <div v-if="$slots.header" class="modal-header" :class="[headerClasses]">
             <slot name="header" />
             <slot name="close-button">
               <button
@@ -34,26 +30,16 @@
                 aria-label="Close"
                 @click="closeModal"
               >
-                <span
-                  v-theme="{color: 'icon'}"
-                  :aria-hidden="!show"
-                >×</span>
+                <span v-theme="{color: 'icon'}" :aria-hidden="!show">×</span>
               </button>
             </slot>
           </div>
 
-          <div
-            class="modal-body"
-            :class="bodyClasses"
-          >
+          <div class="modal-body" :class="bodyClasses">
             <slot />
           </div>
 
-          <div
-            v-if="$slots.footer"
-            class="modal-footer"
-            :class="footerClasses"
-          >
+          <div v-if="$slots.footer" class="modal-footer" :class="footerClasses">
             <slot name="footer" />
           </div>
         </div>

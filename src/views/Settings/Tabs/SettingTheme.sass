@@ -8,52 +8,49 @@
 
   #themeSettingsScroll
     transition: padding 250ms ease
-    max-height: 40vh
+    max-height: 60vh
     overflow: auto
     border-radius: 1rem
     margin-top: 1rem
-    padding: 0.5rem 4rem
-    display: grid
-    grid-template-columns: auto auto
-    grid-gap: 1rem
+    padding: 0.5rem 2rem
 
     .themeSettingsColor
+      margin-bottom: 0.5rem
       transition: background 250ms ease
-      border-radius: 1rem
-      padding: 1rem 2rem
+      border-radius: 0.5rem
+      padding: 0.5rem
       border: none
       cursor: pointer
-      &:hover
-        background: #ccc
-        box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08)
+
       .themeSettingsColorName
         display: flex
-        justify-content: space-around
-        margin: 1rem 0
+        justify-content: space-between
+        align-items: center
+        margin: 0.2rem 0
         b
           align-self: center
         .themeSettingsColorPatch
           display: inline-block
           align-self: center
-          border-radius: 50%
-          width: 4rem
-          height: 4rem
+          border-radius: 5px
+          // padding: 0.4rem
+          width: 5rem
+          height: 2rem
 
 @media screen and ( max-width: 575px )
   #themeSettingsMain
-    padding: 0.5rem 1rem
+    padding: 0.5rem
     #themeSettingsScroll
       padding: 0.5rem 1rem
       .themeSettingsColor
-        padding: 1rem
+        padding: 0rem
         .themeSettingsColorName
           margin: 0.5rem
           .themeSettingsColorPatch
-            width: 2rem
-            height: 2rem
+            width: 1rem
+            height: 1rem
 @media screen and ( max-width: 1000px )
   #themeSettingsMain
     padding: 0.5rem 2rem
     #themeSettingsScroll
-      grid-template-columns: auto
-      padding: 0.5rem 4rem
+      padding: 0.5rem 2rem

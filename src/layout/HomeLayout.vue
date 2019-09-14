@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="wrapper"
-    :class="{ 'nav-open': $sidebar.showSidebar }"
-  >
+  <div class="wrapper" :class="{ 'nav-open': $sidebar.showSidebar }">
     <side-bar
       :background-color="sidebarBackground"
       short-title="AMS"
@@ -18,7 +15,7 @@
         />
 
         <sidebar-item
-          :link="{name: 'User Profile', icon: 'ni ni-single-02 text-yellow', path: '/home/profile'}"
+          :link="{name: 'User Profile', icon: 'ni ni-single-02', path: '/home/profile'}"
         />
         <sidebar-button
           icon="ni ni-settings-gear-65 text-black"
@@ -27,14 +24,8 @@
         />
       </template>
     </side-bar>
-    <div
-      class="main-content"
-      :data="sidebarBackground"
-    >
-      <modal
-        :show.sync="modals.settings"
-        modal-classes="modal-lg"
-      >
+    <div class="main-content" :data="sidebarBackground">
+      <modal :show.sync="modals.settings" modal-classes="modal-lg">
         <template slot="header">
           <h1 class="modal-title">
             <b v-theme="{color: 'primaryFont'}">Settings</b>
@@ -43,25 +34,16 @@
 
         <settings />
         <template slot="footer">
-          <base-button
-            type="secondary"
-            @click="modals.settings = false"
-          >
-            Close
-          </base-button>
-          <base-button type="primary">
+          <base-button @click="modals.settings = false">Close</base-button>
+          <!-- <base-button type="primary">
             Save changes
-          </base-button>
+          </base-button>-->
         </template>
       </modal>
       <!-- <home-navbar></home-navbar> -->
 
       <div @click="toggleSidebar">
-        <fade-transition
-          :duration="200"
-          origin="center top"
-          mode="out-in"
-        >
+        <fade-transition :duration="200" origin="center top" mode="out-in">
           <router-view />
         </fade-transition>
         <!-- <content-footer v-if="!$route.meta.hideFooter"></content-footer> -->
@@ -106,8 +88,6 @@ import router from "@/router";
   }
 })
 export default class HomeLayout extends Vue {
-  mounted() {
-    
-  }
+  mounted() {}
 }
 </script>

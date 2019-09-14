@@ -1,26 +1,30 @@
 <template>
   <component
     :is="tag"
-    v-theme="type === 'primary' ? {background: 'primary', hover: {background: 'primaryHover'}, border: 'primary'} : {}"
+    v-theme="type === 'primary' 
+    ? {background: 'primary', shadow: false, focus: {background: 'primaryFocus'}, hover: {background: 'primaryHover'}, border: 'primary', update: [ {type: 'background', value: 'button'}]} 
+    : {background: 'button', shadow: false, focus: {background: 'primaryFocus'},  hover: {background: 'primaryHover', border: 'primaryHover'}, border: 'button', update: [ {type: 'background', value: 'button'}, {type: 'border', value: 'button'}]}"
     :type="tag === 'button' ? nativeType: ''"
     class="btn"
     :class="classes"
     @click="handleClick"
   >
-    <span
-      v-if="$slots.icon || icon && $slots.default"
-      class="btn-inner--icon"
-    >
+    <span v-if="$slots.icon || icon && $slots.default" class="btn-inner--icon">
       <slot name="icon">
-        <i :class="icon" />
+        <i
+          v-theme="type === 'primary' ? {color: 'secondaryFont'} : {color: 'primaryFont'}"
+          :class="icon"
+        />
       </slot>
     </span>
     <i
+      v-theme="type === 'primary' ? {color: 'secondaryFont'} : {color: 'primaryFont'}"
       v-if="!$slots.default"
       :class="icon"
     />
     <span
       v-if="$slots.icon || icon && $slots.default"
+      v-theme="type === 'primary' ? {color: 'secondaryFont'} : {color: 'primaryFont'}"
       class="btn-inner--text"
     >
       <slot>{{ text }}</slot>

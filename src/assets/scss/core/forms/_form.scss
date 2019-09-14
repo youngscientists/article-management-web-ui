@@ -57,13 +57,13 @@ textarea[resize='horizontal'] {
 // Alternative input
 
 .form-control-alternative {
-  box-shadow: $input-alternative-box-shadow;
+  // box-shadow: $input-alternative-box-shadow;
   border: 0;
   transition: box-shadow 0.15s ease;
 
-  &:focus {
-    box-shadow: $input-focus-alternative-box-shadow;
-  }
+  // &:focus {
+  // box-shadow: $input-focus-alternative-box-shadow;
+  // }
 }
 
 // Size variations: Fixes to the bootstrap defaults
