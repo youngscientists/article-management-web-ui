@@ -15,40 +15,76 @@
         class="input-group-alternative mb-3"
         placeholder="Search"
         addon-left-icon="fas fa-search"
+        v-model="searchString"
       />
     </div>
-    <div class="test">
+    <div>
       <div v-theme="{border: 'border'}" class="article-table article-table-header pl-4 pr-4 pt-1">
-        <div class="article-table-h-3">Date</div>
-        <div>Title</div>
-        <div class="article-table-h-1">Subject</div>
-        <div class="article-table-h-2">Type</div>
-        <div class="article-table-h-4">Editors</div>
-        <div class="article-table-h-5">Status</div>
+        <div class="sorter article-table-h-3" @click="sortBy('date')">
+          Date
+          <i
+            :class="GetSortedBy.name === 'date' ? GetSortedBy.direction ? 'fas fa-sort-up' : 'fas fa-sort-down': ''"
+          ></i>
+        </div>
+        <div class="sorter" @click="sortBy('title')">
+          Title
+          <i
+            :class="GetSortedBy.name === 'title' ? GetSortedBy.direction ? 'fas fa-sort-up' : 'fas fa-sort-down': ''"
+          ></i>
+        </div>
+        <div class="sorter article-table-h-1" @click="sortBy('subject')">
+          Subject
+          <i
+            :class="GetSortedBy.name === 'subject' ? GetSortedBy.direction ? 'fas fa-sort-up' : 'fas fa-sort-down': ''"
+          ></i>
+        </div>
+        <div class="sorter article-table-h-2" @click="sortBy('type')">
+          Type
+          <i
+            :class="GetSortedBy.name === 'type' ? GetSortedBy.direction ? 'fas fa-sort-up' : 'fas fa-sort-down': ''"
+          ></i>
+        </div>
+        <div class="sorter article-table-h-4" @click="sortBy('editors')">
+          Editors
+          <i
+            :class="GetSortedBy.name === 'editors' ? GetSortedBy.direction ? 'fas fa-sort-up' : 'fas fa-sort-down': ''"
+          ></i>
+        </div>
+        <div class="sorter article-table-h-5" @click="sortBy('status')">
+          Status
+          <i
+            :class="GetSortedBy.name === 'status' ? GetSortedBy.direction ? 'fas fa-sort-up' : 'fas fa-sort-down': ''"
+          ></i>
+        </div>
       </div>
-      <div v-for="(row, key) in tableData" :key="key">
-        <div
-          v-theme="{border: 'border', hover: {
+      <div v-for="(row, key) in GetArticles" :key="key">
+        <div v-if="new RegExp(`^${searchString}`, 'i').test(row.title)">
+          <div
+            v-theme="{border: 'border', hover: {
             background: 'cards'
           }}"
-          class="article-table article-table-item pl-4 pr-4 pt-2 pb-2"
-          @click="activate( row.id)"
-        >
-          <div
-            v-theme="{color: 'mutedFont'}"
-            class="article-table-h-3"
-          >{{ new Date(row.date).toDateString() }}</div>
-          <div scope="row">
-            <b>{{ row.title }}</b>
-          </div>
-          <div v-theme="{color: 'mutedFont'}" class="article-table-h-1">{{ row.subject }}</div>
-          <div v-theme="{color: 'mutedFont'}" class="article-table-h-2">{{ row.type }}</div>
-          <div
-            v-theme="{color: 'mutedFont'}"
-            class="article-table-h-4"
-          >{{ row.editors.map(e => e.name).join(', ') }}</div>
-          <div v-theme="{color: 'mutedFont'}" class="article-table-h-5">
-            <article-status class="ml-2" :status="row.status"></article-status>
+            class="article-table article-table-item pl-4 pr-4 pt-2 pb-2"
+            @click="activate( row.id)"
+          >
+            <div
+              v-theme="{color: 'mutedFont'}"
+              class="article-table-h-3"
+            >{{ new Date(row.date).toDateString() }}</div>
+            <div scope="row">
+              <b>{{ row.title }}</b>
+            </div>
+            <div
+              v-theme="{color: 'mutedFont'}"
+              class="article-table-h-1"
+            >{{ row.subject ? row.subject.name : '' }}</div>
+            <div v-theme="{color: 'mutedFont'}" class="article-table-h-2">{{ row.type }}</div>
+            <div
+              v-theme="{color: 'mutedFont'}"
+              class="article-table-h-4"
+            >{{ row.editors.map(e => e.name).join(', ') }}</div>
+            <div v-theme="{color: 'mutedFont'}" class="article-table-h-5">
+              <article-status class="ml-2" :status="row.status"></article-status>
+            </div>
           </div>
         </div>
       </div>
@@ -72,17 +108,34 @@ import router from "@/router";
     type: {
       type: String
     },
-    title: { type: String, default: "Articles" },
-    tableData: Array
+    title: { type: String, default: "Articles" }
+  },
+  data() {
+    return {
+      searchString: ""
+    };
+  },
+  computed: {
+    GetArticles() {
+      return getModule(articlesModule, this.$store).allArticles;
+    },
+    GetSortedBy() {
+      return getModule(articlesModule, this.$store).articlesSortedBy;
+    }
   },
   methods: {
     activate: function(id) {
       router.push({ name: "view", params: { article: id } });
-      console.log("Clicked", id);
     },
     refresh: function() {
       const articles = getModule(articlesModule, this.$store);
       articles.getAllArticles({ vm: this, refresh: true });
+      articles.resetArticlesSortedBy();
+    },
+    sortBy: function(type) {
+      getModule(articlesModule, this.$store).sortAllBy({
+        attribute: type
+      });
     }
   }
 })
@@ -149,5 +202,9 @@ export default class ArticlesTable extends Vue {}
 //     text-align: center
 //     a
 //       margin: 0.1rem 0
+
+.sorter
+  cursor: pointer
+  user-select: none
 
 </style>

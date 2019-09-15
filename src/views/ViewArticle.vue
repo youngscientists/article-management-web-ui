@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="text-center w-100 pt-4 position-absolute">
+    <div class="view-article-root text-center w-100 pt-4 position-absolute">
       <h1>
         <b v-theme="{color: 'secondaryFont'}">VIEW ARTICLE</b>
       </h1>
@@ -13,8 +13,9 @@
     <div v-if="Data !== null" class="view-article-container d-flex justify-content-center">
       <div class="card w-100 p-4" v-theme="{background: 'primaryBg', update: ['background']}">
         <div class="border-bottom" v-theme="{border: 'border'}">
-          <div class="mb-2">
+          <div class="mb-2 d-flex justify-content-sm-between">
             <b class="h2">{{ Data.title }}</b>
+            <base-button type="primary" class="m-1" icon="fas fa-arrow-left" @click="back">Back</base-button>
           </div>
           <div class="h5">
             <div>
@@ -48,15 +49,24 @@
               <div>
                 <b>Editors</b>
               </div>
-              <div class="mt-3 ml-3 mr-3">
-                <div class="mt-1 d-flex align-items-center">
-                  <img
-                    class="avatar"
-                    src="https://cdna.artstation.com/p/assets/images/images/016/840/134/large/leonard-grosoli-render-01.jpg?1553674810"
-                  />
-                  <div class="ml-3">Name</div>
-                  <base-input class="input-group-alternative mb-0 ml-3 mr-3" placeholder="Email" />
-                  <i class="fas fa-trash" />
+              <div class="mt-3 ml-3 mr-3" v-for="(editor, key) in Data.editors" :key="key">
+                <div class="mt-1 view-article-editor">
+                  <div class="d-flex align-items-center">
+                    <img
+                      class="avatar"
+                      src="https://cdna.artstation.com/p/assets/images/images/016/840/134/large/leonard-grosoli-render-01.jpg?1553674810"
+                    />
+                    <div class="ml-3">{{editor.name}}</div>
+                  </div>
+
+                  <div class="d-flex align-items-center view-article-editor-input">
+                    <base-input
+                      class="input-group-alternative mb-0 ml-3 mr-3 w-100"
+                      placeholder="Email"
+                      :value="editor.email"
+                    />
+                    <i class="fas fa-trash" />
+                  </div>
                 </div>
               </div>
               <div class="m-3">
@@ -117,6 +127,11 @@ const articles = getModule(articlesModule, store);
       return articles.currentArticle;
     }
   },
+  methods: {
+    back: function() {
+      this.$router.push({ name: "home" });
+    }
+  },
   mounted() {
     apiGET("articles", { id: this.$route.params.article })
       .then(res => res.json())
@@ -144,6 +159,10 @@ export default class ViewArticle extends Vue {}
   padding-right: 64rem
   transition: padding 250ms ease
 
+.view-article-editor
+  display: grid
+  grid-template-columns: auto 300px
+
 @media screen and ( max-width: 3900px )
   .view-article-container
     padding-left: 16rem
@@ -158,9 +177,20 @@ export default class ViewArticle extends Vue {}
     padding-right: 2rem
   .view-article-content
     grid-template-columns: 1fr
+@media screen and ( max-width: 760px )
+  .view-article-editor
+    grid-template-columns: auto
+    .view-article-editor-input
+      margin-top: 1rem
+
 @media screen and ( max-width: 600px )
   .view-article-container
-    padding-left: 0.2rem
-    padding-right: 0.2rem
+    padding-left: 0rem
+    padding-right: 0rem
+  .view-article-root
+    padding-left: 0
+    padding-right: 0
+
+
 
 </style>

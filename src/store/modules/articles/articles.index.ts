@@ -6,6 +6,10 @@ import Vue from 'vue';
 export default class ArticlesModule extends VuexModule {
   allArticles: Article[] = [];
   currentArticle: Article = null;
+  articlesSortedBy = {
+    name: '',
+    direction: true
+  };
   @Action
   getAllArticles(payload: Payload) {
     apiGET('articles')
@@ -34,6 +38,49 @@ export default class ArticlesModule extends VuexModule {
   current(payload: Article) {
     this.currentArticle = payload;
   }
+  @Mutation
+  resetArticlesSortedBy() {
+    this.articlesSortedBy = {
+      name: '',
+      direction: true
+    };
+  }
+  @Mutation
+  sortAllBy(payload: { attribute: string }) {
+    const direction =
+      this.articlesSortedBy.name === payload.attribute
+        ? ((this.articlesSortedBy.direction = !this.articlesSortedBy.direction), this.articlesSortedBy.direction)
+        : ((this.articlesSortedBy.direction = true), this.articlesSortedBy.direction);
+
+    this.articlesSortedBy.name = payload.attribute;
+
+    this.allArticles = this.allArticles.sort((a, b) => {
+      if (typeof a[payload.attribute] === 'string') {
+        if (a[payload.attribute] > b[payload.attribute]) {
+          return direction ? 1 : -1;
+        }
+        if (b[payload.attribute] > a[payload.attribute]) {
+          return direction ? -1 : 1;
+        }
+      } else if (a[payload.attribute] && b[payload.attribute] && payload.attribute === 'editors') {
+        if (a[payload.attribute][0].name > b[payload.attribute][0].name) {
+          return direction ? 1 : -1;
+        }
+        if (b[payload.attribute][0].name > a[payload.attribute][0].name) {
+          return direction ? -1 : 1;
+        }
+      } else if (a[payload.attribute] && b[payload.attribute] && payload.attribute === 'subject') {
+        if (a[payload.attribute].name > b[payload.attribute].name) {
+          return direction ? 1 : -1;
+        }
+        if (b[payload.attribute].name > a[payload.attribute].name) {
+          return direction ? -1 : 1;
+        }
+      }
+
+      return 0;
+    });
+  }
 }
 interface Payload {
   vm: Vue;
@@ -58,7 +105,7 @@ export interface Article {
   modified: Date;
   wordpressId: number;
   hasPlagiarism: boolean;
-  editors: [];
+  editors: {};
   link: string;
 }
 enum ArticleType {

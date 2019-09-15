@@ -19,6 +19,7 @@ import TabPane from '@/components/Tabs/TabPane.vue';
 import Tabs from '@/components/Tabs/Tabs.vue';
 import CardGrid from '@/components/CardGrid.vue';
 import ArticleStatus from '@/components/ArticleStatus.vue';
+import { FadeTransition } from 'vue2-transitions';
 
 export default {
   install(Vue: Vue.VueConstructor) {
@@ -43,5 +44,6 @@ export default {
     Vue.component(Tabs.name, Tabs);
     Vue.component(CardGrid.name, CardGrid);
     Vue.component(ArticleStatus.name, ArticleStatus);
+    Vue.component(FadeTransition.name, FadeTransition);
   }
 };

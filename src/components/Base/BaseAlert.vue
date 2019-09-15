@@ -7,31 +7,19 @@
       role="alert"
     >
       <slot v-if="!dismissible">
-        <span
-          v-if="icon"
-          class="alert-inner--icon"
-        >
+        <span v-if="icon" class="alert-inner--icon">
           <i :class="icon" />
         </span>
-        <span
-          v-if="$slots.text"
-          class="alert-inner--text"
-        >
+        <span v-if="$slots.text" class="alert-inner--text">
           <slot name="text" />
         </span>
       </slot>
       <template v-else>
         <slot>
-          <span
-            v-if="icon"
-            class="alert-inner--icon"
-          >
+          <span v-if="icon" class="alert-inner--icon">
             <i :class="icon" />
           </span>
-          <span
-            v-if="$slots.text"
-            class="alert-inner--text"
-          >
+          <span v-if="$slots.text" class="alert-inner--text">
             <slot name="text" />
           </span>
         </slot>
@@ -51,13 +39,9 @@
   </fade-transition>
 </template>
 <script>
-import { FadeTransition } from "vue2-transitions";
-
 export default {
   name: "BaseAlert",
-  components: {
-    FadeTransition
-  },
+
   props: {
     type: {
       type: String,

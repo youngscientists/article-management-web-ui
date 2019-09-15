@@ -56,7 +56,7 @@ import Vue from "vue";
 import Component from "vue-class-component";
 import HomeNavbar from "./HomeNavbar.vue";
 import ContentFooter from "./ContentFooter.vue";
-import { FadeTransition } from "vue2-transitions";
+
 import Settings from "../views/Settings/Settings.vue";
 import store from "@/store";
 import router from "@/router";
@@ -65,7 +65,6 @@ import router from "@/router";
   components: {
     HomeNavbar,
     ContentFooter,
-    FadeTransition,
     Settings
   },
   methods: {
