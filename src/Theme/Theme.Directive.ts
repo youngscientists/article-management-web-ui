@@ -29,7 +29,7 @@ export interface vTheme extends SetColorInputBase {
   focus: SetColorInputBase;
   after: SetColorInputBase;
   placeholder: { color: string; hover: string; focus: string };
-  shadow: boolean | 'sm' | 'lg';
+  shadow: boolean | 'sm' | 'lg' | 'strong';
   update: { type: 'shadow' | 'color' | 'background' | 'fill' | 'border' | 'hover'; value: string | SetColorInputBase }[] | true;
   checkboxSwitch: boolean;
   before: SetColorInputBase;

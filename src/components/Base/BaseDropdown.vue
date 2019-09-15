@@ -9,11 +9,7 @@
     @click="toggleDropDown"
   >
     <slot name="title">
-      <a
-        class="dropdown-toggle nav-link"
-        :class="{'no-caret': hideArrow}"
-        data-toggle="dropdown"
-      >
+      <a class="dropdown-toggle nav-link" :class="{'no-caret': hideArrow}" data-toggle="dropdown">
         <i :class="icon" />
         <span class="no-icon">{{ title }}</span>
       </a>
@@ -22,6 +18,7 @@
       ref="menu"
       class="dropdown-menu"
       :class="[{'dropdown-menu-right': position === 'right'}, {show: isOpen}, menuClasses]"
+      v-theme="{background: 'cards', shadow: 'strong', update: true}"
     >
       <slot />
     </ul>

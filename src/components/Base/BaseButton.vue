@@ -1,13 +1,13 @@
 <template>
   <component
     :is="tag"
-    v-theme="type === 'primary' 
-    ? {background: 'primary', shadow: false, focus: {background: 'primaryFocus'}, hover: {background: 'primaryHover'}, border: 'primary', update: [ {type: 'background', value: 'button'}]} 
-    : {background: 'button', shadow: false, focus: {background: 'primaryFocus'},  hover: {background: 'primaryHover', border: 'primaryHover'}, border: 'button', update: [ {type: 'background', value: 'button'}, {type: 'border', value: 'button'}]}"
-    :type="tag === 'button' ? nativeType: ''"
     class="btn"
     :class="classes"
     @click="handleClick"
+    v-theme="type === 'primary' 
+    ? {background: 'primary', shadow: false, focus: {background: 'primaryFocus'}, hover: {background: 'primaryHover'}, border: 'primary', update: [ {type: 'background', value: 'button'}]} 
+    : {background: 'button', shadow: false, focus: {background: 'primaryFocus', border: 'primaryFocus'},  hover: {background: 'primaryHover', border: 'primaryHover'}, border: 'button', update: [ {type: 'background', value: 'button'}, {type: 'border', value: 'button'}]}"
+    :type="tag === 'button' ? nativeType: ''"
   >
     <span v-if="$slots.icon || icon && $slots.default" class="btn-inner--icon">
       <slot name="icon">

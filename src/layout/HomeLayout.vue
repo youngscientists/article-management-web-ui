@@ -15,7 +15,11 @@
         />
 
         <sidebar-item
-          :link="{name: 'User Profile', icon: 'ni ni-single-02', path: '/home/profile'}"
+          :link="{
+            name: 'User Profile',
+            icon: 'ni ni-single-02',
+            path: '/home/profile'
+          }"
         />
         <sidebar-button
           icon="ni ni-settings-gear-65 text-black"
@@ -28,25 +32,20 @@
       <modal :show.sync="modals.settings" modal-classes="modal-lg">
         <template slot="header">
           <h1 class="modal-title">
-            <b v-theme="{color: 'primaryFont'}">Settings</b>
+            <b v-theme="{ color: 'primaryFont' }">Settings</b>
           </h1>
         </template>
 
         <settings />
         <template slot="footer">
           <base-button @click="modals.settings = false">Close</base-button>
-          <!-- <base-button type="primary">
-            Save changes
-          </base-button>-->
         </template>
       </modal>
-      <!-- <home-navbar></home-navbar> -->
 
       <div @click="toggleSidebar">
         <fade-transition :duration="200" origin="center top" mode="out-in">
           <router-view />
         </fade-transition>
-        <!-- <content-footer v-if="!$route.meta.hideFooter"></content-footer> -->
       </div>
     </div>
   </div>
@@ -59,7 +58,6 @@ import ContentFooter from "./ContentFooter.vue";
 
 import Settings from "../views/Settings/Settings.vue";
 import store from "@/store";
-import router from "@/router";
 
 @Component({
   components: {

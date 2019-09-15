@@ -52,7 +52,7 @@ export default new Router({
         {
           path: '/view/:article',
           name: 'view',
-          component: () => import('./views/ViewArticle.vue')
+          component: () => import('./views/View Article/ViewArticle.vue')
         }
       ]
     }

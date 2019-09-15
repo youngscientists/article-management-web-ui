@@ -39,6 +39,14 @@ export default class ArticlesModule extends VuexModule {
     this.currentArticle = payload;
   }
   @Mutation
+  currentSetStatus(payload: ArticleStatus) {
+    this.currentArticle.status = payload;
+  }
+  @Mutation
+  currentRemoveEditor(payload: number) {
+    this.currentArticle.editors = this.currentArticle.editors.filter((v, i) => i !== payload);
+  }
+  @Mutation
   resetArticlesSortedBy() {
     this.articlesSortedBy = {
       name: '',
@@ -63,9 +71,11 @@ export default class ArticlesModule extends VuexModule {
           return direction ? -1 : 1;
         }
       } else if (a[payload.attribute] && b[payload.attribute] && payload.attribute === 'editors') {
+        // @ts-ignore eslint-disable-next-line
         if (a[payload.attribute][0].name > b[payload.attribute][0].name) {
           return direction ? 1 : -1;
         }
+        // @ts-ignore eslint-disable-next-line
         if (b[payload.attribute][0].name > a[payload.attribute][0].name) {
           return direction ? -1 : 1;
         }
@@ -95,6 +105,7 @@ export interface Article {
   status: ArticleStatus;
   subject: { name: string; id: string };
   docId: string;
+  id: string;
   deadline: Date;
   notes: string;
   folderId: string;
@@ -105,7 +116,7 @@ export interface Article {
   modified: Date;
   wordpressId: number;
   hasPlagiarism: boolean;
-  editors: {};
+  editors: any[];
   link: string;
 }
 enum ArticleType {

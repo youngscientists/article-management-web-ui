@@ -6,7 +6,7 @@ export const customThemeDefaults: ITheme = {
   invertImageIcon: false,
   colors: {
     shadow: '#000',
-    primaryBg: '#151519',
+    primaryBg: '#1a1a1f',
     primary: '#f20a',
     primaryHover: '#d20a',
     primaryFocus: '#f20c',
