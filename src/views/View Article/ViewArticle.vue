@@ -5,43 +5,25 @@
         <b v-theme="{ color: 'secondaryFont' }">VIEW ARTICLE</b>
       </h1>
     </div>
-    <div
-      v-if="Data === null"
-      class="view-article-container d-flex justify-content-center"
-    >
-      <div
-        class="card p-4 d-flex justify-content-center"
-        v-theme="{ background: 'primaryBg' }"
-      >
+    <div v-if="Data === null" class="view-article-container d-flex justify-content-center">
+      <div class="card p-4 d-flex justify-content-center" v-theme="{ background: 'primaryBg' }">
         <div class="loader"></div>
       </div>
     </div>
-    <div
-      v-if="Data !== null"
-      class="view-article-container d-flex justify-content-center"
-    >
-      <div
-        class="card w-100 p-4"
-        v-theme="{ background: 'primaryBg', update: ['background'] }"
-      >
+    <div v-if="Data !== null" class="view-article-container d-flex justify-content-center">
+      <div class="card w-100 p-4" v-theme="{ background: 'primaryBg', update: ['background'] }">
         <div class="border-bottom" v-theme="{ border: 'border' }">
           <div class="mb-2 d-flex justify-content-sm-between">
             <b class="h2">{{ Data.title }}</b>
-            <base-button
-              type="primary"
-              class="m-1"
-              icon="fas fa-arrow-left"
-              @click="back"
-              >Back</base-button
-            >
+            <base-button type="primary" class="m-1" icon="fas fa-arrow-left" @click="back">Back</base-button>
           </div>
           <div class="h5">
             <div>
-              <span class="h5"
-                >{{ Data.type }}
+              <span class="h5">
+                {{ Data.type }}
                 {{ Data.subject !== null ? "|".concat(Data.subject.name) : "" }}
-                | {{ new Date(Data.date).toDateString() }}</span
-              >
+                | {{ new Date(Data.date).toDateString() }}
+              </span>
             </div>
           </div>
         </div>
@@ -89,8 +71,7 @@
                   rel="noopener noreferrer"
                   class="btn"
                   :href="'mailto:'.concat(author.email)"
-                  >Contact Author</a
-                >
+                >Contact Author</a>
               </div>
             </div>
           </div>
@@ -99,27 +80,18 @@
             <div>
               <div>
                 <b>Status</b>
-                <article-status
-                  class="ml-2"
-                  :status="Data.status"
-                ></article-status>
+                <article-status class="ml-2" :status="Data.status"></article-status>
               </div>
               <div class="mt-3 ml-3 mr-3">
                 <view-article-change-status></view-article-change-status>
-                <base-button type="primary" class="mt-1" icon="fas fa-sync"
-                  >Update</base-button
-                >
+                <base-button type="primary" class="mt-1" icon="fas fa-sync">Update</base-button>
               </div>
             </div>
             <div class="mt-4">
               <div>
                 <b>Editors</b>
               </div>
-              <div
-                class="mt-3 ml-3 mr-3"
-                v-for="(editor, key) in Data.editors"
-                :key="key"
-              >
+              <div class="mt-3 ml-3 mr-3" v-for="(editor, key) in Data.editors" :key="key">
                 <div class="mt-1 view-article-editor">
                   <div class="d-flex align-items-center">
                     <img
@@ -129,28 +101,20 @@
                     <div class="ml-3">{{ editor.name }}</div>
                   </div>
 
-                  <div
-                    class="d-flex align-items-center view-article-editor-input"
-                  >
+                  <div class="d-flex align-items-center view-article-editor-input">
                     <base-input
                       class="input-group-alternative mb-0 ml-3 mr-3 w-100"
                       placeholder="Email"
                       :value="editor.email"
                     />
-                    <i
-                      class="fas fa-trash"
-                      style="cursor: pointer;"
-                      @click="removeEditor(key)"
-                    />
+                    <i class="fas fa-trash" style="cursor: pointer;" @click="removeEditor(key)" />
                   </div>
                 </div>
               </div>
               <div class="m-3">
                 <i class="fas fa-plus mr-2" />
                 <u>Add Editor</u>
-                <base-button type="primary" class="m-3" icon="fas fa-user"
-                  >Assign</base-button
-                >
+                <base-button type="primary" class="m-3" icon="fas fa-user">Assign</base-button>
               </div>
             </div>
 
@@ -164,20 +128,25 @@
                   class="m-1"
                   icon="fas fa-book-open"
                   @click="action('read')"
-                  >Read</base-button
-                >
-                <base-button type="primary" class="m-1" icon="fas fa-pen"
-                  >Mark</base-button
-                >
-                <base-button type="primary" class="m-1" icon="ni ni-folder-17"
-                  >Folder</base-button
-                >
+                >Read</base-button>
+                <base-button
+                  type="primary"
+                  class="m-1"
+                  icon="fas fa-pen"
+                  @click="action('mark')"
+                >Mark</base-button>
+                <base-button
+                  type="primary"
+                  class="m-1"
+                  icon="ni ni-folder-17"
+                  @click="action('folder')"
+                >Folder</base-button>
                 <base-button
                   type="primary"
                   class="m-1"
                   icon="ni ni-cloud-download-95"
-                  >Download</base-button
-                >
+                  @click="action('download')"
+                >Download</base-button>
               </div>
             </div>
 
