@@ -45,6 +45,13 @@ export interface ITheme {
       [color: string]: string;
     };
   };
+  notificationColors: {
+    fontColor: string;
+    warning: string;
+    error: string;
+    info: string;
+    success: string;
+  };
 }
 export interface IThemeColors {
   [color: string]: string;
@@ -77,6 +84,10 @@ export default class ThemeModule extends VuexModule {
   @Mutation
   changeBadgeCurrentColor(input: { key: string; value: string }) {
     this.themes[this.currentTheme].badgeColors.status[input.key] = input.value;
+  }
+  @Mutation
+  changeNotificationCurrentColor(input: { key: string; value: string }) {
+    this.themes[this.currentTheme].notificationColors[input.key] = input.value;
   }
   @Mutation
   toggleInvertImageIcon() {

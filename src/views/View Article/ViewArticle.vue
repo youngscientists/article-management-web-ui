@@ -1,5 +1,17 @@
 <template>
   <div>
+    <modal :show.sync="showAddEditorModal" modal-classes="modal-lg">
+      <template slot="header">
+        <h1 class="modal-title">
+          <b v-theme="{ color: 'primaryFont' }">Add Editor</b>
+        </h1>
+      </template>
+      <view-article-add-editor></view-article-add-editor>
+      <template slot="footer">
+        <base-button @click="showAddEditorModal = false">Close</base-button>
+      </template>
+    </modal>
+
     <div class="view-article-root text-center w-100 pt-4 position-absolute">
       <h1>
         <b v-theme="{ color: 'secondaryFont' }">VIEW ARTICLE</b>
@@ -84,7 +96,12 @@
               </div>
               <div class="mt-3 ml-3 mr-3">
                 <view-article-change-status></view-article-change-status>
-                <base-button type="primary" class="mt-1" icon="fas fa-sync">Update</base-button>
+                <base-button
+                  type="primary"
+                  class="mt-1"
+                  icon="fas fa-sync"
+                  @click="updateStatus(Data.status)"
+                >Update</base-button>
               </div>
             </div>
             <div class="mt-4">
@@ -112,8 +129,15 @@
                 </div>
               </div>
               <div class="m-3">
-                <i class="fas fa-plus mr-2" />
-                <u>Add Editor</u>
+                <span
+                  class="view-article-link"
+                  v-theme="{hover: {color: 'muted'}, focus: {color: 'primaryHover'}}"
+                  @click="showAddEditorModal = !showAddEditorModal"
+                >
+                  <i class="fas fa-plus mr-2" />
+                  <u>Add Editor</u>
+                </span>
+
                 <base-button type="primary" class="m-3" icon="fas fa-user">Assign</base-button>
               </div>
             </div>
@@ -168,21 +192,24 @@
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
-import { apiGET, apiHandleError } from "@/utility/api/api";
+import { apiGET, apiHandleError, apiPUT } from "@/utility/api/api";
 import store from "@/store";
 
 import { getModule } from "vuex-module-decorators";
 import articlesModule from "@/store/modules/articles/articles.index";
 import ViewArticleChangeStatus from "./ViewArticle.ChangeStatus.vue";
+import ViewArticleAddEditor from "./ViewArticle.addEditor.vue";
 const articles = getModule(articlesModule, store);
 
 @Component({
   components: {
-    ViewArticleChangeStatus
+    ViewArticleChangeStatus,
+    ViewArticleAddEditor
   },
   data() {
     return {
-      articles
+      articles,
+      showAddEditorModal: false
     };
   },
   computed: {
@@ -198,7 +225,11 @@ const articles = getModule(articlesModule, store);
       articles.currentSetStatus(status);
     },
     removeEditor: function(key) {
-      articles.currentRemoveEditor(key);
+      articles.currentRemoveEditor({
+        editor: key,
+        vm: this,
+        articleID: this.$route.params.article
+      });
     },
     action: function(type: "read" | "mark" | "folder" | "download") {
       switch (type) {
@@ -223,6 +254,13 @@ const articles = getModule(articlesModule, store);
           );
           break;
       }
+    },
+    updateStatus(newStatus: string) {
+      apiPUT(
+        "articles",
+        { status: newStatus },
+        { id: this.$route.params.article }
+      ).then(() => this.$notify("Successfully Updated the article Status"));
     }
   },
   mounted() {
@@ -308,6 +346,8 @@ export default class ViewArticle extends Vue {}
   .view-article-content
     height: calc( 100vh - 420px )
 
+.view-article-link,
 .dropdown-item
+  user-select: none
   cursor: pointer
 </style>

@@ -7,7 +7,7 @@ export interface Notification {
   icon?: string;
   verticalAlign?: string;
   horizontalAlign?: string;
-  type?: 'default' | 'info' | 'primary' | 'danger' | 'warning' | 'success';
+  type?: 'error' | 'info' | 'warning' | 'success';
   timeout?: number;
   timestamp?: Date;
   component?: any;
@@ -20,7 +20,7 @@ export class NotificationStore {
   public settings = {
     overlap: false,
     verticalAlign: 'top',
-    horizontalAlign: 'right',
+    horizontalAlign: 'center',
     type: 'info',
     timeout: 5000,
     closeOnClick: true,

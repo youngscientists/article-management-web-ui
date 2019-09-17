@@ -5,197 +5,197 @@
     :class="[
       { 'alert-with-icon': icon },
       verticalAlign,
-      horizontalAlign,
-      alertType
+      horizontalAlign
     ]"
     role="alert"
     :style="customPosition"
     data-notify-position="top-center"
+    v-theme="{shadow: 'strong', update: true}"
     @click="tryClose"
   >
     <template v-if="icon || $slots.icon">
       <slot name="icon">
-        <span
-          class="alert-icon"
-          data-notify="icon"
-        >
+        <span class="alert-icon" data-notify="icon">
           <i :class="icon" />
         </span>
       </slot>
     </template>
 
     <span class="alert-text">
-
-      <span
-        v-if="title"
-        class="title"
-      >
-        <b>{{ title }}<br></b>
+      <span v-if="title" class="title">
+        <b :style="`color: ${notificationTheme.fontColor}`">
+          {{ title }}
+          <br />
+        </b>
       </span>
-      <span
-        v-if="message"
-        v-html="message"
-      />
+
+      <span :style="`color: ${notificationTheme.fontColor}`" v-if="message" v-html="message" />
+
       <content-render
+        :style="`color: ${notificationTheme.fontColor}`"
         v-if="!message && component"
         :component="component"
       />
     </span>
 
     <slot name="dismiss-icon">
-      <button
-        type="button"
-        class="close"
-        data-dismiss="alert"
-        aria-label="Close"
-        @click="close"
-      >
-        <span aria-hidden="true">×</span>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close" @click="close">
+        <span v-theme="{color: 'icon', hover: {color: 'muted'}}" aria-hidden="true">×</span>
       </button>
     </slot>
   </div>
 </template>
-<script>
-  export default {
-    name: 'Notification',
-    components: {
-      contentRender: {
-        props: ['component'],
-        render: h => h(this.component)
-      }
-    },
-    props: {
-      message: String,
-      title: String,
-      icon: String,
-      verticalAlign: {
-        type: String,
-        default: 'top',
-        validator: value => {
-          let acceptedValues = ['top', 'bottom'];
-          return acceptedValues.indexOf(value) !== -1;
-        }
-      },
-      horizontalAlign: {
-        type: String,
-        default: 'right',
-        validator: value => {
-          let acceptedValues = ['left', 'center', 'right'];
-          return acceptedValues.indexOf(value) !== -1;
-        }
-      },
-      type: {
-        type: String,
-        default: 'info',
-        validator: value => {
-          let acceptedValues = [
-            'default',
-            'info',
-            'primary',
-            'danger',
-            'warning',
-            'success'
-          ];
-          return acceptedValues.indexOf(value) !== -1;
-        }
-      },
-      timeout: {
-        type: Number,
-        default: 5000,
-        validator: value => {
-          return value >= 0;
-        }
-      },
-      timestamp: {
-        type: Date,
-        default: () => new Date()
-      },
-      component: {
-        type: [Object, Function]
-      },
-      showClose: {
-        type: Boolean,
-        default: true
-      },
-      closeOnClick: {
-        type: Boolean,
-        default: true
-      },
-      clickHandler: Function
-    },
-    data() {
-      return {
-        elmHeight: 0
-      };
-    },
-    computed: {
-      hasIcon() {
-        return this.icon && this.icon.length > 0;
-      },
-      alertType() {
-        return `alert-${this.type}`;
-      },
-      customPosition() {
-        let initialMargin = 20;
-        let alertHeight = this.elmHeight + 10;
-        let sameAlertsCount = this.$notifications.state.filter(alert => {
-          return (
-            alert.horizontalAlign === this.horizontalAlign &&
-            alert.verticalAlign === this.verticalAlign &&
-            alert.timestamp <= this.timestamp
-          );
-        }).length;
-        if (this.$notifications.settings.overlap) {
-          sameAlertsCount = 1;
-        }
-        let pixels = (sameAlertsCount - 1) * alertHeight + initialMargin;
-        let styles = {};
-        if (this.verticalAlign === 'top') {
-          styles.top = `${pixels}px`;
-        } else {
-          styles.bottom = `${pixels}px`;
-        }
-        return styles;
-      }
-    },
-    mounted() {
-      this.elmHeight = this.$el.clientHeight;
-      if (this.timeout) {
-        setTimeout(this.close, this.timeout);
-      }
-    },
-    methods: {
-      close() {
-        this.$emit('close', this.timestamp);
-      },
-      tryClose(evt) {
-        if (this.clickHandler) {
-          this.clickHandler(evt, this);
-        }
-        if (this.closeOnClick) {
-          this.close();
-        }
-      }
-    }
-  };
-</script>
-<style lang="scss">
-  .notifications .alert {
-    position: fixed;
-    z-index: 10000;
+<script lang="ts">
+import Vue from "vue";
+import Component from "vue-class-component";
 
-    &[data-notify='container'] {
-      max-width: 500px;
+import { getModule } from "vuex-module-decorators";
+import themeModule from "@/store/modules/theme/theme.index";
+@Component({
+  components: {
+    contentRender: {
+      props: ["component"],
+      // @ts-ignore
+      render: h => h(this.component)
     }
+  },
+  props: {
+    message: String,
+    title: String,
+    icon: String,
+    verticalAlign: {
+      type: String,
+      default: "bottom",
+      validator: value => {
+        let acceptedValues = ["top", "bottom"];
+        return acceptedValues.indexOf(value) !== -1;
+      }
+    },
+    horizontalAlign: {
+      type: String,
+      default: "center",
+      validator: value => {
+        let acceptedValues = ["left", "center", "right"];
+        return acceptedValues.indexOf(value) !== -1;
+      }
+    },
+    type: {
+      type: String,
+      default: "info",
+      validator: value => {
+        let acceptedValues = ["info", "error", "warning", "success"];
+        return acceptedValues.indexOf(value) !== -1;
+      }
+    },
+    timeout: {
+      type: Number,
+      default: 5000,
+      validator: value => {
+        return value >= 0;
+      }
+    },
+    timestamp: {
+      type: Date,
+      default: () => new Date()
+    },
+    component: {
+      type: [Object, Function]
+    },
+    showClose: {
+      type: Boolean,
+      default: true
+    },
+    closeOnClick: {
+      type: Boolean,
+      default: true
+    },
+    clickHandler: Function
+  },
+  data() {
+    return {
+      elmHeight: 0
+    };
+  },
+  computed: {
+    hasIcon() {
+      return this.$props.icon && this.$props.icon.length > 0;
+    },
 
-    &.center {
-      margin: 0 auto;
+    customPosition() {
+      let initialMargin = 20;
+      let alertHeight = this.$data.elmHeight + 10;
+      let sameAlertsCount = this.$notifications.state.filter(alert => {
+        return (
+          alert.horizontalAlign === this.$props.horizontalAlign &&
+          alert.verticalAlign === this.$props.verticalAlign &&
+          alert.timestamp <= this.$props.timestamp
+        );
+      }).length;
+      if (this.$notifications.settings.overlap) {
+        sameAlertsCount = 1;
+      }
+      let pixels = (sameAlertsCount - 1) * alertHeight + initialMargin;
+      let styles: { [key: string]: string } = {};
+      if (this.$props.verticalAlign === "top") {
+        styles.top = `${pixels}px`;
+      } else {
+        styles.bottom = `${pixels}px`;
+      }
+
+      const theme = getModule(themeModule, this.$store);
+      const notificationTheme =
+        theme.themes[theme.currentTheme].notificationColors;
+
+      styles.backgroundColor = notificationTheme[this.$props.type];
+      styles.border = "none";
+      return styles;
+    },
+    notificationTheme() {
+      const theme = getModule(themeModule, this.$store);
+      return theme.themes[theme.currentTheme].notificationColors;
     }
-    &.left {
-      left: 20px;
+  },
+  mounted() {
+    this.$data.elmHeight = this.$el.clientHeight;
+    if (this.$props.timeout) {
+      // @ts-ignore
+      setTimeout(this.close, this.$props.timeout);
     }
-    &.right {
-      right: 20px;
+  },
+  methods: {
+    close() {
+      this.$emit("close", this.$props.timestamp);
+    },
+    tryClose(evt) {
+      if (this.$props.clickHandler) {
+        this.$props.clickHandler(evt, this);
+      }
+      if (this.$props.closeOnClick) {
+        // @ts-ignore
+        this.close();
+      }
     }
   }
+})
+export default class Notification extends Vue {}
+</script>
+<style lang="scss">
+.notifications .alert {
+  position: fixed;
+  z-index: 10000;
+
+  &[data-notify="container"] {
+    max-width: 500px;
+  }
+
+  &.center {
+    margin: 0 auto;
+  }
+  &.left {
+    left: 20px;
+  }
+  &.right {
+    right: 20px;
+  }
+}
 </style>

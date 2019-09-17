@@ -54,7 +54,7 @@
                 :placeholder="color.replace('#', '')"
                 aria-label="Color"
                 aria-describedby="basic-addon1"
-                @input="colorChange($event, key)"
+                @input="colorChange($event, key, 'changeCurrentColor')"
                 v-model="colorInput[key]"
                 spellcheck="false"
               />
@@ -63,9 +63,9 @@
         </div>
       </div>
       <div class="mb-1 mt-4">
-        <b>Badge Colors</b>
+        <b>Status Badge Colors</b>
       </div>
-      <div v-for="(color, key) in GetThemeBadgeColors" :key="key">
+      <div v-for="(color, key) in GetCurrentTheme.badgeColors.status" :key="key">
         <div
           v-theme="{background: 'cards', border: 'border'}"
           class="themeSettingsColor pl-4 pr-4 pt-2 pb-2"
@@ -90,7 +90,43 @@
                 :placeholder="color.replace('#', '')"
                 aria-label="Color"
                 aria-describedby="basic-addon1"
-                @input="badgeColorChange($event, key)"
+                @input="colorChange($event, key, 'changeBadgeCurrentColor')"
+                v-model="colorInput[key]"
+                spellcheck="false"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mb-1 mt-4">
+        <b>Notification Colors</b>
+      </div>
+      <div v-for="(color, key) in GetCurrentTheme.notificationColors" :key="key">
+        <div
+          v-theme="{background: 'cards', border: 'border'}"
+          class="themeSettingsColor pl-4 pr-4 pt-2 pb-2"
+          @click="active = key "
+        >
+          <div class="themeSettingsColorName">
+            {{ key }}
+            <span class="themeSettingsColorPatch" :style="{'background': color}"></span>
+          </div>
+          <div class="mt-3" v-if="active === key && GetCurrentTheme.canBeModified">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span
+                  v-theme="{background:'primaryBg', border: 'primary'}"
+                  class="input-group-text"
+                >#</span>
+              </div>
+              <input
+                v-theme="{background:'primaryBg', border: 'primary'}"
+                type="text"
+                class="form-control"
+                :placeholder="color.replace('#', '')"
+                aria-label="Color"
+                aria-describedby="basic-addon1"
+                @input="colorChange($event, key, 'changeNotificationCurrentColor')"
                 v-model="colorInput[key]"
                 spellcheck="false"
               />
@@ -129,10 +165,6 @@ import { UpdateTheme, SaveTheme, ThemeTransition } from "@/Theme/Theme.Utility";
       const theme = getModule(themeModule, this.$store);
       return theme.themes[theme.currentTheme].colors;
     },
-    GetThemeBadgeColors() {
-      const theme = getModule(themeModule, this.$store);
-      return theme.themes[theme.currentTheme].badgeColors.status;
-    },
     GetThemes() {
       return getModule(themeModule, this.$store).themes;
     },
@@ -154,27 +186,13 @@ import { UpdateTheme, SaveTheme, ThemeTransition } from "@/Theme/Theme.Utility";
         this.$data.SaveTheme();
       }
     },
-    colorChange: function(e: InputEvent, key) {
+    colorChange: function(e: InputEvent, key, type: string) {
       const theme = getModule(themeModule, this.$store);
       if (
         this.$data.colorInput[key] &&
         this.$data.isValidHex("#".concat(this.$data.colorInput[key]))
       ) {
-        theme.changeCurrentColor({
-          key,
-          value: "#".concat(this.$data.colorInput[key])
-        });
-        this.$data.UpdateTheme();
-        this.$data.SaveTheme();
-      }
-    },
-    badgeColorChange: function(e: InputEvent, key) {
-      const theme = getModule(themeModule, this.$store);
-      if (
-        this.$data.colorInput[key] &&
-        this.$data.isValidHex("#".concat(this.$data.colorInput[key]))
-      ) {
-        theme.changeBadgeCurrentColor({
+        theme[type]({
           key,
           value: "#".concat(this.$data.colorInput[key])
         });

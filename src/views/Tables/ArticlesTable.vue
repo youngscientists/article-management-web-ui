@@ -62,7 +62,8 @@
           <div
             v-theme="{border: 'border', hover: {
             background: 'cards'
-          }}"
+          },
+          focus: {background: 'primaryHover'}}"
             class="article-table article-table-item pl-4 pr-4 pt-2 pb-2"
             @click="activate( row.id)"
           >

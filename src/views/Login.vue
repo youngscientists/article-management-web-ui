@@ -1,15 +1,10 @@
 <template>
   <div class="row justify-content-center">
     <div class="col-lg-5 col-md-7">
-      <div
-        v-theme="{background: 'primaryBg', shadow: true}"
-        class="card border-0"
-      >
+      <div v-theme="{background: 'primaryBg', shadow: true}" class="card border-0">
         <div class="card-body px-lg-5 py-lg-5">
           <div class="text-center text-muted mb-4">
-            <h1 v-theme="{color: 'primary'}">
-              Login
-            </h1>
+            <h1 v-theme="{color: 'primary'}">Login</h1>
           </div>
           <form role="form">
             <base-input
@@ -35,19 +30,14 @@
                 type="primary"
                 class="my-4"
                 @click="GetAuth.pinRequested ? (auth.requestToken({email: model.email, pin: model.pin, vm: ref})) : (auth.requestPin({email: model.email, vm: ref}))"
-              >
-                {{ GetAuth.pinRequested ? 'Enter AMS' : 'Request Pin' }}
-              </base-button>
+              >{{ GetAuth.pinRequested ? 'Enter AMS' : 'Request Pin' }}</base-button>
             </div>
           </form>
         </div>
       </div>
       <div class="row mt-3">
         <div class="col-6">
-          <a
-            v-theme="{color: 'muted', hover: {color: 'mutedHover'}}"
-            href="#/login-help"
-          >
+          <a v-theme="{color: 'muted', hover: {color: 'mutedHover'}}" href="#/login-help">
             <small>Need Help?</small>
           </a>
         </div>
@@ -81,9 +71,7 @@ const auth = getModule(authModule, store);
     };
   }
 })
-export default class Login extends Vue {
-  name: "login";
-}
+export default class Login extends Vue {}
 </script>
 <style>
 </style>

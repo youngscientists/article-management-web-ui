@@ -1,14 +1,50 @@
-import { GET, POST } from './api.interfaces';
+import { GET, POST, PUT } from './api.interfaces';
 import router from '@/router';
-export function apiPOST(path: POST, data: any) {
-  return fetch(`${process.env.VUE_APP_API_URL}/api/${path}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    credentials: 'include',
-    body: JSON.stringify(data)
-  });
+export function apiPOST(
+  path: POST,
+  data: any,
+  options?: {
+    query?: string;
+    id?: string;
+  }
+) {
+  options = options !== undefined ? options : {};
+  return fetch(
+    `${process.env.VUE_APP_API_URL}/api/${path}${options.id !== undefined ? '/'.concat(options.id) : ''}${
+      options.query !== undefined ? '?q='.concat(options.query) : ''
+    }`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      credentials: 'include',
+      body: JSON.stringify(data)
+    }
+  );
+}
+export function apiPUT(
+  path: PUT,
+  data: any,
+  options?: {
+    query?: string;
+    id?: string;
+  }
+) {
+  options = options !== undefined ? options : {};
+  return fetch(
+    `${process.env.VUE_APP_API_URL}/api/${path}${options.id !== undefined ? '/'.concat(options.id) : ''}${
+      options.query !== undefined ? '?q='.concat(options.query) : ''
+    }`,
+    {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      credentials: 'include',
+      body: JSON.stringify(data)
+    }
+  );
 }
 export function apiGET(
   path: GET,

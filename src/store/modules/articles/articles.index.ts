@@ -1,5 +1,5 @@
 import { Module, VuexModule, Action, Mutation } from 'vuex-module-decorators';
-import { apiGET, apiHandleError } from '@/utility/api/api';
+import { apiGET, apiHandleError, apiPUT } from '@/utility/api/api';
 import Vue from 'vue';
 
 @Module({ name: 'articles' })
@@ -12,6 +12,7 @@ export default class ArticlesModule extends VuexModule {
   };
   @Action
   getAllArticles(payload: Payload) {
+    // TODO Check if allArticles is already populated don't get articles unless enough time has passed (10min?)
     apiGET('articles')
       .then(res => res.json())
       .then(res => {
@@ -43,8 +44,14 @@ export default class ArticlesModule extends VuexModule {
     this.currentArticle.status = payload;
   }
   @Mutation
-  currentRemoveEditor(payload: number) {
-    this.currentArticle.editors = this.currentArticle.editors.filter((v, i) => i !== payload);
+  currentRemoveEditor(payload: { editor: number; vm: Vue; articleID: string }) {
+    this.currentArticle.editors = this.currentArticle.editors.filter((v, i) => i !== payload.editor);
+    apiPUT('articles', { editors: this.currentArticle.editors }, { id: payload.articleID })
+      .then(res => res.json())
+      .then(res => {
+        console.log('RES', res);
+        payload.vm.$notify('NOT Successfully Removed');
+      });
   }
   @Mutation
   resetArticlesSortedBy() {

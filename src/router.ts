@@ -39,9 +39,14 @@ export default new Router({
           component: () => import('./views/Articles.vue')
         },
         {
+          path: '/home/assigned',
+          name: 'assignedArticles',
+          component: () => import('./views/AssignedArticles.vue')
+        },
+        {
           path: '/home/profile',
           name: 'profile',
-          component: () => import('./views/UserProfile.vue')
+          component: () => import('./views/Profile.vue')
         }
       ]
     },

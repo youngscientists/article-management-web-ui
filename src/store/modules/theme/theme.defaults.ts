@@ -57,6 +57,13 @@ export const customThemeDefaults: ITheme = {
       '2nd Editor Required': '#f45',
       'Passed Data Check': '#2aa'
     }
+  },
+  notificationColors: {
+    error: '#e96e',
+    fontColor: '#fff',
+    info: '#3aee',
+    success: '#9e9e',
+    warning: '#fe6e'
   }
 };
 
@@ -117,6 +124,13 @@ export const darkTheme: ITheme = {
       '2nd Editor Required': '#f45',
       'Passed Data Check': '#2aa'
     }
+  },
+  notificationColors: {
+    error: '#e96e',
+    fontColor: '#fff',
+    info: '#3aee',
+    success: '#9e9e',
+    warning: '#fe6e'
   }
 };
 
@@ -177,5 +191,12 @@ export const lightTheme: ITheme = {
       '2nd Editor Required': '#f45',
       'Passed Data Check': '#2aa'
     }
+  },
+  notificationColors: {
+    error: '#e96e',
+    fontColor: '#fff',
+    info: '#3aee',
+    success: '#9e9e',
+    warning: '#fe6e'
   }
 };

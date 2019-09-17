@@ -13,10 +13,17 @@
             path: '/home/articles'
           }"
         />
+        <sidebar-item
+          :link="{
+            name: 'Assigned',
+            icon: 'ni ni-single-copy-04 text-primary',
+            path: '/home/assigned'
+          }"
+        />
 
         <sidebar-item
           :link="{
-            name: 'User Profile',
+            name: 'Profile',
             icon: 'ni ni-single-02',
             path: '/home/profile'
           }"
