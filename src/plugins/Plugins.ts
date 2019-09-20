@@ -4,12 +4,14 @@ import globalComponents from './globalComponents';
 import globalDirectives from './globalDirectives';
 import SidebarPlugin, { ISidebarStore } from '@/components/SidebarPlugin/index';
 import NotificationPlugin, { NotificationStore, Notification } from '@/components/NotificationPlugin/index';
+import completionHelper, { CompletionHelper } from '@/components/CompletionHelper/completionHelper';
 
 export default {
   install(Vue: Vue.VueConstructor) {
     Vue.use(globalComponents);
     Vue.use(globalDirectives);
     Vue.use(SidebarPlugin);
+    Vue.use(completionHelper);
     Vue.use(NotificationPlugin);
   }
 };
@@ -18,5 +20,6 @@ declare module 'vue/types/vue' {
     $sidebar: ISidebarStore;
     $notifications: NotificationStore;
     $notify: (notification: Notification | string) => void;
+    $completionHelper: CompletionHelper;
   }
 }

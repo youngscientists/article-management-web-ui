@@ -38,6 +38,7 @@ export interface ITheme {
       unchecked: string;
     };
     sidebarActive: string;
+    font: string;
   };
   badgeColors: {
     default: string;
@@ -51,6 +52,9 @@ export interface ITheme {
     error: string;
     info: string;
     success: string;
+  };
+  fonts: {
+    primary: string;
   };
 }
 export interface IThemeColors {
@@ -73,6 +77,11 @@ export default class ThemeModule extends VuexModule {
   get CurrentThemeDefaults() {
     return this.themes[this.currentTheme].defaults;
   }
+
+  get CurrentThemeFonts() {
+    return this.themes[this.currentTheme].fonts;
+  }
+
   @Mutation
   changeCurrent(themeName: string) {
     this.currentTheme = themeName;
@@ -80,6 +89,10 @@ export default class ThemeModule extends VuexModule {
   @Mutation
   changeCurrentColor(input: { key: string; value: string }) {
     this.themes[this.currentTheme].colors[input.key] = input.value;
+  }
+  @Mutation
+  changeCurrentFont(input: { key: string; value: string }) {
+    this.themes[this.currentTheme].fonts[input.key] = input.value;
   }
   @Mutation
   changeBadgeCurrentColor(input: { key: string; value: string }) {

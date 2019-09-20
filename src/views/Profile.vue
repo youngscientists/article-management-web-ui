@@ -27,7 +27,7 @@ import Component from "vue-class-component";
     // apiGET("user/me")
     //   .then(res => res.json())
     //   .then(res => console.log("ME", res));
-    // apiGET("editors/me")
+    // apiGET("authors/me")
     //   .then(res => res.json())
     //   .then(res => console.log("E/ME", res));
     // apiPUT(

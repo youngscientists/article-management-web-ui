@@ -41,6 +41,7 @@ export function UpdateTheme() {
 
   const themeColors: IThemeColors = theme.CurrentThemeColors;
   const themeDefaults: ITheme['defaults'] = theme.CurrentThemeDefaults;
+  const fonts = theme.CurrentThemeFonts;
   let shadow = StringToRGB(themeColors[themeDefaults.shadow]);
   if (shadow === undefined) {
     shadow = { r: 0, a: 1, b: 0, g: 0 };
@@ -82,6 +83,7 @@ body, b, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, span {
   color: ${themeColors[themeDefaults.color]};
 }
 body {
+  font-family: ${fonts[themeDefaults.font]} !important;
   background: ${themeColors[themeDefaults.background]};
 }
 .loader {
@@ -157,6 +159,14 @@ body {
   border-color: ${color} !important;
 }
 `;
+    }
+  }
+  for (const key in fonts) {
+    if (fonts.hasOwnProperty(key)) {
+      const font = fonts[key];
+      styleContent += `.t-font-${key} {
+  font-family: ${font} !important;
+}`;
     }
   }
   themeElement.textContent = styleContent;

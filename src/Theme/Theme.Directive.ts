@@ -28,6 +28,7 @@ export interface vTheme extends SetColorInputBase {
   hover: SetColorInputBase;
   focus: SetColorInputBase;
   after: SetColorInputBase;
+  font: string;
   placeholder: { color: string; hover: string; focus: string };
   shadow: boolean | 'sm' | 'lg' | 'strong';
   update: { type: 'shadow' | 'color' | 'background' | 'fill' | 'border' | 'hover'; value: string | SetColorInputBase }[] | true;
@@ -73,6 +74,17 @@ export function vThemeSetClasses(el: HTMLElement, input: vTheme, canUpdate: bool
           break;
       }
     }
+  }
+
+  if (input.font) {
+    if (canUpdate && input.update) {
+      el.classList.forEach(val => {
+        if (val.startsWith('t-font-') && val !== input.font) {
+          el.classList.remove(val);
+        }
+      });
+    }
+    el.classList.add(`t-font-${input.font}`);
   }
 
   if (input.isImage) {

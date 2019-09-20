@@ -9,7 +9,7 @@ export const customThemeDefaults: ITheme = {
     primaryBg: '#1a1a1f',
     primary: '#f20a',
     primaryHover: '#d20a',
-    primaryFocus: '#f20c',
+    primaryFocus: '#922a',
     primaryFont: '#fcac',
     secondaryFont: '#fff',
     link: '#53aff3fc',
@@ -39,7 +39,8 @@ export const customThemeDefaults: ITheme = {
       checked: 'primary',
       unchecked: 'icon'
     },
-    sidebarActive: 'primary'
+    sidebarActive: 'primary',
+    font: 'primary'
   },
   badgeColors: {
     default: '#090909',
@@ -49,7 +50,7 @@ export const customThemeDefaults: ITheme = {
       'Ready to Publish': '#070',
       'Ethical Question': '#50a',
       Submitted: '#24a',
-      'Failed Data Check': '#a50',
+      'Failed Data Check': '#f62',
       'Revisions Requested': '#ba0',
       'Technical Review': '#90a',
       'In Review': '#07c',
@@ -61,9 +62,12 @@ export const customThemeDefaults: ITheme = {
   notificationColors: {
     error: '#e96e',
     fontColor: '#fff',
-    info: '#3aee',
-    success: '#9e9e',
-    warning: '#fe6e'
+    info: '#2aee',
+    success: '#4a3e',
+    warning: '#a40a'
+  },
+  fonts: {
+    primary: 'sans-serif'
   }
 };
 
@@ -106,7 +110,8 @@ export const darkTheme: ITheme = {
       checked: 'primary',
       unchecked: 'icon'
     },
-    sidebarActive: 'primary'
+    sidebarActive: 'primary',
+    font: 'primary'
   },
   badgeColors: {
     default: '#090909',
@@ -116,7 +121,7 @@ export const darkTheme: ITheme = {
       'Ready to Publish': '#070',
       'Ethical Question': '#50a',
       Submitted: '#24a',
-      'Failed Data Check': '#a50',
+      'Failed Data Check': '#f62',
       'Revisions Requested': '#ba0',
       'Technical Review': '#90a',
       'In Review': '#07c',
@@ -131,6 +136,9 @@ export const darkTheme: ITheme = {
     info: '#3aee',
     success: '#9e9e',
     warning: '#fe6e'
+  },
+  fonts: {
+    primary: 'sans-serif'
   }
 };
 
@@ -173,7 +181,8 @@ export const lightTheme: ITheme = {
       checked: 'primary',
       unchecked: 'icon'
     },
-    sidebarActive: 'primary'
+    sidebarActive: 'primary',
+    font: 'primary'
   },
   badgeColors: {
     default: '#090909',
@@ -183,7 +192,7 @@ export const lightTheme: ITheme = {
       'Ready to Publish': '#070',
       'Ethical Question': '#50a',
       Submitted: '#24a',
-      'Failed Data Check': '#a50',
+      'Failed Data Check': '#f62',
       'Revisions Requested': '#ba0',
       'Technical Review': '#90a',
       'In Review': '#07c',
@@ -198,5 +207,8 @@ export const lightTheme: ITheme = {
     info: '#3aee',
     success: '#9e9e',
     warning: '#fe6e'
+  },
+  fonts: {
+    primary: 'sans-serif'
   }
 };

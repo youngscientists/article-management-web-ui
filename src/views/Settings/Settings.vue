@@ -16,7 +16,7 @@
 <script>
 import Vue from "vue";
 import Component from "vue-class-component";
-import Theme from "./Tabs/SettingTheme";
+import Theme from "./Tabs/theme/settings.theme";
 @Component({
   components: {
     Theme

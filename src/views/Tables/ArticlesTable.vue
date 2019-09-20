@@ -16,6 +16,7 @@
         placeholder="Search"
         addon-left-icon="fas fa-search"
         v-model="searchString"
+        @click="$completionHelper.Call($event.srcElement)"
       />
     </div>
     <div>
@@ -160,32 +161,32 @@ export default class ArticlesTable extends Vue {}
 .article-table
   display: grid
   //                   Date Title Subject Type Editor Status
-  grid-template-columns: 130px 1fr 100px 140px 160px 210px
+  grid-template-columns: 130px 1fr 100px 140px 160px 240px
   border-bottom: 1px solid grey
   transition: background 250ms ease
 
-@media screen and ( max-width: 1430px )
+@media screen and ( max-width: 1460px )
   .article-table
-    grid-template-columns: 130px 1fr 0 140px 160px 210px
+    grid-template-columns: 130px 1fr 0 140px 160px 240px
     .article-table-h-1
       @include Hide
 
-@media screen and ( max-width: 1330px )
+@media screen and ( max-width: 1360px )
   .article-table
-    grid-template-columns: 130px 1fr 0 0 160px 210px
+    grid-template-columns: 130px 1fr 0 0 160px 240px
     .article-table-h-2
       @include Hide
-@media screen and ( max-width: 1230px )
+@media screen and ( max-width: 1260px )
   .article-table
-    grid-template-columns: 0 1fr 0 0 160px 210px
+    grid-template-columns: 0 1fr 0 0 160px 240px
     .article-table-h-3
       @include Hide
-@media screen and ( max-width: 1080px )
+@media screen and ( max-width: 1110px )
   .article-table
-    grid-template-columns: 0 1fr 0 0 0 210px
+    grid-template-columns: 0 1fr 0 0 0 240px
     .article-table-h-4
       @include Hide
-@media screen and ( max-width: 550px )
+@media screen and ( max-width: 580px )
   .article-table
     grid-template-columns: 0 1fr 0 0 0 0
     .article-table-h-5
@@ -207,5 +208,4 @@ export default class ArticlesTable extends Vue {}
 .sorter
   cursor: pointer
   user-select: none
-
 </style>
