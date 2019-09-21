@@ -1,6 +1,3 @@
-import { Module, VuexModule, Mutation } from 'vuex-module-decorators';
-import store from '@/store';
-import { customThemeDefaults, darkTheme, lightTheme } from './theme.defaults';
 export interface ITheme {
   name: string;
   canBeModified: boolean;
@@ -60,54 +57,60 @@ export interface ITheme {
 export interface IThemeColors {
   [color: string]: string;
 }
+export interface ThemeOptions {
+  defaults?: { defaultTheme: string; themes: { [name: string]: ITheme } };
+}
 
-@Module({ name: 'theme', store: store })
-export default class ThemeModule extends VuexModule {
-  currentTheme: string = 'light';
-  themes: { [name: string]: ITheme } = {
-    dark: darkTheme,
-    light: lightTheme,
-    custom: customThemeDefaults
-  };
+export default class ThemeStore {
+  public currentTheme: string = '';
+  public themes: { [name: string]: ITheme } = {};
 
-  get CurrentThemeColors() {
+  public Init(options?: ThemeOptions) {
+    if (options) {
+      if (options.defaults) {
+        this.currentTheme = options.defaults.defaultTheme;
+        this.themes = options.defaults.themes;
+      }
+    }
+  }
+
+  public get CurrentThemeColors() {
     return this.themes[this.currentTheme].colors;
   }
 
-  get CurrentThemeDefaults() {
+  public get CurrentThemeDefaults() {
     return this.themes[this.currentTheme].defaults;
   }
 
-  get CurrentThemeFonts() {
+  public get CurrentThemeFonts() {
     return this.themes[this.currentTheme].fonts;
   }
 
-  @Mutation
-  changeCurrent(themeName: string) {
+  public changeCurrent(themeName: string) {
     this.currentTheme = themeName;
   }
-  @Mutation
-  changeCurrentColor(input: { key: string; value: string }) {
+
+  public changeCurrentColor(input: { key: string; value: string }) {
     this.themes[this.currentTheme].colors[input.key] = input.value;
   }
-  @Mutation
-  changeCurrentFont(input: { key: string; value: string }) {
+
+  public changeCurrentFont(input: { key: string; value: string }) {
     this.themes[this.currentTheme].fonts[input.key] = input.value;
   }
-  @Mutation
-  changeBadgeCurrentColor(input: { key: string; value: string }) {
+
+  public changeBadgeCurrentColor(input: { key: string; value: string }) {
     this.themes[this.currentTheme].badgeColors.status[input.key] = input.value;
   }
-  @Mutation
-  changeNotificationCurrentColor(input: { key: string; value: string }) {
+
+  public changeNotificationCurrentColor(input: { key: string; value: string }) {
     this.themes[this.currentTheme].notificationColors[input.key] = input.value;
   }
-  @Mutation
-  toggleInvertImageIcon() {
+
+  public toggleInvertImageIcon() {
     this.themes[this.currentTheme].invertImageIcon = !this.themes[this.currentTheme].invertImageIcon;
   }
-  @Mutation
-  changeTheme(input: { themeName: string; value: ITheme }) {
+
+  public changeTheme(input: { themeName: string; value: ITheme }) {
     if (this.themes[input.themeName].canBeModified) {
       this.themes[input.themeName] = input.value;
     } else {

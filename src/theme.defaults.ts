@@ -1,4 +1,4 @@
-import { ITheme } from './theme.index';
+import { ITheme } from './ThemePlugin/theme.store';
 
 export const customThemeDefaults: ITheme = {
   name: 'Custom Theme',

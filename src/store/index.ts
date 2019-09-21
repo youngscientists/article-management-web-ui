@@ -13,7 +13,6 @@ import createLogger from 'vuex/dist/logger';
 // Modules
 import account from './modules/account';
 import auth from './modules/auth/auth.index';
-import theme from './modules/theme/theme.index';
 import articles from './modules/articles/articles.index';
 import Vue from 'vue';
 
@@ -28,7 +27,6 @@ export default new Vuex.Store({
   modules: {
     account, // REVIEW  Can be removed ?
     auth,
-    theme,
     articles
   },
 

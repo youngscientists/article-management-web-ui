@@ -49,8 +49,7 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 
-import { getModule } from "vuex-module-decorators";
-import themeModule from "@/store/modules/theme/theme.index";
+import { ThemeController } from "@/ThemePlugin/theme.plugin";
 @Component({
   components: {
     contentRender: {
@@ -142,7 +141,7 @@ import themeModule from "@/store/modules/theme/theme.index";
         styles.bottom = `${pixels}px`;
       }
 
-      const theme = getModule(themeModule, this.$store);
+      const theme = ThemeController.store;
       const notificationTheme =
         theme.themes[theme.currentTheme].notificationColors;
 
@@ -151,7 +150,7 @@ import themeModule from "@/store/modules/theme/theme.index";
       return styles;
     },
     notificationTheme() {
-      const theme = getModule(themeModule, this.$store);
+      const theme = ThemeController.store;
       return theme.themes[theme.currentTheme].notificationColors;
     }
   },

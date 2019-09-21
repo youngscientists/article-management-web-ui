@@ -16,7 +16,6 @@
         placeholder="Search"
         addon-left-icon="fas fa-search"
         v-model="searchString"
-        @click="$completionHelper.Call($event.srcElement)"
       />
     </div>
     <div>

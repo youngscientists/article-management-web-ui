@@ -9,10 +9,8 @@
 <script>
 import Vue from "vue";
 import Component from "vue-class-component";
-import store from "@/store";
-import { getModule } from "vuex-module-decorators";
-import themeModule from "@/store/modules/theme/theme.index";
-const theme = getModule(themeModule, store);
+import { ThemeController } from "@/ThemePlugin/theme.plugin";
+const theme = ThemeController.store;
 
 @Component({
   props: {
@@ -32,6 +30,4 @@ const theme = getModule(themeModule, store);
 export default class ArticleStatus extends Vue {}
 </script>
 
-<style lang="sass" scoped>
-
-</style>
+<style lang="sass" scoped></style>

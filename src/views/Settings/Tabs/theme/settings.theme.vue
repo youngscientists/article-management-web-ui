@@ -76,13 +76,15 @@
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
-import { getModule } from "vuex-module-decorators";
-import themeModule from "@/store/modules/theme/theme.index";
 import { StringToRGB, isValidHex } from "s.color";
-import { UpdateTheme, SaveTheme, ThemeTransition } from "@/Theme/Theme.Utility";
-
+import {
+  UpdateTheme,
+  SaveTheme,
+  ThemeTransition
+} from "@/ThemePlugin/theme.utility";
 import displayColors from "./settings.theme.displayColors.vue";
 import displayFonts from "./settings.theme.displayFonts.vue";
+import { ThemeController } from "../../../../ThemePlugin/theme.plugin";
 
 @Component({
   components: {
@@ -97,38 +99,37 @@ import displayFonts from "./settings.theme.displayFonts.vue";
       ThemeTransition,
       SaveTheme,
       isValidHex,
-      getModule,
       colorInput: {}
     };
   },
   computed: {
     GetThemeColors() {
-      const theme = getModule(themeModule, this.$store);
+      const theme = ThemeController.store;
       return theme.themes[theme.currentTheme].colors;
     },
     GetThemes() {
-      return getModule(themeModule, this.$store).themes;
+      return ThemeController.store.themes;
     },
     GetCurrentThemeName() {
-      return getModule(themeModule, this.$store).currentTheme;
+      return ThemeController.store.currentTheme;
     },
     GetCurrentTheme() {
-      const theme = getModule(themeModule, this.$store);
+      const theme = ThemeController.store;
       return theme.themes[theme.currentTheme];
     }
   },
   methods: {
     changeTheme: function(key: string) {
-      const theme = getModule(themeModule, this.$store);
+      const theme = ThemeController.store;
       if (theme.currentTheme !== key) {
-        getModule(themeModule, this.$store).changeCurrent(key);
+        ThemeController.store.changeCurrent(key);
         this.$data.ThemeTransition();
         this.$data.UpdateTheme();
         this.$data.SaveTheme();
       }
     },
     colorChange: function(key: string, type: string, input: string) {
-      const theme = getModule(themeModule, this.$store);
+      const theme = ThemeController.store;
       if (input && this.$data.isValidHex("#".concat(input))) {
         theme[type]({
           key,
@@ -139,7 +140,7 @@ import displayFonts from "./settings.theme.displayFonts.vue";
       }
     },
     fontChange: function(key: string, type: string, input: string) {
-      const theme = getModule(themeModule, this.$store);
+      const theme = ThemeController.store;
       if (input) {
         theme.changeCurrentFont({
           key,
@@ -150,12 +151,12 @@ import displayFonts from "./settings.theme.displayFonts.vue";
       }
     },
     changeInvertImageIcon: function() {
-      getModule(themeModule, this.$store).toggleInvertImageIcon();
+      ThemeController.store.toggleInvertImageIcon();
       this.$data.UpdateTheme();
       this.$data.SaveTheme();
     },
     ExportTheme: function() {
-      const theme = getModule(themeModule, this.$store);
+      const theme = ThemeController.store;
       window.navigator.clipboard.writeText(
         JSON.stringify(theme.themes[theme.currentTheme])
       );

@@ -1,9 +1,7 @@
 import { DirectiveBinding } from 'vue/types/options';
 import { VNode } from 'vue/types/vnode';
-import store from '@/store';
-import { getModule } from 'vuex-module-decorators';
-import themeModule from '@/store/modules/theme/theme.index';
 import { DirectiveOptions } from 'vue';
+import { ThemeController } from './theme.plugin';
 
 const directive: DirectiveOptions = {
   inserted: (el: HTMLElement, binding: DirectiveBinding, vNode: VNode) => {
@@ -88,7 +86,7 @@ export function vThemeSetClasses(el: HTMLElement, input: vTheme, canUpdate: bool
   }
 
   if (input.isImage) {
-    const theme = getModule(themeModule, store);
+    const theme = ThemeController.store;
     if (theme.themes[theme.currentTheme].invertImageIcon) {
       el.classList.add('t-image-icon-invert');
     } else {

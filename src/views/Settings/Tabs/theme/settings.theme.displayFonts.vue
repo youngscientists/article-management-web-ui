@@ -32,6 +32,7 @@
               aria-label="Font"
               aria-describedby="basic-addon1"
               @input="$emit('fontChange', key, type, input[key])"
+              @focus="CallCompletionHelper"
               v-model="input[key]"
               spellcheck="false"
             />
@@ -58,6 +59,38 @@ import Component from "vue-class-component";
     return {
       input: {}
     };
+  },
+  methods: {
+    CallCompletionHelper: function(event) {
+      const Fonts = [
+        { title: "sans-serif" },
+        { title: "Arial" },
+        { title: "Helvetica" },
+        { title: "Courier New" },
+        { title: "Times New Roman" },
+        { title: "Verdana" },
+        { title: "Georgia" },
+        { title: "Palatino" },
+        { title: "Lucida Console" },
+        { title: "Lucida Sans Unicode" },
+        { title: "Tahoma" },
+        { title: "monospace" },
+        { title: "Garamond" },
+        { title: "Impact" }
+      ];
+      const handleCompletion = res => {
+        if (res) {
+          event.srcElement.value = res.title;
+          event.srcElement.dispatchEvent(new Event("input"));
+          this.$completionHelper
+            .Call(event.srcElement, Fonts)
+            .then(handleCompletion);
+        }
+      };
+      this.$completionHelper
+        .Call(event.srcElement, Fonts)
+        .then(handleCompletion);
+    }
   }
 })
 export default class SettingsThemeDisplayFonts extends Vue {}

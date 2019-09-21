@@ -1,9 +1,7 @@
-import store from '@/store';
 import { StringToRGB } from 's.color';
-import { ITheme, IThemeColors } from '@/store/modules/theme/theme.index';
-import { getModule } from 'vuex-module-decorators';
-import themeModule from '@/store/modules/theme/theme.index';
 import Merge from 'deepmerge';
+import { ThemeController } from './theme.plugin';
+import { ITheme, IThemeColors } from './theme.store';
 class ThemeData {
   constructor(public customTheme: ITheme, public currentTheme: string) {}
 }
@@ -14,7 +12,7 @@ export function InitTheme() {
 }
 
 export function GetTheme() {
-  const theme = getModule(themeModule, store);
+  const theme = ThemeController.store;
   const SavedThemeData = window.localStorage.getItem('SavedThemeData');
   if (SavedThemeData === null) {
     SaveTheme();
@@ -25,12 +23,12 @@ export function GetTheme() {
   }
 }
 export function SaveTheme() {
-  const theme = getModule(themeModule, store);
+  const theme = ThemeController.store;
   window.localStorage.setItem('SavedThemeData', JSON.stringify(new ThemeData(theme.themes.custom, theme.currentTheme)));
 }
 
 export function UpdateTheme() {
-  const theme = getModule(themeModule, store);
+  const theme = ThemeController.store;
   let themeElement = document.getElementById('themeStyleTag');
   if (themeElement === null) {
     const styleEl = document.createElement('style');

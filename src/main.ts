@@ -4,7 +4,7 @@ import Plugins from './plugins/Plugins';
 import './registerServiceWorker';
 import router from './router';
 import store from './store';
-import { InitTheme } from './Theme/Theme.Utility';
+import { InitTheme } from './ThemePlugin/theme.utility';
 
 Vue.config.productionTip = false;
 
