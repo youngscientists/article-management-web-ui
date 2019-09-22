@@ -58,7 +58,13 @@
         </div>
       </div>
       <div v-for="(row, key) in GetArticles" :key="key">
-        <div v-if="new RegExp(`^${searchString}`, 'i').test(row.title)">
+        <div
+          v-if="
+          new RegExp(`^${searchString}`, 'i').test(row.title)
+          && filter ? (row.authors.find((val) => val.name === filter ? 1 : 0 )
+          || row.editors.find((val) => val.name === filter ? 1 : 0 ) ) : true
+          "
+        >
           <div
             v-theme="{border: 'border', hover: {
             background: 'cards'
@@ -106,9 +112,8 @@ import router from "@/router";
 
 @Component({
   props: {
-    type: {
-      type: String
-    },
+    type: String,
+    filter: String,
     title: { type: String, default: "Articles" }
   },
   data() {
@@ -121,6 +126,7 @@ import router from "@/router";
       return getModule(articlesModule, this.$store).allArticles;
     },
     GetSortedBy() {
+      [{ name: "a" }].find(val => val.name === "a");
       return getModule(articlesModule, this.$store).articlesSortedBy;
     }
   },
@@ -130,7 +136,7 @@ import router from "@/router";
     },
     refresh: function() {
       const articles = getModule(articlesModule, this.$store);
-      articles.getAllArticles({ vm: this, refresh: true });
+      articles.getAllArticles({ sendRefreshNotification: true, force: true });
       articles.resetArticlesSortedBy();
     },
     sortBy: function(type) {

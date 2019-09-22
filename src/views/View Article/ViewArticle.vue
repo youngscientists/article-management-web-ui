@@ -3,11 +3,12 @@
     <modal :show.sync="showAddEditorModal" modal-classes="modal-lg">
       <template slot="header">
         <h1 class="modal-title">
-          <b v-theme="{ color: 'primaryFont' }">Add Editor</b>
+          <b v-theme="{ color: 'primaryFont' }">Add Editors</b>
         </h1>
       </template>
       <view-article-add-editor></view-article-add-editor>
       <template slot="footer">
+        <base-button type="primary" class="m-3" icon="fas fa-user">Assign</base-button>
         <base-button @click="showAddEditorModal = false">Close</base-button>
       </template>
     </modal>
@@ -135,10 +136,8 @@
                   @click="showAddEditorModal = !showAddEditorModal"
                 >
                   <i class="fas fa-plus mr-2" />
-                  <u>Add Editor</u>
+                  <u>Add Editors</u>
                 </span>
-
-                <base-button type="primary" class="m-3" icon="fas fa-user">Assign</base-button>
               </div>
             </div>
 
@@ -197,9 +196,10 @@ import store from "@/store";
 
 import { getModule } from "vuex-module-decorators";
 import articlesModule from "@/store/modules/articles/articles.index";
-import ViewArticleChangeStatus from "./ViewArticle.ChangeStatus.vue";
-import ViewArticleAddEditor from "./ViewArticle.addEditor.vue";
 const articles = getModule(articlesModule, store);
+
+import ViewArticleAddEditor from "./ViewArticle.addEditor.vue";
+import ViewArticleChangeStatus from "./ViewArticle.ChangeStatus.vue";
 
 @Component({
   components: {
@@ -255,12 +255,15 @@ const articles = getModule(articlesModule, store);
           break;
       }
     },
-    updateStatus(newStatus: string) {
-      apiPUT(
+
+    async updateStatus(newStatus: string) {
+      const res = await apiPUT(
         "articles",
         { status: newStatus },
         { id: this.$route.params.article }
-      ).then(() => this.$notify("Successfully Updated the article Status"));
+      );
+      this.$notify("Successfully Updated the article Status");
+      articles.getAllArticles({ force: true });
     }
   },
   mounted() {

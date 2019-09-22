@@ -1,34 +1,32 @@
 import { Module, VuexModule, Action, Mutation } from 'vuex-module-decorators';
 import { apiGET, apiHandleError, apiPUT } from '@/utility/api/api';
 import Vue from 'vue';
+import { RefreshDates } from '@/store/store.refreshDates';
 
 @Module({ name: 'articles' })
 export default class ArticlesModule extends VuexModule {
-  allArticles: Article[] = [];
+  allArticles: Article[] = null;
   currentArticle: Article = null;
   articlesSortedBy = {
     name: '',
     direction: true
   };
+
   @Action
-  getAllArticles(payload: Payload) {
-    // TODO Check if allArticles is already populated don't get articles unless enough time has passed (10min?)
-    apiGET('articles')
-      .then(res => res.json())
-      .then(res => {
-        if (apiHandleError(res)) {
-          console.log('ARTICLES', res);
-          this.all(res);
-          if (payload.refresh) {
-            payload.vm.$notify({ type: 'success', message: 'Successfully Refreshed' });
-          }
-        } else {
-          payload.vm.$notify({ type: 'warning', message: 'Access Denied' });
+  async getAllArticles(payload: { force?: boolean; sendRefreshNotification?: boolean }) {
+    if (this.allArticles === null || payload.force || RefreshDates.refreshDates.articles.all <= Date.now()) {
+      const res = await apiGET('articles');
+      const data = await res.json();
+      if (apiHandleError(data)) {
+        RefreshDates.RefreshDate({ module: 'articles', prop: { type: 'all' } });
+        this.all(data);
+        if (payload.sendRefreshNotification) {
+          Vue.prototype.$notify({ type: 'success', message: 'Successfully Refreshed' });
         }
-      })
-      .catch(err => {
-        console.warn(err);
-      });
+      } else {
+        Vue.prototype.$notify({ type: 'warning', message: 'Access Denied' });
+      }
+    }
   }
 
   @Mutation
@@ -44,13 +42,14 @@ export default class ArticlesModule extends VuexModule {
     this.currentArticle.status = payload;
   }
   @Mutation
-  currentRemoveEditor(payload: { editor: number; vm: Vue; articleID: string }) {
+  async currentRemoveEditor(payload: { editor: number; vm: Vue; articleID: string }) {
     this.currentArticle.editors = this.currentArticle.editors.filter((v, i) => i !== payload.editor);
+    // TODO doesn't work yet.
     apiPUT('articles', { editors: this.currentArticle.editors }, { id: payload.articleID })
       .then(res => res.json())
       .then(res => {
         console.log('RES', res);
-        payload.vm.$notify('NOT Successfully Removed');
+        Vue.prototype.$notify('NOT Successfully Removed');
       });
   }
   @Mutation
@@ -100,7 +99,6 @@ export default class ArticlesModule extends VuexModule {
   }
 }
 interface Payload {
-  vm: Vue;
   refresh?: boolean;
 }
 
