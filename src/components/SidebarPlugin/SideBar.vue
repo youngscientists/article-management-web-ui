@@ -11,12 +11,11 @@
         <!-- <span class="navbar-toggler-icon" ></span> -->
       </navbar-toggle-button>
       <router-link class="navbar-brand" to="/home">
-        <img v-theme="{isImage: true, update: true}" src="img/brand/logo.png" />
-        <!-- <h1 v-theme="{color: 'primaryFont'}">{{shortTitle}}</h1> -->
+        <logo></logo>
       </router-link>
 
       <slot name="mobile-right">
-        <!-- placeholder div centers the title -->
+        <!-- placeholder div centers the title   -->
         <div />
       </slot>
       <slot />
@@ -30,7 +29,7 @@
           <div class="row">
             <div class="col-6 collapse-brand">
               <router-link to="/">
-                <img src="img/brand/logo.png" />
+                <logo></logo>
               </router-link>
             </div>
             <div class="col-6 collapse-close">
@@ -48,10 +47,12 @@
 </template>
 <script>
 import NavbarToggleButton from "@/components/Base/NavbarToggleButton";
+import Logo from "@/components/Logo.vue";
 export default {
   name: "Sidebar",
   components: {
-    NavbarToggleButton
+    NavbarToggleButton,
+    Logo
   },
   props: {
     autoClose: {

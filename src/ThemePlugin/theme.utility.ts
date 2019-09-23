@@ -40,6 +40,7 @@ export function UpdateTheme() {
   const themeColors: IThemeColors = theme.CurrentThemeColors;
   const themeDefaults: ITheme['defaults'] = theme.CurrentThemeDefaults;
   const fonts = theme.CurrentThemeFonts;
+  // const logo = theme.CurrentThemeLogo;
   let shadow = StringToRGB(themeColors[themeDefaults.shadow]);
   if (shadow === undefined) {
     shadow = { r: 0, a: 1, b: 0, g: 0 };
@@ -169,6 +170,25 @@ body {
   }
   themeElement.textContent = styleContent;
 }
+
+/*
+.t-logo svg {
+  height: auto;
+  width: auto;
+}
+.t-logo svg #shape{
+  fill: ${logo.shape};
+}
+.t-logo svg #shape1{
+  fill: ${logo.shape1};
+}
+.t-logo svg #cutout{
+  fill: ${logo.cutout};
+}
+.t-logo svg #main{
+  fill: ${logo.main};
+}
+*/
 
 const TransitionControl = {
   removeAfter: 230,

@@ -31,7 +31,7 @@
               :placeholder="font"
               aria-label="Font"
               aria-describedby="basic-addon1"
-              @input="$emit('fontChange', key, type, input[key])"
+              @input="$emit('fontChange', key, input[key])"
               @focus="CallCompletionHelper"
               v-model="input[key]"
               spellcheck="false"

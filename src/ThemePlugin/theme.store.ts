@@ -53,6 +53,12 @@ export interface ITheme {
   fonts: {
     primary: string;
   };
+  // logo: {
+  //   main: string;
+  //   cutout: string;
+  //   shape: string;
+  //   shape1: string;
+  // };
 }
 export interface IThemeColors {
   [color: string]: string;
@@ -86,6 +92,10 @@ export default class ThemeStore {
     return this.themes[this.currentTheme].fonts;
   }
 
+  // public get CurrentThemeLogo() {
+  //   return this.themes[this.currentTheme].logo;
+  // }
+
   public changeCurrent(themeName: string) {
     this.currentTheme = themeName;
   }
@@ -93,6 +103,10 @@ export default class ThemeStore {
   public changeCurrentColor(input: { key: string; value: string }) {
     this.themes[this.currentTheme].colors[input.key] = input.value;
   }
+
+  // public changeCurrentLogo(input: { key: string; value: string }) {
+  //   this.themes[this.currentTheme].logo[input.key] = input.value;
+  // }
 
   public changeCurrentFont(input: { key: string; value: string }) {
     this.themes[this.currentTheme].fonts[input.key] = input.value;

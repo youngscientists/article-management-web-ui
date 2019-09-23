@@ -42,14 +42,22 @@ export default class ArticlesModule extends VuexModule {
     this.currentArticle.status = payload;
   }
   @Mutation
-  async currentRemoveEditor(payload: { editor: number; vm: Vue; articleID: string }) {
-    this.currentArticle.editors = this.currentArticle.editors.filter((v, i) => i !== payload.editor);
-    // TODO doesn't work yet.
+  async currentAddEditors(payload: { editors: any[]; articleID: string }) {
+    this.currentArticle.editors.push(...payload.editors);
+    console.log('TEST', this.currentArticle.editors);
     apiPUT('articles', { editors: this.currentArticle.editors }, { id: payload.articleID })
       .then(res => res.json())
       .then(res => {
-        console.log('RES', res);
-        Vue.prototype.$notify('NOT Successfully Removed');
+        Vue.prototype.$notify(`Successfully Added ${payload.editors.length} Editors`);
+      });
+  }
+  @Mutation
+  async currentRemoveEditor(payload: { editor: number; articleID: string }) {
+    this.currentArticle.editors = this.currentArticle.editors.filter((v, i) => i !== payload.editor);
+    apiPUT('articles', { editors: this.currentArticle.editors }, { id: payload.articleID })
+      .then(res => res.json())
+      .then(res => {
+        Vue.prototype.$notify('Successfully Removed');
       });
   }
   @Mutation

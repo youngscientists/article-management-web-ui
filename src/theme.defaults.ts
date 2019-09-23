@@ -69,6 +69,12 @@ export const customThemeDefaults: ITheme = {
   fonts: {
     primary: 'sans-serif'
   }
+  // logo: {
+  //   cutout: '#fff',
+  //   main: '#aaa',
+  //   shape: '#666',
+  //   shape1: '#777'
+  // }
 };
 
 export const darkTheme: ITheme = {
@@ -140,6 +146,12 @@ export const darkTheme: ITheme = {
   fonts: {
     primary: 'sans-serif'
   }
+  // logo: {
+  //   cutout: '#fff',
+  //   main: '#aaa',
+  //   shape: '#666',
+  //   shape1: '#777'
+  // }
 };
 
 export const lightTheme: ITheme = {
@@ -211,4 +223,10 @@ export const lightTheme: ITheme = {
   fonts: {
     primary: 'sans-serif'
   }
+  // logo: {
+  //   cutout: '#fff',
+  //   main: '#aaa',
+  //   shape: '#666',
+  //   shape1: '#777'
+  // }
 };

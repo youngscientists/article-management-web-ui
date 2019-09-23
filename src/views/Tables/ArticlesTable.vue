@@ -166,19 +166,19 @@ export default class ArticlesTable extends Vue {}
 .article-table
   display: grid
   //                   Date Title Subject Type Editor Status
-  grid-template-columns: 130px 1fr 100px 140px 160px 240px
+  grid-template-columns: 140px 1fr 100px 140px 160px 240px
   border-bottom: 1px solid grey
   transition: background 250ms ease
 
 @media screen and ( max-width: 1460px )
   .article-table
-    grid-template-columns: 130px 1fr 0 140px 160px 240px
+    grid-template-columns: 140px 1fr 0 140px 160px 240px
     .article-table-h-1
       @include Hide
 
 @media screen and ( max-width: 1360px )
   .article-table
-    grid-template-columns: 130px 1fr 0 0 160px 240px
+    grid-template-columns: 140px 1fr 0 0 160px 240px
     .article-table-h-2
       @include Hide
 @media screen and ( max-width: 1260px )

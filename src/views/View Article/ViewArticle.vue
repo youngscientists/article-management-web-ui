@@ -6,11 +6,7 @@
           <b v-theme="{ color: 'primaryFont' }">Add Editors</b>
         </h1>
       </template>
-      <view-article-add-editor></view-article-add-editor>
-      <template slot="footer">
-        <base-button type="primary" class="m-3" icon="fas fa-user">Assign</base-button>
-        <base-button @click="showAddEditorModal = false">Close</base-button>
-      </template>
+      <view-article-add-editor v-on:close-modal="showAddEditorModal = false"></view-article-add-editor>
     </modal>
 
     <div class="view-article-root text-center w-100 pt-4 position-absolute">
@@ -227,7 +223,6 @@ import ViewArticleChangeStatus from "./ViewArticle.ChangeStatus.vue";
     removeEditor: function(key) {
       articles.currentRemoveEditor({
         editor: key,
-        vm: this,
         articleID: this.$route.params.article
       });
     },
@@ -270,8 +265,11 @@ import ViewArticleChangeStatus from "./ViewArticle.ChangeStatus.vue";
     apiGET("articles", { id: this.$route.params.article })
       .then(res => res.json())
       .then(res => {
-        apiHandleError(res);
-        articles.current(res);
+        if (apiHandleError(res)) {
+          articles.current(res);
+        } else {
+          this.$notify({ type: "warning", message: "Access Denied" });
+        }
       });
   }
 })

@@ -20,6 +20,10 @@
         >{{editor.name}}</div>
       </div>
     </div>
+    <div class="d-flex justify-content-sm-between">
+      <base-button type="primary" class="m-3" icon="fas fa-user" @click="Assign">Assign</base-button>
+      <base-button class="m-3" @click="$emit('close-modal')">Close</base-button>
+    </div>
   </div>
 </template>
 
@@ -30,6 +34,7 @@ import Component from "vue-class-component";
 import store from "@/store";
 import { getModule } from "vuex-module-decorators";
 import userModule from "@/store/modules/user/user.index";
+import articlesModule from "@/store/modules/articles/articles.index";
 
 @Component({
   props: {
@@ -38,7 +43,8 @@ import userModule from "@/store/modules/user/user.index";
   data() {
     return {
       selected: {},
-      userModule
+      userModule,
+      articlesModule
     };
   },
   computed: {
@@ -53,7 +59,23 @@ import userModule from "@/store/modules/user/user.index";
         key,
         this.$data.selected[key] === undefined ? true : undefined
       );
-      console.log("A", this.$data.selected);
+    },
+    Assign() {
+      const newEditors = [];
+      const Editors = getModule(userModule, store).editors;
+      for (const key in this.$data.selected) {
+        if (this.$data.selected.hasOwnProperty(key)) {
+          const addEditor = this.$data.selected[key];
+          if (addEditor) {
+            newEditors.push(Editors[key]);
+          }
+        }
+      }
+      getModule(articlesModule, store).currentAddEditors({
+        editors: newEditors,
+        articleID: this.$route.params.article
+      });
+      this.$emit("close-modal");
     }
   },
   mounted() {

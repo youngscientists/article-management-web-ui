@@ -7,11 +7,11 @@
     </div>
 
     <div class="d-flex justify-content-center">
-      <div class="p-1" v-for="(Theme, key) in GetThemes" :key="key">
-        <base-button v-if="key !== GetCurrentThemeName" @click="changeTheme(key)">{{key}}</base-button>
+      <div class="p-1" v-for="(Theme, key) in theme.themes" :key="key">
+        <base-button v-if="key !== theme.currentTheme" @click="changeTheme(key)">{{key}}</base-button>
         <base-button
           type="primary"
-          v-if="key === GetCurrentThemeName"
+          v-if="key === theme.currentTheme"
           @click="changeTheme(key)"
         >{{key}}</base-button>
       </div>
@@ -29,7 +29,6 @@
 
       <display-fonts
         name="Fonts"
-        type="changeNotificationCurrentColor"
         :data="GetCurrentTheme.fonts"
         :canBeModified="GetCurrentTheme.canBeModified"
         :active="active"
@@ -37,10 +36,11 @@
         v-on:clearActive="active = ''"
         v-on:fontChange="fontChange"
       ></display-fonts>
+
       <display-colors
         name="Colors"
-        type="changeNotificationCurrentColor"
-        :data="GetThemeColors"
+        type="changeCurrentColor"
+        :data="GetCurrentTheme.colors"
         :canBeModified="GetCurrentTheme.canBeModified"
         :active="active"
         v-on:activate="setActive"
@@ -56,6 +56,16 @@
         v-on:activate="setActive"
         v-on:colorChange="colorChange"
       ></display-colors>
+      <!-- <display-colors
+        name="Logo"
+        type="changeCurrentLogo"
+        :data="GetCurrentTheme.logo"
+        :canBeModified="GetCurrentTheme.canBeModified"
+        :active="active"
+        v-on:activate="setActive"
+        v-on:clearActive="active = ''"
+        v-on:colorChange="colorChange"
+      ></display-colors>-->
       <display-colors
         name="Notification Colors"
         type="changeNotificationCurrentColor"
@@ -99,20 +109,11 @@ import { ThemeController } from "../../../../ThemePlugin/theme.plugin";
       ThemeTransition,
       SaveTheme,
       isValidHex,
-      colorInput: {}
+      colorInput: {},
+      theme: ThemeController.store
     };
   },
   computed: {
-    GetThemeColors() {
-      const theme = ThemeController.store;
-      return theme.themes[theme.currentTheme].colors;
-    },
-    GetThemes() {
-      return ThemeController.store.themes;
-    },
-    GetCurrentThemeName() {
-      return ThemeController.store.currentTheme;
-    },
     GetCurrentTheme() {
       const theme = ThemeController.store;
       return theme.themes[theme.currentTheme];
@@ -139,7 +140,8 @@ import { ThemeController } from "../../../../ThemePlugin/theme.plugin";
         this.$data.SaveTheme();
       }
     },
-    fontChange: function(key: string, type: string, input: string) {
+    fontChange: function(key: string, input: string) {
+      console.log("A", input);
       const theme = ThemeController.store;
       if (input) {
         theme.changeCurrentFont({

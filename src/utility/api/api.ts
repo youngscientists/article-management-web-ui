@@ -71,7 +71,7 @@ export function apiGET(
  * Returns true if there is NO error.
  */
 export function apiHandleError(res: any) {
-  if (res.name === 'JsonWebTokenError') {
+  if (res.name === 'JsonWebTokenError' || res.name === 'AccessDeniedError') {
     console.warn('[apiHandleError] Token Required');
     router.push({ name: 'login' });
     return false;

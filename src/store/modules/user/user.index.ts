@@ -1,4 +1,4 @@
-import { apiGET, apiHandleError } from '@/utility/api/api';
+import { apiGET, apiHandleError, apiPUT } from '@/utility/api/api';
 import Vue from 'vue';
 import { Module, Mutation, VuexModule, Action } from 'vuex-module-decorators';
 import { RefreshDates } from '@/store/store.refreshDates';
@@ -27,8 +27,8 @@ export default class UserModule extends VuexModule {
     this.HandleGet({ force, mutation: 'Editors', path: 'editors', type: 'editors' });
   }
   @Mutation
-  Editors(val: User[]) {
-    this.editors = val;
+  Editors(input: { data: User[] }) {
+    this.editors = input.data;
   }
 
   /**
@@ -39,8 +39,17 @@ export default class UserModule extends VuexModule {
     this.HandleGet({ force, mutation: 'Me', path: 'user/me', type: 'me' });
   }
   @Mutation
-  Me(val: User) {
-    this.me = val;
+  Me(input: { data: User; set?: boolean }) {
+    this.me = input.data;
+    if (input.set) {
+      const a: any = Object.assign({}, this.me);
+      a.school = '123'; // TODO
+      a.biography = '123';
+      a.country = '123';
+      apiPUT('editors', a, { id: a.id })
+        .then(res => res.json())
+        .then(res => console.log('ME/PUT', res));
+    }
   }
 
   /**
@@ -51,8 +60,8 @@ export default class UserModule extends VuexModule {
     this.HandleGet({ force, mutation: 'Authors', path: 'authors', type: 'authors' });
   }
   @Mutation
-  Authors(val: User[]) {
-    this.authors = val;
+  Authors(input: { data: User[] }) {
+    this.authors = input.data;
   }
   @Action
   private async HandleGet(input: {
@@ -66,7 +75,7 @@ export default class UserModule extends VuexModule {
       const data = await res.json();
       if (apiHandleError(data)) {
         RefreshDates.RefreshDate({ module: 'user', prop: { type: input.type } });
-        this[input.mutation](data);
+        this[input.mutation]({ data: data });
       } else {
         Vue.prototype.$notify({ type: 'warning', message: 'Access Denied' });
       }
