@@ -6,7 +6,9 @@
           <h3 v-theme="{background: 'primaryBg', color: 'primaryFont'}" class="mb-0">{{ title }}</h3>
         </div>
         <div class="col text-right">
-          <base-button type="primary" size="sm" @click="refresh">Refresh</base-button>
+          <base-button type="primary" class="m-1" size="sm" @click="refresh">Refresh</base-button>
+          <base-button type="primary" class="m-1" size="sm">(TODO)New Editor</base-button>
+          <base-button type="primary" class="m-1" size="sm">(TODO)New Article</base-button>
         </div>
       </div>
     </div>
@@ -57,40 +59,49 @@
           ></i>
         </div>
       </div>
-      <div v-for="(row, key) in GetArticles" :key="key">
-        <div
-          v-if="
+
+      <div v-if="GetArticles === null" class="d-flex justify-content-center">
+        <div class="card p-4 d-flex justify-content-center" v-theme="{ background: 'primaryBg' }">
+          <div class="loader"></div>
+        </div>
+      </div>
+
+      <div v-if="GetArticles !== null">
+        <div v-for="(row, key) in GetArticles" :key="key">
+          <div
+            v-if="
           new RegExp(`^${searchString}`, 'i').test(row.title)
           && filter ? (row.authors.find((val) => val.name === filter ? 1 : 0 )
           || row.editors.find((val) => val.name === filter ? 1 : 0 ) ) : true
           "
-        >
-          <div
-            v-theme="{border: 'border', hover: {
+          >
+            <div
+              v-theme="{border: 'border', hover: {
             background: 'cards'
           },
           focus: {background: 'primaryHover'}}"
-            class="article-table article-table-item pl-4 pr-4 pt-2 pb-2"
-            @click="activate( row.id)"
-          >
-            <div
-              v-theme="{color: 'mutedFont'}"
-              class="article-table-h-3"
-            >{{ new Date(row.date).toDateString() }}</div>
-            <div scope="row">
-              <b>{{ row.title }}</b>
-            </div>
-            <div
-              v-theme="{color: 'mutedFont'}"
-              class="article-table-h-1"
-            >{{ row.subject ? row.subject.name : '' }}</div>
-            <div v-theme="{color: 'mutedFont'}" class="article-table-h-2">{{ row.type }}</div>
-            <div
-              v-theme="{color: 'mutedFont'}"
-              class="article-table-h-4"
-            >{{ row.editors.map(e => e.name).join(', ') }}</div>
-            <div v-theme="{color: 'mutedFont'}" class="article-table-h-5">
-              <article-status class="ml-2" :status="row.status"></article-status>
+              class="article-table article-table-item pl-4 pr-4 pt-2 pb-2"
+              @click="activate( row.id)"
+            >
+              <div
+                v-theme="{color: 'mutedFont'}"
+                class="article-table-h-3"
+              >{{ new Date(row.date).toDateString() }}</div>
+              <div scope="row">
+                <b>{{ row.title }}</b>
+              </div>
+              <div
+                v-theme="{color: 'mutedFont'}"
+                class="article-table-h-1"
+              >{{ row.subject ? row.subject.name : '' }}</div>
+              <div v-theme="{color: 'mutedFont'}" class="article-table-h-2">{{ row.type }}</div>
+              <div
+                v-theme="{color: 'mutedFont'}"
+                class="article-table-h-4"
+              >{{ row.editors.map(e => e.name).join(', ') }}</div>
+              <div v-theme="{color: 'mutedFont'}" class="article-table-h-5">
+                <article-status class="ml-2" :status="row.status"></article-status>
+              </div>
             </div>
           </div>
         </div>

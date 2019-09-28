@@ -1,8 +1,6 @@
 <template>
   <base-dropdown>
-    <base-button slot="title" class="dropdown-toggle mt-1" type="primary"
-      >Select New Status</base-button
-    >
+    <base-button slot="title" class="dropdown-toggle mt-1" type="primary">Select New Status</base-button>
     <div
       type="primary"
       v-theme="{
@@ -12,9 +10,7 @@
       }"
       class="dropdown-item"
       @click="selectStatus('Rejected')"
-    >
-      Rejected
-    </div>
+    >Rejected</div>
     <div
       type="primary"
       v-theme="{
@@ -24,9 +20,7 @@
       }"
       class="dropdown-item"
       @click="selectStatus('Published')"
-    >
-      Published
-    </div>
+    >Published</div>
     <div
       type="primary"
       v-theme="{
@@ -36,9 +30,7 @@
       }"
       class="dropdown-item"
       @click="selectStatus('Ready to Publish')"
-    >
-      Ready to Publish
-    </div>
+    >Ready to Publish</div>
     <div
       type="primary"
       v-theme="{
@@ -48,9 +40,7 @@
       }"
       class="dropdown-item"
       @click="selectStatus('Ethical Question')"
-    >
-      Ethical Question
-    </div>
+    >Ethical Question</div>
     <div
       type="primary"
       v-theme="{
@@ -60,9 +50,7 @@
       }"
       class="dropdown-item"
       @click="selectStatus('Submitted')"
-    >
-      Submitted
-    </div>
+    >Submitted</div>
     <div
       type="primary"
       v-theme="{
@@ -72,9 +60,7 @@
       }"
       class="dropdown-item"
       @click="selectStatus('Failed Data Check')"
-    >
-      Failed Data Check
-    </div>
+    >Failed Data Check</div>
     <div
       type="primary"
       v-theme="{
@@ -84,9 +70,7 @@
       }"
       class="dropdown-item"
       @click="selectStatus('Revisions Requested')"
-    >
-      Revisions Requested
-    </div>
+    >Revisions Requested</div>
     <div
       type="primary"
       v-theme="{
@@ -96,9 +80,7 @@
       }"
       class="dropdown-item"
       @click="selectStatus('Technical Review')"
-    >
-      Technical Review
-    </div>
+    >Technical Review</div>
     <div
       type="primary"
       v-theme="{
@@ -108,9 +90,7 @@
       }"
       class="dropdown-item"
       @click="selectStatus('In Review')"
-    >
-      In Review
-    </div>
+    >In Review</div>
     <div
       type="primary"
       v-theme="{
@@ -120,9 +100,7 @@
       }"
       class="dropdown-item"
       @click="selectStatus('Final Review')"
-    >
-      Final Review
-    </div>
+    >Final Review</div>
     <div
       type="primary"
       v-theme="{
@@ -132,9 +110,7 @@
       }"
       class="dropdown-item"
       @click="selectStatus('2nd Editor Required')"
-    >
-      2nd Editor Required
-    </div>
+    >2nd Editor Required</div>
     <div
       type="primary"
       v-theme="{
@@ -144,9 +120,7 @@
       }"
       class="dropdown-item"
       @click="selectStatus('Passed Data Check')"
-    >
-      Passed Data Check
-    </div>
+    >Passed Data Check</div>
   </base-dropdown>
 </template>
 
@@ -176,7 +150,6 @@ const articles = getModule(articlesModule, store);
 export default class ViewArticleChangeStatus extends Vue {}
 </script>
 <style lang="sass" scoped>
-
 .dropdown-item
   cursor: pointer
 </style>

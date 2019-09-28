@@ -23,8 +23,7 @@
       <div class="card w-100 p-4" v-theme="{ background: 'primaryBg', update: ['background'] }">
         <div class="border-bottom" v-theme="{ border: 'border' }">
           <div class="mb-2 d-flex justify-content-sm-between">
-            <b class="h2">{{ Data.title }}</b>
-            <base-button type="primary" class="m-1" icon="fas fa-arrow-left" @click="back">Back</base-button>
+            <b class="view-article-title">{{ Data.title }}</b>
           </div>
           <div class="h5">
             <div>
@@ -34,57 +33,16 @@
                 | {{ new Date(Data.date).toDateString() }}
               </span>
             </div>
+            <base-button
+              :size="window.width <= 1000 ? 'sm': ''"
+              type="primary"
+              class="m-1 mt-3"
+              icon="fas fa-arrow-left"
+              @click="back"
+            >Back</base-button>
           </div>
         </div>
         <div class="view-article-content mt-2 mb-4">
-          <div>
-            <div
-              class="card view-article-author"
-              v-theme="{ background: 'primaryBg', shadow: 'sm' }"
-              v-for="(author, key) in Data.authors"
-              :key="key"
-            >
-              <div class="p-4 d-flex justify-content-center">
-                <div class="view-article-img">
-                  <img
-                    class="img-fluid rounded d-block"
-                    alt="Profile"
-                    src="https://cdna.artstation.com/p/assets/images/images/016/840/134/large/leonard-grosoli-render-01.jpg?1553674810"
-                  />
-                </div>
-              </div>
-
-              <div class="text-center mb-4">{{ author.name }}</div>
-              <base-input
-                class="input-group-alternative mb-4"
-                placeholder="email"
-                :value="author.email"
-              />
-              <div class="text-center">
-                <a
-                  v-theme="{
-                    color: 'secondaryFont',
-                    background: 'button',
-                    shadow: false,
-                    focus: {
-                      background: 'primaryFocus',
-                      border: 'primaryFocus'
-                    },
-                    hover: {
-                      background: 'primaryHover',
-                      border: 'primaryHover'
-                    },
-                    border: 'button'
-                  }"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="btn"
-                  :href="'mailto:'.concat(author.email)"
-                >Contact Author</a>
-              </div>
-            </div>
-          </div>
-
           <div class="p-4">
             <div>
               <div>
@@ -94,6 +52,7 @@
               <div class="mt-3 ml-3 mr-3">
                 <view-article-change-status></view-article-change-status>
                 <base-button
+                  :size="window.width <= 1000 ? 'sm': ''"
                   type="primary"
                   class="mt-1"
                   icon="fas fa-sync"
@@ -105,26 +64,12 @@
               <div>
                 <b>Editors</b>
               </div>
-              <div class="mt-3 ml-3 mr-3" v-for="(editor, key) in Data.editors" :key="key">
-                <div class="mt-1 view-article-editor">
-                  <div class="d-flex align-items-center">
-                    <img
-                      class="avatar"
-                      src="https://cdna.artstation.com/p/assets/images/images/016/840/134/large/leonard-grosoli-render-01.jpg?1553674810"
-                    />
-                    <div class="ml-3">{{ editor.name }}</div>
-                  </div>
+              <view-article-users
+                :data="Data.editors"
+                :showDelete="true"
+                v-on:remove="removeEditor"
+              ></view-article-users>
 
-                  <div class="d-flex align-items-center view-article-editor-input">
-                    <base-input
-                      class="input-group-alternative mb-0 ml-3 mr-3 w-100"
-                      placeholder="Email"
-                      :value="editor.email"
-                    />
-                    <i class="fas fa-trash" style="cursor: pointer;" @click="removeEditor(key)" />
-                  </div>
-                </div>
-              </div>
               <div class="m-3">
                 <span
                   class="view-article-link"
@@ -143,24 +88,28 @@
               </div>
               <div class="mt-3 mb-3 ml-3">
                 <base-button
+                  :size="window.width <= 1000 ? 'sm': ''"
                   type="primary"
                   class="m-1"
                   icon="fas fa-book-open"
                   @click="action('read')"
                 >Read</base-button>
                 <base-button
+                  :size="window.width <= 1000 ? 'sm': ''"
                   type="primary"
                   class="m-1"
                   icon="fas fa-pen"
                   @click="action('mark')"
                 >Mark</base-button>
                 <base-button
+                  :size="window.width <= 1000 ? 'sm': ''"
                   type="primary"
                   class="m-1"
                   icon="ni ni-folder-17"
                   @click="action('folder')"
                 >Folder</base-button>
                 <base-button
+                  :size="window.width <= 1000 ? 'sm': ''"
                   type="primary"
                   class="m-1"
                   icon="ni ni-cloud-download-95"
@@ -177,6 +126,10 @@
                 :value="Data.notes"
               />
             </div>
+            <div>
+              <b>Authors</b>
+            </div>
+            <view-article-users :data="Data.authors"></view-article-users>
           </div>
         </div>
       </div>
@@ -195,19 +148,36 @@ import articlesModule from "@/store/modules/articles/articles.index";
 const articles = getModule(articlesModule, store);
 
 import ViewArticleAddEditor from "./ViewArticle.addEditor.vue";
+import ViewArticleUsers from "./ViewArticle.users.vue";
 import ViewArticleChangeStatus from "./ViewArticle.ChangeStatus.vue";
 
 @Component({
   components: {
     ViewArticleChangeStatus,
-    ViewArticleAddEditor
+    ViewArticleAddEditor,
+    ViewArticleUsers
   },
   data() {
     return {
       articles,
-      showAddEditorModal: false
+      showAddEditorModal: false,
+      window: {
+        width: 0,
+        height: 0
+      }
     };
   },
+  created() {
+    // @ts-ignore
+    window.addEventListener("resize", this.handleResize);
+    // @ts-ignore
+    this.handleResize();
+  },
+  destroyed() {
+    // @ts-ignore
+    window.removeEventListener("resize", this.handleResize);
+  },
+
   computed: {
     Data() {
       return articles.currentArticle;
@@ -216,6 +186,10 @@ import ViewArticleChangeStatus from "./ViewArticle.ChangeStatus.vue";
   methods: {
     back: function() {
       this.$router.push({ name: "home" });
+    },
+    handleResize() {
+      this.$data.window.width = window.innerWidth;
+      this.$data.window.height = window.innerHeight;
     },
     selectStatus: function(status) {
       articles.currentSetStatus(status);
@@ -280,10 +254,14 @@ export default class ViewArticle extends Vue {}
   max-width: 100px
   max-height: 100px
 .view-article-content
-  display: grid
-  grid-template-columns: 1.2fr 3fr
-  height: calc( 100vh - 320px )
   overflow: auto
+
+.view-article-author-container
+  display: grid
+  grid-template-columns: repeat(auto-fill, 50%)
+.view-article-title
+  font-size: 1.4rem
+
 .view-article-author
   margin: 2rem
   padding: 4rem
@@ -315,6 +293,8 @@ export default class ViewArticle extends Vue {}
     padding: 0.5rem
     padding-top: 1.2rem
     padding-bottom: 2rem
+  .view-article-title
+    font-size: 1.2rem
 @media screen and ( max-width: 1000px )
   .view-article-container
     padding-left: 2rem
@@ -326,6 +306,10 @@ export default class ViewArticle extends Vue {}
     padding: 4rem
     padding-top: 1.2rem
     padding-bottom: 2rem
+  .view-article-author-container
+    grid-template-columns: auto
+    .view-article-title
+      font-size: 1rem
 @media screen and ( max-width: 760px )
   .view-article-editor
     grid-template-columns: auto

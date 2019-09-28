@@ -29,6 +29,7 @@ export class CompletionHelper {
     const helper = document.getElementById('COMPLETION_HELPER_CONTAINER');
     this.items = items;
     if (helper && element) {
+      helper.style.display = 'block';
       Caret.setElementPositionBasedOnCaret(helper, element, this.offset, 5);
       this.show = true;
       return new Promise<CompletionHelperItem | null>(
@@ -85,6 +86,7 @@ export class CompletionHelper {
             helper.removeEventListener('mouseenter', EnterHelperListener);
             helper.removeEventListener('mouseleave', LeaveHelperListener);
             this.show = false;
+            helper.style.display = 'none';
             _resolve(res);
           };
         }.bind(this)

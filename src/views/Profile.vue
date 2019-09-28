@@ -112,9 +112,9 @@ enum Levels {
     setTimeout(() => {
       setData();
     }, 10);
-    // apiGET("authors")
+    // apiGET("teams")
     //   .then(res => res.json())
-    //   .then(res => console.log("AUTHORS", res));
+    //   .then(res => console.log("TEAM", res));
     // apiGET("editors")
     //   .then(res => res.json())
     //   .then(res => console.log("EDITOR", res));
