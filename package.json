@@ -29,7 +29,7 @@
     "material-icons": "^0.3.0",
     "md5": "^2.2.1",
     "moment": "^2.24.0",
-    "node-sass": "^4.11.0",
+    "node-sass": "^4.13.1",
     "npm": "^6.9.0",
     "sass-loader": "^7.1.0",
     "skeleton-css": "^2.0.4",
